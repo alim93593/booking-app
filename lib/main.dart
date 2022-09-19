@@ -1,5 +1,7 @@
+import 'package:booking_app/core/utils/constants/constants.dart';
 import 'package:flutter/material.dart';
 import 'core/utils/injection/injection_container.dart' as di;
+import 'features/auth/presntation/screen/login_screen/login_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -15,12 +17,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Booking App',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: const Scaffold(
-
-      ),
+      theme: kLightThemeData,
+      home:  LoginScreen(),
     );
   }
 }

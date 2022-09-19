@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:booking_app/core/errors/exceptions.dart';
-import 'package:booking_app/core/utils/constants.dart';
+import 'package:booking_app/core/utils/constants/constants.dart';
 import 'package:booking_app/features/auth/data/models/user_model.dart';
 import 'package:dartz/dartz.dart';
 import 'package:shared_preferences/shared_preferences.dart';
