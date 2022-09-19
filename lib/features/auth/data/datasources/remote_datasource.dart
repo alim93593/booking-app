@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:booking_app/core/errors/exceptions.dart';
 import 'package:booking_app/core/network/end_points.dart';
 import 'package:booking_app/features/auth/data/models/user_model.dart';
@@ -60,6 +59,7 @@ class RemoteDatasourceImpl implements RemoteDatasource {
     if (response.statusCode == 200) {
       final decodedJson = json.decode(response.body);
       UserModel user = UserModel.fromJson(decodedJson['data']);
+
       return user;
     }
     throw ApiException();
@@ -149,3 +149,4 @@ class RemoteDatasourceImpl implements RemoteDatasource {
     throw ApiException();
   }
 }
+
