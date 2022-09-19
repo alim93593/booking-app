@@ -1,11 +1,11 @@
-import 'package:booking_app/features/auth/presntation/screen/login_screen/cubit/login_state.dart';
+import 'package:booking_app/features/auth/presntation/cubit/login_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class LoginCubit extends Cubit<LoginStates> {
-  LoginCubit() : super(LoginInitialState());
+class AppCubit extends Cubit<AppStates> {
+  AppCubit() : super(LoginInitialState());
 
-  static LoginCubit get(context) => BlocProvider.of(context);
+  static AppCubit get(context) => BlocProvider.of(context);
 
 
 

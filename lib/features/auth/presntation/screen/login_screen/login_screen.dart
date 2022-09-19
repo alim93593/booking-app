@@ -1,8 +1,9 @@
+import 'package:booking_app/core/utils/constants/constants.dart';
 import 'package:booking_app/core/utils/widget/Custom_form_field/text_form_field.dart';
 import 'package:booking_app/core/utils/widget/main_button/mainbutton.dart';
 import 'package:booking_app/core/utils/widget/no_account/no_account.dart';
-import 'package:booking_app/features/auth/presntation/screen/login_screen/cubit/login_cubit.dart';
-import 'package:booking_app/features/auth/presntation/screen/login_screen/cubit/login_state.dart';
+import 'package:booking_app/features/auth/presntation/cubit/login_cubit.dart';
+import 'package:booking_app/features/auth/presntation/cubit/login_state.dart';
 import 'package:booking_app/features/auth/presntation/screen/register_screen/register_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -14,13 +15,13 @@ class LoginScreen extends StatelessWidget {
     var emailAddressController = TextEditingController();
     var passwordController = TextEditingController();
     return BlocProvider(
-      create: (context) => LoginCubit(),
-      child: BlocConsumer<LoginCubit, LoginStates>(
+      create: (context) => AppCubit(),
+      child: BlocConsumer<AppCubit, AppStates>(
         listener: (context, state) {
           // TODO: implement listener
         },
         builder: (context, state) {
-          var cubit = LoginCubit.get(context);
+          var cubit = AppCubit.get(context);
           return Scaffold(
             body: Center(
               child: SingleChildScrollView(
@@ -116,7 +117,7 @@ class LoginScreen extends StatelessWidget {
                               style:
                                   TextStyle(fontSize: 18, color: Colors.white),
                             ),
-                            myColor: const Color(0XFF03A9F4),
+                            myColor: mainColor,
                             onTabbed: () {
                               if (formKey.currentState!.validate()) {}
                             },

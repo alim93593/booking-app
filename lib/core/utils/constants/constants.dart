@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 final kLightThemeData = ThemeData(
-  primarySwatch: Colors.blue,
+  primarySwatch: Colors.green,
   scaffoldBackgroundColor: const Color(0xfff5f5f5),
   appBarTheme: const AppBarTheme(
     titleSpacing: 20,
@@ -39,3 +39,6 @@ final kLightThemeData = ThemeData(
 const String defaultUserImage = '';
 
 const String CACHED_USER = 'CACHED_USER' ;
+
+
+const Color mainColor = Color(0xff1ed5a2);
