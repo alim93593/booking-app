@@ -1,11 +1,6 @@
-// ignore_for_file: unused_import
-
 import 'package:booking_app/core/themes/light.dart';
 import 'package:booking_app/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:booking_app/features/auth/presentation/screens/login_screen/login_screen.dart';
-import 'package:booking_app/features/auth/presentation/screens/user_profile/screens/user_profile_screen.dart';
-import 'package:booking_app/features/on_boarding/presentation/screens/on_boarding.dart';
-import 'package:booking_app/features/splash/presentation/screens/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'core/utils/injection/injection_container.dart' as di;
@@ -15,6 +10,7 @@ void main() async {
   await di.init();
   runApp(const MyApp());
 }
+
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -31,7 +27,7 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           title: 'Booking App',
           theme: kLightThemeData,
-          home: const OnBoardingScreen(),
+          home: const LoginScreen(),
         ));
   }
 }

@@ -19,7 +19,7 @@ abstract class HotelsRepository {
   Future<Either<Failure, Unit>> updateBookingStatus({
     required String token,
     required String status,
-    required int? hotelId,
+    required int? bookingId,
   });
 
   Future<Either<Failure, List<Booking>>> getBookings({
