@@ -34,11 +34,11 @@ flutter:
 
   uses-material-design: true
   assets:
-    - images/
+    - assets/images/
     - assets/on_boarding/
 
 
   fonts:
     - family: Ubuntu
       fonts:
-        - asset: fonts/Ubuntu-Light.ttf
+        - asset: assetsfonts/Ubuntu-Light.ttf
