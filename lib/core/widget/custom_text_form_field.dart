@@ -1,23 +1,9 @@
 import 'package:flutter/material.dart';
 
 class CustomFormField extends StatelessWidget {
-  final TextEditingController Controller;
-  final TextInputType textInputType;
-  final String? hintText;
-  final bool isPhone;
-  final bool isPassWord;
-  final Widget suffixIcon;
-  final Widget? prefix;
-  final VoidCallback? onTaped;
-  final Function(String)? onChanged;
-  final Function(String)? onFieldSubmitted;
-  final TextStyle? style;
-  final TextStyle? hintStyle;
-  final IconData? suffix;
-  final void Function()? suffixPressed;
-  final String? Function(String?)? validator;
-  CustomFormField({
-    required this.Controller,
+  const CustomFormField({
+    Key? key,
+    required this.controller,
     required this.textInputType,
     required this.hintText,
     this.isPhone = false,
@@ -33,12 +19,28 @@ class CustomFormField extends StatelessWidget {
     this.suffix,
     this.suffixPressed,
     required this.validator,
-  });
+  }) : super(key: key);
+
+  final TextEditingController controller;
+  final TextInputType textInputType;
+  final String? hintText;
+  final bool isPhone;
+  final bool isPassWord;
+  final Widget suffixIcon;
+  final Widget? prefix;
+  final VoidCallback? onTaped;
+  final Function(String)? onChanged;
+  final Function(String)? onFieldSubmitted;
+  final TextStyle? style;
+  final TextStyle? hintStyle;
+  final IconData? suffix;
+  final void Function()? suffixPressed;
+  final String? Function(String?)? validator;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      controller: Controller,
+      controller: controller,
       keyboardType: textInputType,
       onFieldSubmitted: onFieldSubmitted,
       onChanged: onChanged,

@@ -8,6 +8,7 @@ import 'package:booking_app/features/auth/domain/usecases/get_profile_info.dart'
 import 'package:booking_app/features/auth/domain/usecases/login.dart';
 import 'package:booking_app/features/auth/domain/usecases/register.dart';
 import 'package:booking_app/features/auth/domain/usecases/update_profile.dart';
+import 'package:booking_app/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:get_it/get_it.dart';
 import 'package:http/http.dart' as http;
 import 'package:internet_connection_checker/internet_connection_checker.dart';
@@ -16,6 +17,15 @@ import 'package:shared_preferences/shared_preferences.dart';
 final sl = GetIt.instance;
 
 Future<void> init() async {
+  //Cubits
+  sl.registerFactory(
+    () => AuthCubit(
+      loginUseCase: sl(),
+      updateProfileUseCase: sl(),
+      registerUseCase: sl(),
+      getProfileInfoUseCase: sl(),
+    ),
+  );
   //Usecases
   sl.registerLazySingleton(() => UpdateProfileUseCase(repository: sl()));
   sl.registerLazySingleton(() => RegisterUseCase(repository: sl()));
