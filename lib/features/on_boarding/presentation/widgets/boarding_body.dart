@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:booking_app/core/themes/light.dart';
 import 'package:booking_app/features/on_boarding/data/models/boarding_model.dart';
 import 'package:booking_app/features/on_boarding/presentation/widgets/build_boarding_item.dart';
@@ -18,15 +17,15 @@ class _BoardingBodyState extends State<BoardingBody> {
     BoardingModel(
         title: 'Booking App',
         body: 'Find Your Perfect Somewhere',
-        image: 'assets/on_boarding/image_1.json'),
+        image: 'assets/on_boarding/image_1.png'),
     BoardingModel(
         title: 'Booking App',
         body: 'Earn Rewards For Each Night Away',
-        image: 'assets/on_boarding/image_2.json'),
+        image: 'assets/on_boarding/image_2.png'),
     BoardingModel(
         title: 'Booking App',
         body: 'Plan a stay the Family will Love',
-        image: 'assets/on_boarding/image_3.json'),
+        image: 'assets/on_boarding/image_3.png'),
   ];
   bool isLast = false;
   int currentPage = 0;

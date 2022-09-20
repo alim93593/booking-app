@@ -1,14 +1,16 @@
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
+
+import 'package:booking_app/features/splash/presentation/widgets/animation_text.dart';
 import 'package:flutter/material.dart';
-import 'package:lottie/lottie.dart';
+
 
 class SplashBody extends StatelessWidget {
   const SplashBody({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(10.0),
-      child: Center(
+    return Scaffold(
+      body: Center(
         child: SingleChildScrollView(
           physics: const BouncingScrollPhysics(),
           child: Column(
@@ -16,15 +18,13 @@ class SplashBody extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               SizedBox(
-                height: 700.0,
-                width: 700.0,
-                child: Lottie.asset('assets/on_boarding/splash.json'),
+                height: 720.0,
+                width: 720.0,
+                child: Image(image: AssetImage('assets/on_boarding/splash.jpg'),fit: BoxFit.fill),
               ),
-              const Center(
-                  child: Text(
-                'Booking App',
-                style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
-              ),),
+               Center(
+                  child: AnimationText(text: 'Booking App',)
+              ),
               const SizedBox(
                 height: 200,
               )
