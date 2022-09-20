@@ -3,17 +3,16 @@ import 'package:booking_app/features/hotels/domain/entities/hotel.dart';
 import 'package:equatable/equatable.dart';
 
 class Booking extends Equatable {
-  const Booking(
+  const Booking({
     this.id,
     this.userId,
     this.hotelId,
     this.type,
     this.user,
     this.hotel,
-  );
+  });
 
   final int? id;
-
   final int? userId;
   final int? hotelId;
   final String? type;
