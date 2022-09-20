@@ -17,6 +17,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 final sl = GetIt.instance;
 
 Future<void> init() async {
+
   //Cubits
   sl.registerFactory(
     () => AuthCubit(
@@ -26,6 +27,7 @@ Future<void> init() async {
       getProfileInfoUseCase: sl(),
     ),
   );
+
   //Usecases
   sl.registerLazySingleton(() => UpdateProfileUseCase(repository: sl()));
   sl.registerLazySingleton(() => RegisterUseCase(repository: sl()));

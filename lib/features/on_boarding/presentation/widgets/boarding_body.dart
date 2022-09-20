@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:booking_app/core/themes/light.dart';
 import 'package:booking_app/features/on_boarding/data/models/boarding_model.dart';
 import 'package:booking_app/features/on_boarding/presentation/widgets/build_boarding_item.dart';
