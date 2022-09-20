@@ -1,6 +1,7 @@
 import 'package:booking_app/features/on_boarding/data/models/boarding_model.dart';
+import 'package:booking_app/features/splash/presentation/widgets/animation_text.dart';
 import 'package:flutter/material.dart';
-import 'package:lottie/lottie.dart';
+
 
 
 class BuildBoardingItem extends StatelessWidget {
@@ -12,26 +13,27 @@ final BoardingModel model;
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Expanded(
-            child:Lottie.asset(model.image)
+            child:Image(image: AssetImage(model.image),)
         ),
         const SizedBox(
           height: 30.0,
         ),
-        Text(
-          model.title,
-          style: const TextStyle(
-            fontSize: 24.0,
-            // fontWeight: FontWeight.bold,
-          ),
-        ),
+        AnimationText(text: 'Booking App'),
+        // Text(
+        //   model.title,
+        //   style: const TextStyle(
+        //     fontSize: 24.0,
+        //     // fontWeight: FontWeight.bold,
+        //   ),
+        // ),
         const SizedBox(
           height: 30.0,
         ),
         Text(
           model.body,
           style: const TextStyle(
-            fontSize: 18.0,
-            // fontWeight: FontWeight.bold
+            fontSize: 20.0,
+            fontWeight: FontWeight.bold
           ),
         ),
         const SizedBox(
