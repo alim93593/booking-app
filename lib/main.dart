@@ -1,7 +1,10 @@
-import 'package:booking_app/core/utils/constants/constants.dart';
+import 'package:booking_app/core/themes/light.dart';
+import 'package:booking_app/features/auth/presentation/cubit/auth_cubit.dart';
+import 'package:booking_app/features/auth/presentation/screens/login_screen/login_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'core/utils/injection/injection_container.dart' as di;
-import 'features/auth/presntation/screen/login_screen/login_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -14,11 +17,17 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Booking App',
-      theme: kLightThemeData,
-      home:  LoginScreen(),
-    );
+    return MultiBlocProvider(
+        providers: [
+          BlocProvider(
+            create: (_) => di.sl<AuthCubit>(),
+          ),
+        ],
+        child: MaterialApp(
+          debugShowCheckedModeBanner: false,
+          title: 'Booking App',
+          theme: kLightThemeData,
+          home: const LoginScreen(),
+        ));
   }
 }

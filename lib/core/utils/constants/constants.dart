@@ -1,44 +1,69 @@
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-
-final kLightThemeData = ThemeData(
-  primarySwatch: Colors.green,
-  scaffoldBackgroundColor: const Color(0xfff5f5f5),
-  appBarTheme: const AppBarTheme(
-    titleSpacing: 20,
-    backgroundColor: const Color(0xfff1f3f6),
-    elevation: 0.0,
-    systemOverlayStyle: SystemUiOverlayStyle(
-      statusBarColor: const Color(0xffF6F4F4FF),
-      statusBarIconBrightness: Brightness.dark,
-    ),
-    iconTheme: IconThemeData(
-      color: Colors.black,
-    ),
-    titleTextStyle: TextStyle(
-      color: Colors.black,
-      fontSize: 20.0,
-      fontWeight: FontWeight.bold,
-    ),
-  ),
-  textTheme: const TextTheme(
-      bodyText1: TextStyle(
-        fontSize: 18,
-        fontWeight: FontWeight.w600,
-        color: Colors.black,
-      )),
-  drawerTheme:  DrawerThemeData(
-    backgroundColor: const Color(0xfff5f5f5),
-  ),
-
-);
-
-
 // ignore_for_file: constant_identifier_names
+
+import 'package:booking_app/core/errors/failures.dart';
+import 'package:booking_app/core/utils/constants/strings.dart';
+import 'package:flutter/material.dart';
 
 const String defaultUserImage = '';
 
-const String CACHED_USER = 'CACHED_USER' ;
 
 
-const Color mainColor = Color(0xff1ed5a2);
+navigateAndFinish({
+  required BuildContext context,
+  required Widget route,
+}) {
+  Navigator.of(context).pushAndRemoveUntil(
+    MaterialPageRoute(builder: (context) {
+      return route;
+    }),
+        (route) => false,
+  );
+}
+
+navigateTo({
+  required BuildContext context,
+  required Widget route,
+}) {
+  Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+    return route;
+  }));
+}
+
+showSnackBar(BuildContext context, String text) {
+  return ScaffoldMessenger.of(context)
+      .showSnackBar(
+    SnackBar(
+      backgroundColor: Colors.white,
+      content: Padding(
+        padding: const EdgeInsets.symmetric(
+          vertical: 5.0,
+        ),
+        child: Text(
+          text,
+          style: const TextStyle(
+            color: Colors.black,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
+      elevation: 10.0,
+    ),
+  )
+      .close;
+}
+
+String mapFailureToString(Failure failure) {
+  switch (failure.runtimeType) {
+    case ApiFailure:
+      return API_FAILURE_MESSAGE;
+
+    case EmptyCacheFailure:
+      return EMPTY_CACHE_FAILURE_MESSAGE;
+
+    case OfflineFailure:
+      return OFFLINE_FAILURE_MESSAGE;
+
+    default:
+      return "Unexpected failure, please try again later";
+  }
+}

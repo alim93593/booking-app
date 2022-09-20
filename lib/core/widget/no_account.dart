@@ -1,3 +1,4 @@
+import 'package:booking_app/core/themes/light.dart';
 import 'package:flutter/material.dart';
 
 class DoNotHaveAccount extends StatelessWidget {
@@ -5,8 +6,12 @@ class DoNotHaveAccount extends StatelessWidget {
   final VoidCallback? onPressed;
   final String? btnLabel;
 
-  DoNotHaveAccount(
-      {required this.label, required this.onPressed, required this.btnLabel});
+  const DoNotHaveAccount(
+      {required this.label,
+      required this.onPressed,
+      required this.btnLabel,
+      Key? key})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -14,12 +19,16 @@ class DoNotHaveAccount extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Text(
-          '${label?.toUpperCase()}',
+          '$label',
         ),
         TextButton(
           onPressed: onPressed,
-
-          child: Text('${btnLabel}'),
+          child: Text(
+            '$btnLabel',
+            style:const TextStyle(
+              color: mainColor,
+            ),
+          ),
         ),
       ],
     );
