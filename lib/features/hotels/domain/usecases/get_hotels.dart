@@ -5,8 +5,14 @@ import 'package:dartz/dartz.dart';
 
 class GetHotelsUseCase {
   const GetHotelsUseCase({required this.hotelsRepository});
+
   final HotelsRepository hotelsRepository;
-  Future<Either<Failure, List<Hotel>>> call()async{
-    return await hotelsRepository.getHotels();
+
+  Future<Either<Failure, List<Hotel>>> call(
+      {required int page, required int count}) async {
+    return await hotelsRepository.getHotels(
+      count: count,
+      page: page,
+    );
   }
 }
