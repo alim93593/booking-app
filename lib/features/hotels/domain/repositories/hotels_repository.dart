@@ -5,8 +5,11 @@ import 'package:booking_app/features/hotels/domain/entities/hotel.dart';
 import 'package:dartz/dartz.dart';
 
 abstract class HotelsRepository {
-  Future<Either<Failure, List<Hotel>>> getHotels();
-
+  Future<Either<Failure, List<Hotel>>> getHotels({
+  required int count,
+    required int  page,
+});
+  // TODO: implement searchHotels
   Future<Either<Failure, List<Hotel>>> searchHotels({
     required String name,
   });
@@ -17,7 +20,6 @@ abstract class HotelsRepository {
   });
 
   Future<Either<Failure, Unit>> updateBookingStatus({
-    required String token,
     required String status,
     required int? bookingId,
   });
