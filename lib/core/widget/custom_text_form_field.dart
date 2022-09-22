@@ -39,37 +39,50 @@ class CustomFormField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
-      controller: controller,
-      keyboardType: textInputType,
-      onFieldSubmitted: onFieldSubmitted,
-      onChanged: onChanged,
-      onTap: onTaped,
-      style: style,
-      obscureText: isPassWord,
-      validator: validator,
-      decoration: InputDecoration(
-        filled: true,
-        fillColor: Colors.white,
-        prefixIcon: prefix,
-        hintText: '$hintText',
-        hintStyle: hintStyle,
-        suffixIcon: suffix != null
-            ? IconButton(
-                onPressed: suffixPressed,
-                icon: Icon(
-                  suffix,
-                ),
-              )
-            : null,
-        contentPadding: const EdgeInsets.all(20.0),
-        border: const OutlineInputBorder(
-          borderRadius: BorderRadius.all(Radius.circular(10)),
-        ),
-        enabledBorder: const OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.grey, width: 1.0),
-          borderRadius: BorderRadius.all(Radius.circular(10)),
-        ),
+    return Container(
+      decoration: BoxDecoration(
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.3),
+            spreadRadius: 1,
+            blurRadius: 7,
+            offset: const Offset(0, 3), // changes position of shadow
+          ),
+        ],
+      ),
+      child: TextFormField(
+        controller: controller,
+        keyboardType: textInputType,
+        onFieldSubmitted: onFieldSubmitted,
+        onChanged: onChanged,
+        onTap: onTaped,
+        style: style,
+        obscureText: isPassWord,
+        validator: validator,
+        decoration: InputDecoration(
+
+          filled: true,
+          fillColor: Colors.white,
+          prefixIcon: prefix,
+          hintText: '$hintText',
+          hintStyle: hintStyle,
+          suffixIcon: suffix != null
+              ? IconButton(
+                  onPressed: suffixPressed,
+                  icon: Icon(
+                    suffix,
+                  ),
+                )
+              : null,
+    contentPadding: const EdgeInsets.all(20.0),
+    border: const OutlineInputBorder(
+    borderRadius: BorderRadius.all(Radius.circular(10)),
+    ),
+    enabledBorder: const OutlineInputBorder(
+    borderSide: BorderSide(color: Colors.grey, width: 1.0),
+    borderRadius: BorderRadius.all(Radius.circular(10)),
+    ),
+      ),
       ),
     );
   }

@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-const Color mainColor = Color(0xff1ed5a2);
+const Color mainColor = Color(0xff0288D1);
 final kLightThemeData = ThemeData(
   fontFamily: 'Ubuntu',
-  primarySwatch: Colors.teal,
-  scaffoldBackgroundColor: const Color(0xfff5f5f5),
+  primarySwatch:Colors.blue,
+  scaffoldBackgroundColor: const Color(0xffffffff),
   appBarTheme: const AppBarTheme(
     titleSpacing: 20,
-    backgroundColor: Color(0xfff1f3f6),
+    backgroundColor: Color(0xffffffff),
     elevation: 0.0,
     systemOverlayStyle: SystemUiOverlayStyle(
       statusBarColor: Color(0xffF6F4F4),
