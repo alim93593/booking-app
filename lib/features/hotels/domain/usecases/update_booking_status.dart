@@ -13,7 +13,6 @@ class UpdateBookingUseCase {
     required int bookingId,
   }) async {
     return await hotelsRepository.updateBookingStatus(
-      token: token,
       status: status,
       bookingId: bookingId,
     );
