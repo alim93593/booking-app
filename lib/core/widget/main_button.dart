@@ -6,24 +6,32 @@ class MainButton extends StatelessWidget {
   final Color? myColor;
   final bool isPlatformLogin;
   final Image? platFormImage;
-  const MainButton(
-      {required this.onTabbed, required this.myStyle, required this.myColor,this.isPlatformLogin=false,
-        this.platFormImage,
-        Key ? key,
-      }) : super(key: key);
+  final double width;
+  final double height;
+
+  const MainButton({
+    required this.onTabbed,
+    required this.myStyle,
+    required this.myColor,
+    this.isPlatformLogin = false,
+    this.platFormImage,
+    required this.width,
+    required this.height,
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTabbed,
       child: Container(
-        margin: const EdgeInsets.only(top: 10.0),
-        width: double.infinity,
-        height: 50,
+        width: width,
+        height: height,
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10.0),
+          borderRadius: BorderRadius.circular(
+            40.0,
+          ),
           color: myColor,
-
         ),
         child: Center(
           child: myStyle,
