@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:booking_app/core/themes/light.dart';
 import 'package:booking_app/core/utils/constants/constants.dart';
+import 'package:booking_app/core/utils/local/cache_helper.dart';
 import 'package:booking_app/core/widget/main_button.dart';
 import 'package:booking_app/features/auth/presentation/screens/login_screen/login_screen.dart';
 import 'package:booking_app/features/auth/presentation/screens/register_screen/register_screen.dart';
@@ -37,7 +38,10 @@ class _BoardingBodyState extends State<BoardingBody> {
   Timer? timer;
   var boardingController = PageController();
 
-  void onSubmit() {}
+  void onSubmit() {
+    CacheHelper.saveData(key: 'onBoarding', value: true).then((value) {
+    });
+  }
 
   @override
   void initState() {
@@ -48,12 +52,13 @@ class _BoardingBodyState extends State<BoardingBody> {
       } else {
         currentPage = 0;
       }
-
-      boardingController.animateToPage(
-        currentPage,
-        duration: const Duration(milliseconds: 350),
-        curve: Curves.easeIn,
-      );
+  if(boardingController.hasClients) {
+    boardingController.animateToPage(
+      currentPage,
+      duration: const Duration(milliseconds: 350),
+      curve: Curves.easeIn,
+    );
+    }
     });
   }
 
@@ -105,6 +110,7 @@ class _BoardingBodyState extends State<BoardingBody> {
             width: 300.0,
             height: 50.0,
             onTabbed: () {
+              onSubmit();
               navigateTo(context: context, route: const LoginScreen());
             },
             myStyle: const Text(

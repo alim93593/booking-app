@@ -47,7 +47,7 @@ class AuthCubit extends Cubit<AuthStates> {
       emit(LoginErrorState(error: mapFailureToString(l)));
     }, (r) {
       userModel = r;
-      emit(LoginSuccessState());
+      emit(LoginSuccessState(userModel!.token.toString()));
     });
   }
 
@@ -68,7 +68,7 @@ class AuthCubit extends Cubit<AuthStates> {
       emit(RegisterErrorState(error: mapFailureToString(l)));
     }, (r) {
       userModel = r;
-      emit(LoginSuccessState());
+      emit(LoginSuccessState(userModel!.token.toString()));
     });
   }
 

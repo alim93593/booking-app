@@ -1,5 +1,7 @@
 import 'package:booking_app/core/themes/light.dart';
 import 'package:booking_app/core/utils/constants/constants.dart';
+import 'package:booking_app/core/utils/constants/strings.dart';
+import 'package:booking_app/core/utils/local/cache_helper.dart';
 import 'package:booking_app/core/widget/custom_text_form_field.dart';
 import 'package:booking_app/core/widget/main_button.dart';
 import 'package:booking_app/core/widget/no_account.dart';
@@ -21,7 +23,14 @@ class LoginScreenBody extends StatelessWidget {
     return BlocConsumer<AuthCubit, AuthStates>(
       listener: (context, state) {
         if (state is LoginSuccessState) {
-          navigateAndFinish(context: context, route: HomeScreen(),);
+          CacheHelper.saveData(
+              key: 'toKen',
+              value:state.tokeN
+          ).then((value) async {
+            toKen=state.tokeN;
+            navigateAndFinish(context: context, route: HomeScreen(),);
+          });
+          // navigateAndFinish(context: context, route: HomeScreen(),);
         }
         if (state is LoginErrorState) {
           showSnackBar(
