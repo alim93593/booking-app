@@ -19,6 +19,8 @@ class _SplashScreenState extends State<SplashScreen> {
 
   displaySplash() {
     Timer(const Duration(seconds: 5), () async {
+//      final route = AuthCubit.get(context).userModel != null ? HomeScreen() : const OnBoardingScreen();
+
       Route route = MaterialPageRoute(builder: (_) => const OnBoardingScreen());
       Navigator.pushReplacement(context, route);
     });

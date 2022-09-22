@@ -7,7 +7,7 @@ class SearchHotelsUseCase {
   const SearchHotelsUseCase({required this.hotelsRepository});
 
   final HotelsRepository hotelsRepository;
-
+  // TODO: implement searchHotels
   Future<Either<Failure, List<Hotel>>> call({required String name}) async {
     return await hotelsRepository.searchHotels(name: name);
   }
