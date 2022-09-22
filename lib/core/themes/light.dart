@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 const Color mainColor = Color(0xff0288D1);
+const Color backgroundColor = Color (0xfff7f7f7);
 final kLightThemeData = ThemeData(
   fontFamily: 'Ubuntu',
   primarySwatch:Colors.blue,

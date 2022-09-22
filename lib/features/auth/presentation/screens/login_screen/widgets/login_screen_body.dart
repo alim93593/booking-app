@@ -1,5 +1,7 @@
 import 'package:booking_app/core/themes/light.dart';
 import 'package:booking_app/core/utils/constants/constants.dart';
+import 'package:booking_app/core/utils/constants/strings.dart';
+import 'package:booking_app/core/utils/local/cache_helper.dart';
 import 'package:booking_app/core/widget/custom_text_form_field.dart';
 import 'package:booking_app/core/widget/main_button.dart';
 import 'package:booking_app/core/widget/no_account.dart';
@@ -20,11 +22,21 @@ class LoginScreenBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocConsumer<AuthCubit, AuthStates>(
       listener: (context, state) {
-        if(state is LoginSuccessState){
-          navigateTo(context: context, route:  HomeScreen());
+        if (state is LoginSuccessState) {
+          CacheHelper.saveData(
+              key: 'toKen',
+              value:state.tokeN
+          ).then((value) async {
+            toKen=state.tokeN;
+            navigateAndFinish(context: context, route: HomeScreen(),);
+          });
+          // navigateAndFinish(context: context, route: HomeScreen(),);
         }
-        if (state is LoginErrorState){
-          showSnackBar(context, state.error);
+        if (state is LoginErrorState) {
+          showSnackBar(
+            context,
+            state.error,
+          );
         }
       },
       builder: (context, state) {
@@ -117,6 +129,8 @@ class LoginScreenBody extends StatelessWidget {
                         height: 30,
                       ),
                       MainButton(
+                        height: 60.0,
+                        width: double.infinity,
                         myStyle: const Text(
                           'LOGIN',
                           style: TextStyle(fontSize: 18, color: Colors.white),

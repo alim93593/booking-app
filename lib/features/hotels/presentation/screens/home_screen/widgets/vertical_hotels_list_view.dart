@@ -1,17 +1,22 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class VerticalHotelsListView extends StatelessWidget {
-  const VerticalHotelsListView({
+   VerticalHotelsListView({
     Key? key,
+    required this.controller
   }) : super(key: key);
-
+  ScrollController controller =ScrollController();
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       width: double.infinity,
       height: 260,
       child: ListView.separated(
+        controller: controller,
+          shrinkWrap: true,
           scrollDirection: Axis.vertical,
           itemBuilder: (context, index) {
             return Container(
@@ -24,7 +29,6 @@ class VerticalHotelsListView extends StatelessWidget {
                   BoxShadow(
                     color: Colors.grey.withOpacity(0.3),
                     spreadRadius: 1,
-
                     blurRadius: 7,
                     offset: const Offset(
                         0, 3), // changes position of shadow

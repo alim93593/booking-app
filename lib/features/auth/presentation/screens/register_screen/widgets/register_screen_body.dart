@@ -174,6 +174,8 @@ class RegisterScreenBody extends StatelessWidget {
                       height: 30,
                     ),
                     MainButton(
+                      height: 60.0,
+                      width: double.infinity,
                       myStyle: const Text(
                         'REGISTER',
                         style: TextStyle(fontSize: 18, color: Colors.white),
