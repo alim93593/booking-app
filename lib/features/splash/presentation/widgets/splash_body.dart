@@ -3,7 +3,6 @@
 import 'package:booking_app/features/splash/presentation/widgets/animation_text.dart';
 import 'package:flutter/material.dart';
 
-
 class SplashBody extends StatelessWidget {
   const SplashBody({Key? key}) : super(key: key);
 
@@ -20,11 +19,16 @@ class SplashBody extends StatelessWidget {
               SizedBox(
                 height: 720.0,
                 width: 720.0,
-                child: Image(image: AssetImage('assets/on_boarding/splash.jpg'),fit: BoxFit.fill),
+                child: Image(
+                    image: AssetImage(
+                      'assets/on_boarding/splash.jpg',
+                    ),
+                    fit: BoxFit.fill),
               ),
-               Center(
-                  child: AnimationText(text: 'Booking App',)
-              ),
+              Center(
+                  child: AnimationText(
+                text: 'Booking App',
+              )),
               const SizedBox(
                 height: 200,
               )

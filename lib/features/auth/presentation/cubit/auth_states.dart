@@ -13,7 +13,10 @@ class ChangePasswordVisibilityState extends AuthStates {}
 
 class LoginLoadingState extends AuthStates {}
 
-class LoginSuccessState extends AuthStates {}
+class LoginSuccessState extends AuthStates {
+  final String tokeN;
+  const LoginSuccessState(this.tokeN);
+}
 
 class LoginErrorState extends AuthStates {
    const LoginErrorState({required this.error});
