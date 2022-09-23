@@ -8,6 +8,7 @@ class HorizontalHotelsListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return SizedBox(
       width: double.infinity,
       height: 300,
@@ -40,44 +41,48 @@ class HorizontalHotelsListView extends StatelessWidget {
                           size: 25,
                         )),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(left:8.0,bottom: 30,),
-                    child: Align(
-                      alignment: AlignmentDirectional.bottomStart,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children:  [
-                          const Text(
-                            'Hotel Royal Sea Crown',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 15,
-                              fontWeight: FontWeight.bold,
-
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 5,
-                          ),
-                          Row(
-                            children: const [
-                              Icon(Icons.place_outlined,
-                                color: Colors.white,
-                              ),
-                              Text('Sharm Al Sheikh',
+                  FittedBox(
+                    alignment: Alignment.bottomCenter,
+                    child: Row(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(5.0),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children:  [
+                              const Text(
+                                'Hotel Royal Sea Crown',
                                 style: TextStyle(
                                   color: Colors.white,
-                                  fontSize: 15,
+                                  fontSize: 9,
                                   fontWeight: FontWeight.bold,
 
                                 ),
+                              ),
+                              const SizedBox(
+                                height: 5,
+                              ),
+                              Row(
+                                children: const [
+                                  Icon(Icons.place_outlined,
+                                    color: Colors.white,
+                                    size: 7,
+                                  ),
+                                  Text('Sharm Al Sheikh',
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 5,
+                                      fontWeight: FontWeight.bold,
+                                    ),
 
+                                  ),
+                                ],
                               ),
                             ],
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
                   ),
 
