@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors_in_immutables, prefer_const_constructors
+
 import 'package:booking_app/core/themes/light.dart';
 import 'package:booking_app/core/widget/custom_text_form_field.dart';
 import 'package:booking_app/features/hotels/presentation/screens/home_screen/widgets/horizontal_hotels_list_view.dart';
@@ -5,20 +7,40 @@ import 'package:booking_app/features/hotels/presentation/screens/home_screen/wid
 import 'package:booking_app/features/hotels/presentation/screens/home_screen/widgets/vertical_hotels_list_view.dart';
 import 'package:flutter/material.dart';
 
-class HomeScreen extends StatelessWidget {
-  final TextEditingController searchController = TextEditingController();
-
+class HomeScreen extends StatefulWidget {
   HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  final TextEditingController searchController = TextEditingController();
+  ScrollController controller = ScrollController();
+  bool closeTopContainer = false;
+  @override
+
+  /// handle Scroll Controller
+  void initState() {
+    super.initState();
+    controller.addListener(() {
+      setState(() {
+        closeTopContainer = controller.offset > 50;
+      });
+    });
+  }
   @override
   Widget build(BuildContext context) {
+    final Size size = MediaQuery.of(context).size;
     return SafeArea(
       child: Scaffold(
         body: SingleChildScrollView(
+          physics: NeverScrollableScrollPhysics(),
           child: Padding(
-            padding: const EdgeInsets.all(20),
+            padding: const EdgeInsets.all(10),
             child:
                 Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Row(
+                 Row(
                 children: const [
                   SizedBox(
                     child: CircleAvatar(
@@ -43,10 +65,10 @@ class HomeScreen extends StatelessWidget {
                   ),
                 ],
               ),
-              const SizedBox(
-                height: 20,
+                 const SizedBox(
+                height: 5,
               ),
-              const Text(
+                 const Text(
                 'Where do you want to stay?',
                 style: TextStyle(
                   fontSize: 20,
@@ -55,10 +77,10 @@ class HomeScreen extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              const SizedBox(
-                height: 20,
+                 const SizedBox(
+                height: 10,
               ),
-              Row(
+                 Row(
                 children: [
                   Expanded(
                     child: SizedBox(
@@ -100,26 +122,35 @@ class HomeScreen extends StatelessWidget {
                   ),
                 ],
               ),
-              const SizedBox(
+                 const SizedBox(
+                height: 15,
+              ),
+                 const SectionName(
+                  name: 'Popular Hotels',
+                 ),
+                 const SizedBox(
+                  height: 20,
+                ),
+                 AnimatedOpacity(
+                     duration: const Duration(milliseconds: 500),
+                    opacity: closeTopContainer?1:1,
+                   child: AnimatedContainer(
+                    width: size.width,
+                    alignment: Alignment.topCenter,
+                    height: closeTopContainer ? 120:300,
+                    duration: const Duration(milliseconds: 500),
+                    child: const HorizontalHotelsListView()),
+                 ),
+                 const SizedBox(
                 height: 30,
-              ),
-              const SectionName(
-                name: 'Popular Hotels',
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              const HorizontalHotelsListView(),
-              const SizedBox(
-                height: 30,
-              ),
-              const SectionName(
+                 ),
+                 const SectionName(
                 name: 'More Hotels',
-              ),
-              const SizedBox(
+                 ),
+                 const SizedBox(
                 height: 10,
-              ),
-              const VerticalHotelsListView(),
+                ),
+                 VerticalHotelsListView(controller: controller),
             ]),
           ),
         ),
