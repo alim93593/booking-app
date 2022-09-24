@@ -132,13 +132,13 @@ class _HomeScreenState extends State<HomeScreen> {
                   height: 20,
                 ),
                  AnimatedOpacity(
-                     duration: const Duration(milliseconds: 1000),
-                    opacity: closeTopContainer?0.5:1,
+                     duration: const Duration(milliseconds: 500),
+                    opacity: closeTopContainer?1:1,
                    child: AnimatedContainer(
                     width: size.width,
                     alignment: Alignment.topCenter,
                     height: closeTopContainer ? 120:300,
-                    duration: const Duration(milliseconds: 1000),
+                    duration: const Duration(milliseconds: 500),
                     child: const HorizontalHotelsListView()),
                  ),
                  const SizedBox(
