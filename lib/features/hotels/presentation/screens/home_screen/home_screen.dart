@@ -14,6 +14,7 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
     return Scaffold(
+      //handling
       body: CustomScrollView(
         slivers: [
           SliverPersistentHeader(
