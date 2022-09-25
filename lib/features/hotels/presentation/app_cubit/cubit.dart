@@ -1,5 +1,6 @@
 import 'package:booking_app/core/network/network_info.dart';
 import 'package:booking_app/features/auth/data/datasources/local_datasource.dart';
+import 'package:booking_app/features/auth/presentation/screens/user_profile/screens/user_profile_screen/screen/user_profile_screen.dart';
 import 'package:booking_app/features/hotels/data/repositories/hotel_repository_impl.dart';
 import 'package:booking_app/features/hotels/domain/usecases/get_hotels.dart';
 import 'package:booking_app/features/hotels/presentation/app_cubit/states.dart';
@@ -53,7 +54,7 @@ class AppCubit extends Cubit<AppStates> {
   List<Widget> screens = [
     HomeScreen(),
     const BookingsScreen(),
-    const ProfileScreen(),
+     UserProfileScreen(),
     const SettingsScreen(),
   ];
   void changeBottomNavBar(int index) {
@@ -68,12 +69,12 @@ class AppCubit extends Cubit<AppStates> {
   GetHotelsUseCase getHotelsUseCase;
   dynamic getHotels() async {
     emit(LoadingState());
-    final result = await getHotelsUseCase.call(page: 1, count: 5);
+    final result = await getHotelsUseCase.call(page: 1, count: 10);
     result.fold((failure) => emit(FailureState(_mapFailureToMessage(failure))),
         (result) {
       hotels = result;
       if (kDebugMode) {
-        print(hotels);
+        print(hotels?.length);
       }
       emit(SuccessState(result));
     });

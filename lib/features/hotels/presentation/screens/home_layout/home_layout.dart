@@ -11,7 +11,7 @@ class HomeLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => AppCubit(sl()),
+      create: (context) => AppCubit(sl())..getHotels(),
       child: BlocConsumer<AppCubit, AppStates>(
         listener: (context, state) {
           // TODO: implement listener

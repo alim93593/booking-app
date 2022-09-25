@@ -25,7 +25,7 @@ void main() async {
   if(onBoarding ==false){
     widget =const OnBoardingScreen();
   }else{
-    if(toKen != null){widget =const HomeLayout();}
+    if(toKen != null){widget = HomeLayout();}
     else { widget = const LoginScreen();}
   }
   runApp( MyApp(
