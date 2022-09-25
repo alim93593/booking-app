@@ -1,24 +1,21 @@
 import 'package:booking_app/features/hotels/domain/entities/facility.dart';
 import 'package:equatable/equatable.dart';
 
+import '../../data/models/HotelsModel.dart';
+
 class Hotel extends Equatable {
-  const Hotel({
-    this.id, this.name, this.description, this.price, this.address,
-    this.latitude, this.longitude, this.rate, this.images, this.facilities
-});
-
-  final int? id;
-  final String? name;
-  final String? description;
-  final int? price;
-  final String? address;
-  final double? latitude;
-  final double? longitude;
-  final double? rate;
-  final List<String>? images;
-  final List<Facility>? facilities;
-
-  Map<String, dynamic> toJson() => {};
+  num? id;
+  String? name;
+  String? description;
+  String? price;
+  String? address;
+  String? longitude;
+  String? latitude;
+  String? rate;
+  String? createdAt;
+  String? updatedAt;
+  List<HotelImages>? hotelImages;
+  List<HotelFacilities>? hotelFacilities;
 
   @override
   List<Object?> get props => [
@@ -30,7 +27,21 @@ class Hotel extends Equatable {
         latitude,
         longitude,
         rate,
-        images,
-        facilities,
+        hotelImages,
+        hotelFacilities,
       ];
+
+  Hotel(
+      {this.id,
+      this.name,
+      this.description,
+      this.price,
+      this.address,
+      this.longitude,
+      this.latitude,
+      this.rate,
+      this.createdAt,
+      this.updatedAt,
+      this.hotelImages,
+      this.hotelFacilities});
 }

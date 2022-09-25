@@ -3,9 +3,10 @@ import 'package:booking_app/core/errors/exceptions.dart';
 import 'package:booking_app/core/utils/constants/strings.dart';
 import 'package:booking_app/features/hotels/data/models/booking_model.dart';
 import 'package:booking_app/features/hotels/data/models/facility_model.dart';
-import 'package:booking_app/features/hotels/data/models/hotel_model.dart';
 import 'package:dartz/dartz.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../models/HotelsModel.dart';
 
 abstract class HotelsLocalDatasource {
   Future<Unit> cacheHotels({required List<HotelModel> hotels});
@@ -16,9 +17,9 @@ abstract class HotelsLocalDatasource {
 
   Future<List<BookingModel>> getCachedBookings();
 
-  Future<Unit> cacheFacilities({required List<FacilityModel> facilities});
+  Future<Unit> cacheFacilities({required List<HotelFacilities> facilities});
 
-  Future<List<FacilityModel>> getCachedFacilities();
+  Future<List<HotelFacilities>> getCachedFacilities();
 }
 
 class HotelsLocalDatasourceImpl implements HotelsLocalDatasource {
@@ -35,7 +36,7 @@ class HotelsLocalDatasourceImpl implements HotelsLocalDatasource {
   }
 
   @override
-  Future<Unit> cacheFacilities({required List<FacilityModel> facilities}) {
+  Future<Unit> cacheFacilities({required List<HotelFacilities> facilities}) {
     List modelsToJson =
         facilities.map<Map<String, dynamic>>((e) => e.toJson()).toList();
     sharedPreferences.setString(CACHED_FACILITIES, json.encode(modelsToJson));
@@ -65,12 +66,12 @@ class HotelsLocalDatasourceImpl implements HotelsLocalDatasource {
   }
 
   @override
-  Future<List<FacilityModel>> getCachedFacilities() {
+  Future<List<HotelFacilities>> getCachedFacilities() {
     final jsonString = sharedPreferences.getString(CACHED_BOOKINGS);
     if (jsonString != null) {
       List decodedJson = json.decode(jsonString);
-      List<FacilityModel> jsonToModels = decodedJson
-          .map<FacilityModel>((e) => FacilityModel.fromJson(e))
+      List<HotelFacilities> jsonToModels = decodedJson
+          .map<HotelFacilities>((e) => HotelFacilities.fromJson(e))
           .toList();
       return Future.value(jsonToModels);
     } else {

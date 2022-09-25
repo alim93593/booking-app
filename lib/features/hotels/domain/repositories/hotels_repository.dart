@@ -5,7 +5,7 @@ import 'package:booking_app/features/hotels/domain/entities/hotel.dart';
 import 'package:dartz/dartz.dart';
 
 abstract class HotelsRepository {
-  Future<Either<Failure, List<Hotel>>> getHotels({
+  Future<Either<Failure,List<Hotel>>> getHotels({
   required int count,
     required int  page,
 });

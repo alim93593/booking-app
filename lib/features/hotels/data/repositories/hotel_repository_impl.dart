@@ -1,6 +1,7 @@
 import 'package:booking_app/core/errors/exceptions.dart';
 import 'package:booking_app/core/errors/failures.dart';
 import 'package:booking_app/core/network/network_info.dart';
+import 'package:booking_app/features/hotels/data/datasources/get_hotel_remote_data_source.dart';
 import 'package:booking_app/features/hotels/data/datasources/hotels_local_data_source.dart';
 import 'package:booking_app/features/hotels/data/datasources/hotels_remote_datasource.dart';
 import 'package:booking_app/features/hotels/domain/entities/booking.dart';
@@ -9,8 +10,11 @@ import 'package:booking_app/features/hotels/domain/entities/hotel.dart';
 import 'package:booking_app/features/hotels/domain/repositories/hotels_repository.dart';
 import 'package:dartz/dartz.dart';
 
+import '../models/HotelsModel.dart';
+
 class HotelsRepositoryImpl extends HotelsRepository {
-  HotelsRepositoryImpl({
+  HotelsRepositoryImpl( {
+     required this.getHotelService,
     required this.networkInfo,
     required this.localDatasource,
     required this.remoteDatasource,
@@ -19,15 +23,15 @@ class HotelsRepositoryImpl extends HotelsRepository {
   final HotelsRemoteDatasource remoteDatasource;
   final HotelsLocalDatasource localDatasource;
   final NetworkInfo networkInfo;
-
+  final GetHotelService getHotelService;
   @override
-  Future<Either<Failure, List<Hotel>>> getHotels(
+  Future<Either<Failure,List<Hotel>>> getHotels(
       {required int count, required int page}) async {
     if (await networkInfo.isConnected) {
       try {
-        final data = await remoteDatasource.getHotels(page: page, count: count);
-        await localDatasource.cacheHotels(hotels: data);
-        return Right(data);
+        final data = await getHotelService.getHotels(page: page, count: count);
+        // await localDatasource.cacheHotels(hotels: data);
+        return Right(data.data!.hotels!);
       } on ApiException {
         return Left(ApiFailure());
       }
@@ -117,4 +121,6 @@ class HotelsRepositoryImpl extends HotelsRepository {
     // TODO: implement searchHotels
     throw UnimplementedError();
   }
+
+
 }

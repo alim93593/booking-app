@@ -5,6 +5,7 @@ import 'package:booking_app/core/utils/constants/strings.dart';
 import 'package:booking_app/core/utils/local/cache_helper.dart';
 import 'package:booking_app/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:booking_app/features/auth/presentation/screens/login_screen/login_screen.dart';
+import 'package:booking_app/features/hotels/presentation/app_cubit/cubit.dart';
 import 'package:booking_app/features/hotels/presentation/screens/home_screen/home_screen.dart';
 import 'package:booking_app/features/on_boarding/presentation/screens/on_boarding.dart';
 import 'package:booking_app/features/splash/presentation/screens/splash_screen.dart';
@@ -42,6 +43,7 @@ class MyApp extends StatelessWidget {
           BlocProvider(
             create: (_) => di.sl<AuthCubit>(),
           ),
+
         ],
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
