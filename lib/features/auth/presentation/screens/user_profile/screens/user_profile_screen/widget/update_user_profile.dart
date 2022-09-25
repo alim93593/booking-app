@@ -1,16 +1,16 @@
-// ignore_for_file: prefer_const_constructors, must_be_immutable, sized_box_for_whitespace
+// ignore_for_file: prefer_const_constructors, sized_box_for_whitespace, must_be_immutable
 
-import 'package:booking_app/features/auth/presentation/screens/user_profile/widget/custom_app_bar.dart';
-import 'package:booking_app/features/auth/presentation/screens/user_profile/widget/custom_button.dart';
-import 'package:booking_app/features/auth/presentation/screens/user_profile/widget/my_input_feild.dart';
+import 'package:booking_app/features/auth/presentation/screens/user_profile/screens/user_profile_screen/widget/custom_app_bar.dart';
+import 'package:booking_app/features/auth/presentation/screens/user_profile/screens/user_profile_screen/widget/custom_button.dart';
+import 'package:booking_app/features/auth/presentation/screens/user_profile/screens/user_profile_screen/widget/my_input_feild.dart';
 import 'package:flutter/material.dart';
 
-class BuildUserProfile extends StatelessWidget {
-   BuildUserProfile({Key? key}) : super(key: key);
+class UpdateUserProfile extends StatelessWidget {
+   UpdateUserProfile({Key? key}) : super(key: key);
   var name = TextEditingController();
   var email = TextEditingController();
   var newPassword = TextEditingController();
-  var formKey=GlobalKey<FormState>();
+  var formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,7 +20,10 @@ class BuildUserProfile extends StatelessWidget {
           title: 'Edit Profile',
           mycolor: Colors.black,
           isLeading: true,
-          myIcon: Icons.arrow_back_ios
+          myIcon: Icons.arrow_back_ios,
+          ontap: (){
+            Navigator.pop(context);
+          }
         ),
         body:  Form(
           key: formKey,
@@ -48,7 +51,6 @@ class BuildUserProfile extends StatelessWidget {
                                 ),
                               ),
                               IconButton(onPressed: (){
-
                               }, icon: CircleAvatar(
                                   radius: 20.0,
                                   child: Icon(Icons.add_a_photo_rounded,size: 20,))),

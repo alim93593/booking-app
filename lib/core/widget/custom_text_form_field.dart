@@ -60,7 +60,6 @@ class CustomFormField extends StatelessWidget {
         obscureText: isPassWord,
         validator: validator,
         decoration: InputDecoration(
-
           filled: true,
           fillColor: Colors.white,
           prefixIcon: prefix,

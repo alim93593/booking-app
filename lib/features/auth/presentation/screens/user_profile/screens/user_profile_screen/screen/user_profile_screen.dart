@@ -1,4 +1,4 @@
-import 'package:booking_app/features/auth/presentation/screens/user_profile/widget/build_user_profile.dart';
+import 'package:booking_app/features/auth/presentation/screens/user_profile/screens/user_profile_screen/widget/build_user_profile.dart';
 import 'package:flutter/material.dart';
 
 class UserProfileScreen extends StatelessWidget {

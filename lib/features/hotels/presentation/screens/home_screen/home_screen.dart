@@ -1,128 +1,145 @@
-import 'package:booking_app/core/themes/light.dart';
-import 'package:booking_app/core/widget/custom_text_form_field.dart';
-import 'package:booking_app/features/hotels/presentation/screens/home_screen/widgets/horizontal_hotels_list_view.dart';
-import 'package:booking_app/features/hotels/presentation/screens/home_screen/widgets/section_name.dart';
-import 'package:booking_app/features/hotels/presentation/screens/home_screen/widgets/vertical_hotels_list_view.dart';
+// ignore_for_file: prefer_const_constructors_in_immutables, prefer_const_constructors
+
+import 'package:booking_app/features/hotels/presentation/app_cubit/cubit.dart';
+import 'package:booking_app/features/hotels/presentation/app_cubit/states.dart';
+import 'package:booking_app/features/hotels/presentation/screens/imageSlider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 class HomeScreen extends StatelessWidget {
-  final TextEditingController searchController = TextEditingController();
+  const HomeScreen({Key? key}) : super(key: key);
 
-  HomeScreen({super.key});
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        body: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(20),
-            child:
-                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Row(
-                children: const [
-                  SizedBox(
-                    child: CircleAvatar(
-                      radius: 25,
-                      backgroundImage: NetworkImage(
-                        'https://i.pinimg.com/originals/49/3f/a0/493fa0f13970ab3ef29375669f670451.jpg',
-                      ),
-                      backgroundColor: Colors.transparent,
-                    ),
-                  ),
-                  SizedBox(
-                    width: 10,
-                  ),
-                  Text(
-                    'Hello Ahmad!',
-                    style: TextStyle(
-                      fontSize: 18,
-                      color: Colors.black,
-                      fontFamily: 'Ubuntu',
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                ],
+    var height = MediaQuery.of(context).size.height;
+    return Scaffold(
+      //handling
+      body: CustomScrollView(
+        slivers: [
+          SliverPersistentHeader(
+              floating: true,
+              delegate: ImageSlider(
+                maxExtent: height / 1.6,
+                minExtent: 240,
+              )),
+          SliverToBoxAdapter(
+            child: Padding(
+              padding: const EdgeInsets.only(top: 16.0, left: 16.0),
+              child: Text(
+                'Best deals',
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
               ),
-              const SizedBox(
-                height: 20,
-              ),
-              const Text(
-                'Where do you want to stay?',
-                style: TextStyle(
-                  fontSize: 20,
-                  color: Colors.black,
-                  fontFamily: 'Ubuntu',
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              Row(
-                children: [
-                  Expanded(
-                    child: SizedBox(
-                      child: CustomFormField(
-                        validator: (value) {
-                          if (value!.isEmpty) {
-                            return 'Your search field is empty';
-                          }
-                          return null;
-                        },
-                        hintText: 'Search your hotel',
-                        prefix: const Icon(
-                          Icons.search_rounded,
-                          size: 30,
-                        ),
-                        textInputType: TextInputType.text,
-                        controller: searchController,
-                      ),
-                    ),
-                  ),
-                  const SizedBox(
-                    width: 20,
-                  ),
-                  InkWell(
-                    onTap: () {},
-                    child: Container(
-                      width: 60,
-                      height: 60,
-                      decoration: BoxDecoration(
-                        color: mainColor,
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      child: const Icon(
-                        Icons.tune_outlined,
-                        color: Colors.white,
-                        size: 35,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(
-                height: 30,
-              ),
-              const SectionName(
-                name: 'Popular Hotels',
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              const HorizontalHotelsListView(),
-              const SizedBox(
-                height: 30,
-              ),
-              const SectionName(
-                name: 'More Hotels',
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              const VerticalHotelsListView(),
-            ]),
+            ),
           ),
-        ),
+          SliverList(
+              delegate: SliverChildBuilderDelegate(
+            (context, index) {
+              return Padding(
+                padding: const EdgeInsets.only(
+                    top: 8.0, right: 8.0, left: 8.0, bottom: 8),
+                child: InkWell(
+                  onTap: () {},
+                  child: Card(
+                    elevation: 4,
+                    shadowColor: Colors.white,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    clipBehavior: Clip.antiAliasWithSaveLayer,
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Image(
+                            image: NetworkImage(
+                                'https://images.unsplash.com/photo-1615460549969-36fa19521a4f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MzR8fGhvdGVsfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60'),
+                            width: 100,
+                            height: 110,
+                            fit: BoxFit.fill),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 8.0, top: 8.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const Text(
+                                'Century Park Hotel',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 16,
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 5,
+                              ),
+                              Row(
+                                children: const [
+                                  Icon(
+                                    Icons.place_outlined,
+                                    color: Colors.grey,
+                                  ),
+                                  Text(
+                                    'Sharm Al Sheikh',
+                                    style: TextStyle(
+                                      color: Colors.grey,
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(
+                                height: 5,
+                              ),
+                              Row(
+                                children: const [
+                                  Icon(
+                                    Icons.star,
+                                    color: Color(0xffFFD700),
+                                  ),
+                                  Text(
+                                    '4.7(150+)',
+                                    style: TextStyle(
+                                      color: Colors.grey,
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(
+                                height: 5,
+                              ),
+                              const Text.rich(
+                                TextSpan(
+                                    text: '\$69.99',
+                                    style: TextStyle(
+                                      color: Colors.blueAccent,
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                    children: <InlineSpan>[
+                                      TextSpan(
+                                        text: '/night',
+                                        style: TextStyle(
+                                          color: Colors.grey,
+                                          fontSize: 13,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ]),
+                              ),
+                            ],
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+              );
+            },
+            childCount: 10,
+          ))
+        ],
       ),
     );
   }
