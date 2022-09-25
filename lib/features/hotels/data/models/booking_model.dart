@@ -1,6 +1,7 @@
 import 'package:booking_app/features/auth/data/models/user_model.dart';
-import 'package:booking_app/features/hotels/data/models/hotel_model.dart';
-import 'package:booking_app/features/hotels/domain/entities/booking.dart';
+
+import '../../domain/entities/booking.dart';
+import 'HotelsModel.dart';
 
 class BookingModel extends Booking {
   const BookingModel({
@@ -32,15 +33,15 @@ class BookingModel extends Booking {
     );
   }
 
-  @override
-  Map<String, dynamic> toJson() {
-    return {
-      'id': id,
-      'user_id': userId,
-      'hotel_id': hotelId,
-      'type': type,
-      'user': user!.toJson(),
-      'hotel': hotel!.toJson(),
-    };
-  }
+  // @override
+  // Map<String, dynamic> toJson() {
+  //   return {
+  //     'id': id,
+  //     'user_id': userId,
+  //     'hotel_id': hotelId,
+  //     'type': type,
+  //     'user': user!.toJson(),
+  //     'hotel': hotel!.toJson(),
+  //   };
+  // }
 }

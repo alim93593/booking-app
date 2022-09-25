@@ -57,8 +57,8 @@ class RemoteDatasourceImpl implements RemoteDatasource {
           'password_confirmation': passwordConfirm,
         });
     if (response.statusCode == 200) {
-      final decodedJson = json.decode(response.body);
-      UserModel user = UserModel.fromJson(decodedJson['data']);
+      // final decodedJson = json.decode(response.body);
+      UserModel user = UserModel.fromJson(json.decode(response.body));
 
       return user;
     }

@@ -4,12 +4,13 @@ import 'package:booking_app/core/errors/exceptions.dart';
 import 'package:booking_app/core/network/end_points.dart';
 import 'package:booking_app/features/hotels/data/models/booking_model.dart';
 import 'package:booking_app/features/hotels/data/models/facility_model.dart';
-import 'package:booking_app/features/hotels/data/models/hotel_model.dart';
 import 'package:dartz/dartz.dart';
 import 'package:http/http.dart' as http;
 
+import '../models/HotelsModel.dart';
+
 abstract class HotelsRemoteDatasource {
-  Future<List<HotelModel>> getHotels({required int page, required int count});
+  // Future<HotelsModel> getHotels({required int page, required int count});
 
   Future<List<HotelModel>> searchHotels({
     required String name,
@@ -30,7 +31,7 @@ abstract class HotelsRemoteDatasource {
     required String type,
   });
 
-  Future<List<FacilityModel>> getFacilities();
+  Future<List<HotelFacilities>> getFacilities();
 }
 
 class HotelsRemoteDatasourceImpl implements HotelsRemoteDatasource {
@@ -38,23 +39,38 @@ class HotelsRemoteDatasourceImpl implements HotelsRemoteDatasource {
 
   final http.Client client;
 
-  @override
-  Future<List<HotelModel>> getHotels(
-      {required int page, required int count}) async {
-    final response = await client.get(
-      Uri.parse(
-        '$BASE_URL$VERSION$GET_HOTELS?count=$count&page=$page',
-      ),
-    );
-    if (response.statusCode == 200) {
-      final List decodedJson = json.decode(response.body) as List;
-      final List<HotelModel> hotels =
-          decodedJson.map<HotelModel>((e) => HotelModel.fromJson(e)).toList();
-      return hotels;
-    }
+  // @override
+  // Future<List<HotelModel>> getHotels(
+  //     {required int page, required int count}) async {
+  //   final response = await client.get(
+  //     Uri.parse(
+  //       '$BASE_URL$VERSION$GET_HOTELS?count=$count&page=$page',
+  //     ),
+  //   );
+  //   if (response.statusCode == 200) {
+  //     List<HotelModel> hotelResponse =HotelsModel.fromJson(jsonDecode(response.body)).data.;
+  //     return hotelResponse;
+  //
+  //   }
+  //
+  //   throw ApiException();
+  // }
 
-    throw ApiException();
-  }
+
+
+  // Future<TopRatedResponse> fetchTopRated() async {
+  //   // var params = {'apiKey': apiKey};
+  //   // print("url1" + baseUrl + popularMovies);
+  //   final response = await http.get(Uri.parse(
+  //       'https://api.themoviedb.org/3/movie/top_rated?api_key=7099f13be0ff703863e57b10982f58c3'));
+  //
+  //   var topRatedResponse =
+  //   if (response.statusCode == 200) {
+  //     return topRatedResponse;
+  //   }
+  //
+  //   throw Exception('error loading movies ');
+  // }
 
   @override
   Future<Unit> createBooking(
@@ -116,18 +132,18 @@ class HotelsRemoteDatasourceImpl implements HotelsRemoteDatasource {
   }
 
   @override
-  Future<List<FacilityModel>> getFacilities() async {
-    final response = await client.get(Uri.parse(
-      '$BASE_URL$VERSION$GET_FACILITIES',
-    ));
-
-    if (response.statusCode == 200) {
-      final List decodedJson = json.decode(response.body) as List;
-      final List<FacilityModel> facilities = decodedJson
-          .map<FacilityModel>((e) => FacilityModel.fromJson(e))
-          .toList();
-      return facilities;
-    }
+  Future<List<HotelFacilities>> getFacilities() async {
+    // final response = await client.get(Uri.parse(
+    //   '$BASE_URL$VERSION$GET_FACILITIES',
+    // ));
+    //
+    // if (response.statusCode == 200) {
+    //   final List decodedJson = json.decode(response.body) as List;
+    //   final List<FacilityModel> facilities = decodedJson
+    //       .map<FacilityModel>((e) => FacilityModel.fromJson(e))
+    //       .toList();
+    //   return facilities;
+    // }
 
     throw ApiException();
   }
@@ -135,6 +151,12 @@ class HotelsRemoteDatasourceImpl implements HotelsRemoteDatasource {
   @override
   Future<List<HotelModel>> searchHotels({required String name}) async {
     // TODO: implement searchHotels
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<HotelsModel> getHotels({required int page, required int count}) {
+    // TODO: implement getHotels
     throw UnimplementedError();
   }
 }

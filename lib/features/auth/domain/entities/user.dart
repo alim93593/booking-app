@@ -9,7 +9,7 @@ class User extends Equatable {
     this.token
   });
 
-  final int? id;
+  final num? id;
   final String? name;
   final String? email;
   final String? image;

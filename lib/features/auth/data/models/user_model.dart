@@ -4,11 +4,11 @@ import 'package:booking_app/features/auth/domain/entities/user.dart';
 
 class UserModel extends User {
   const UserModel({
-    required int id,
-    required String name,
-    required String email,
-    required String token,
-    required String image,
+     num? id,
+     String? name,
+     String? email,
+     String? token,
+     String? image,
   }) : super(
           id: id,
           name: name,
@@ -26,14 +26,14 @@ class UserModel extends User {
       token: json['api_token'],
     );
   }
-
-  @override
-  Map<String, dynamic> toJson() {
-    return {
-      'id': id,
-      'name': name,
-      'email': email,
-      'image': image,
-    };
-  }
+  //
+  // @override
+  // Map<String, dynamic> toJson() {
+  //   return {
+  //     'id': id,
+  //     'name': name,
+  //     'email': email,
+  //     'image': image,
+  //   };
+  // }
 }
