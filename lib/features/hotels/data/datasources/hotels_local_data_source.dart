@@ -1,3 +1,5 @@
+// ignore_for_file: unused_import
+
 import 'dart:convert';
 import 'package:booking_app/core/errors/exceptions.dart';
 import 'package:booking_app/core/utils/constants/strings.dart';

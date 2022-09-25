@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors, unused_import
+
 import 'package:booking_app/core/network/network_info.dart';
 import 'package:booking_app/features/auth/data/datasources/local_datasource.dart';
 import 'package:booking_app/features/auth/presentation/screens/user_profile/screens/user_profile_screen/screen/user_profile_screen.dart';
@@ -5,7 +7,7 @@ import 'package:booking_app/features/hotels/data/repositories/hotel_repository_i
 import 'package:booking_app/features/hotels/domain/usecases/get_hotels.dart';
 import 'package:booking_app/features/hotels/presentation/app_cubit/states.dart';
 import 'package:booking_app/features/hotels/presentation/screens/home_screen/home_screen.dart';
-import 'package:booking_app/features/hotels/presentation/screens/home_screen/hotels_screens/bookings_screen.dart';
+import 'package:booking_app/features/hotels/presentation/screens/home_screen/hotels_screens/screen/bookings_screen.dart';
 import 'package:booking_app/features/hotels/presentation/screens/home_screen/settings_screen/settings_screen.dart';
 import 'package:booking_app/features/hotels/presentation/screens/profile_screen/profile_screen.dart';
 import 'package:flutter/foundation.dart';

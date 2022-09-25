@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable, annotate_overrides, file_names
+
 import 'package:booking_app/features/hotels/domain/entities/facility.dart';
 
 import '../../domain/entities/hotel.dart';
