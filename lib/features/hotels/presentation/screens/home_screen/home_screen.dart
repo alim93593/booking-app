@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors_in_immutables, prefer_const_constructors
+// ignore_for_file: prefer_const_constructors_in_immutables, prefer_const_constructors, unused_import
 
 import 'package:booking_app/features/hotels/presentation/app_cubit/cubit.dart';
 import 'package:booking_app/features/hotels/presentation/app_cubit/states.dart';
@@ -13,8 +13,9 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
+    var cubit = AppCubit.get(context);
     return Scaffold(
-      //handling
+
       body: CustomScrollView(
         slivers: [
           SliverPersistentHeader(
@@ -62,8 +63,8 @@ class HomeScreen extends StatelessWidget {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              const Text(
-                                'Century Park Hotel',
+                               Text(
+                                '${cubit.hotels?[index].name}',
                                 style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   fontSize: 16,
@@ -73,13 +74,13 @@ class HomeScreen extends StatelessWidget {
                                 height: 5,
                               ),
                               Row(
-                                children: const [
+                                children:  [
                                   Icon(
                                     Icons.place_outlined,
                                     color: Colors.grey,
                                   ),
                                   Text(
-                                    'Sharm Al Sheikh',
+                                    '${cubit.hotels?[index].address}',
                                     style: TextStyle(
                                       color: Colors.grey,
                                       fontSize: 15,
@@ -92,13 +93,13 @@ class HomeScreen extends StatelessWidget {
                                 height: 5,
                               ),
                               Row(
-                                children: const [
+                                children:  [
                                   Icon(
                                     Icons.star,
                                     color: Color(0xffFFD700),
                                   ),
                                   Text(
-                                    '4.7(150+)',
+                                    '${cubit.hotels?[index].rate}',
                                     style: TextStyle(
                                       color: Colors.grey,
                                       fontSize: 15,
@@ -110,9 +111,9 @@ class HomeScreen extends StatelessWidget {
                               const SizedBox(
                                 height: 5,
                               ),
-                              const Text.rich(
+                               Text.rich(
                                 TextSpan(
-                                    text: '\$69.99',
+                                    text: '\$${cubit.hotels?[index].price}',
                                     style: TextStyle(
                                       color: Colors.blueAccent,
                                       fontSize: 15,
@@ -138,7 +139,7 @@ class HomeScreen extends StatelessWidget {
                 ),
               );
             },
-            childCount: 10,
+            childCount: cubit.hotels?.length,
           ))
         ],
       ),
