@@ -64,8 +64,11 @@ class ImageSlider implements SliverPersistentHeaderDelegate {
                       color: Colors.blue,
                     ),
                     Text(
-                      'where are you going',
-                      style: TextStyle(color: Colors.black38),
+                      'search your hotel',
+                      style: TextStyle(
+                          color: Colors.black38,
+
+                      ),
                     )
                   ],
                 ),
@@ -80,7 +83,7 @@ class ImageSlider implements SliverPersistentHeaderDelegate {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: const [
                     Text(
-                      'best deals',
+                      'Best deals',
                       style: TextStyle(
                           color: Colors.white,
                           fontSize: 24,
@@ -90,11 +93,11 @@ class ImageSlider implements SliverPersistentHeaderDelegate {
                       height: 5,
                     ),
                     Text(
-                      'extraordinary five star',
+                      'Extraordinary five star',
                       style: TextStyle(color: Colors.white, fontSize: 20),
                     ),
                     Text(
-                      'outdoor activities',
+                      'Outdoor activities',
                       style: TextStyle(color: Colors.white, fontSize: 20),
                     ),
                     SizedBox(
