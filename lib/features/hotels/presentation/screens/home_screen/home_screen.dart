@@ -19,6 +19,7 @@ class HomeScreen extends StatelessWidget {
         slivers: [
           SliverPersistentHeader(
               floating: true,
+              pinned: true,
               delegate: ImageSlider(
                 maxExtent: height / 1.6,
                 minExtent: 240,
