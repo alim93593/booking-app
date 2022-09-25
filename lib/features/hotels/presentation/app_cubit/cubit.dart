@@ -68,21 +68,20 @@ class AppCubit extends Cubit<AppStates> {
   GetHotelsUseCase getHotelsUseCase;
   dynamic getHotels() async {
     emit(LoadingState());
-    final result = await  getHotelsUseCase
-        .call( page: 1, count: 5);
-    result.fold(
-            (failure) => emit(FailureState(_mapFailureToMessage(failure))),
-            (result) {
-          hotels = result;
-          if (kDebugMode) {
-            print(hotels);
-          }
-          emit(SuccessState(result));
-        });
+    final result = await getHotelsUseCase.call(page: 1, count: 5);
+    result.fold((failure) => emit(FailureState(_mapFailureToMessage(failure))),
+        (result) {
+      hotels = result;
+      if (kDebugMode) {
+        print(hotels);
+      }
+      emit(SuccessState(result));
+    });
     // if (kDebugMode) {
     //   print(result);
     // }
   }
+
   String _mapFailureToMessage(Failure failure) {
     switch (failure.runtimeType) {
       case OfflineFailure:
@@ -91,5 +90,4 @@ class AppCubit extends Cubit<AppStates> {
         return "Unexpected Error , Please try again later .";
     }
   }
-
 }
