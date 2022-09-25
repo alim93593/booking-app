@@ -1,3 +1,5 @@
+// ignore_for_file: unused_import, must_be_immutable
+
 import 'package:booking_app/features/hotels/domain/entities/facility.dart';
 import 'package:equatable/equatable.dart';
 

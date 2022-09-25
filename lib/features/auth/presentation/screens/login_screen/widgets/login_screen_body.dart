@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:booking_app/core/themes/light.dart';
 import 'package:booking_app/core/utils/constants/constants.dart';
 import 'package:booking_app/core/utils/constants/strings.dart';

@@ -1,4 +1,4 @@
-// ignore_for_file: unnecessary_null_comparison, use_key_in_widget_constructors, prefer_const_constructors_in_immutables, unused_import
+// ignore_for_file: unnecessary_null_comparison, use_key_in_widget_constructors, prefer_const_constructors_in_immutables, unused_import, prefer_const_constructors
 
 import 'package:booking_app/core/themes/light.dart';
 import 'package:booking_app/core/utils/constants/strings.dart';
