@@ -56,7 +56,7 @@ class AppCubit extends Cubit<AppStates> {
   List<Widget> screens = [
     HomeScreen(),
     const BookingsScreen(),
-     UserProfileScreen(),
+    UserProfileScreen(),
     const SettingsScreen(),
   ];
   void changeBottomNavBar(int index) {
