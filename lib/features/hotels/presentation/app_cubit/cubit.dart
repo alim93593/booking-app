@@ -3,13 +3,15 @@
 import 'package:booking_app/core/network/network_info.dart';
 import 'package:booking_app/features/auth/data/datasources/local_datasource.dart';
 import 'package:booking_app/features/auth/presentation/screens/user_profile/screens/user_profile_screen/screen/user_profile_screen.dart';
+import 'package:booking_app/features/hotels/data/datasources/search_hotel_data_source/search_hotel_remote_data_source.dart';
 import 'package:booking_app/features/hotels/data/repositories/hotel_repository_impl.dart';
 import 'package:booking_app/features/hotels/domain/usecases/get_hotels.dart';
+import 'package:booking_app/features/hotels/domain/usecases/search_hotels.dart';
 import 'package:booking_app/features/hotels/presentation/app_cubit/states.dart';
-import 'package:booking_app/features/hotels/presentation/screens/bookings_screens/screen/bookings_screen.dart';
 import 'package:booking_app/features/hotels/presentation/screens/home_screen/home_screen.dart';
+import 'package:booking_app/features/hotels/presentation/screens/home_screen/hotels_screens/screen/bookings_screen.dart';
+import 'package:booking_app/features/hotels/presentation/screens/home_screen/settings_screen/settings_screen.dart';
 import 'package:booking_app/features/hotels/presentation/screens/profile_screen/profile_screen.dart';
-import 'package:booking_app/features/hotels/presentation/screens/settings_screen/settings_screen.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -22,7 +24,7 @@ import '../../domain/entities/hotel.dart';
 import '../../domain/repositories/hotels_repository.dart';
 
 class AppCubit extends Cubit<AppStates> {
-  AppCubit(this.getHotelsUseCase) : super(AppInitialStates());
+  AppCubit(this.getHotelsUseCase,this.searchHotelsUseCase) : super(AppInitialStates());
   static AppCubit get(context) => BlocProvider.of(context);
 
   int currentIndex = 0;
@@ -55,9 +57,9 @@ class AppCubit extends Cubit<AppStates> {
   ];
   List<Widget> screens = [
     HomeScreen(),
-     BookingsScreen(),
-    UserProfileScreen(),
-     SettingsScreen(),
+    const BookingsScreen(),
+     UserProfileScreen(),
+    const SettingsScreen(),
   ];
   void changeBottomNavBar(int index) {
     currentIndex = index;
@@ -68,7 +70,10 @@ class AppCubit extends Cubit<AppStates> {
 
 //  getMethod
   List<Hotel>? hotels;
+  List<Hotel>? searchHotels;
+
   GetHotelsUseCase getHotelsUseCase;
+  SearchHotelsUseCase searchHotelsUseCase;
   dynamic getHotels() async {
     emit(LoadingState());
     final result = await getHotelsUseCase.call(page: 1, count: 10);
@@ -84,6 +89,22 @@ class AppCubit extends Cubit<AppStates> {
     //   print(result);
     // }
   }
+  dynamic getSearch({required String name}) async {
+    emit(SearchLoadingState());
+    final result = await searchHotelsUseCase.call(page: 1, count: 20,name: name);
+    result.fold((failure) => emit(SearchFailureState(_mapFailureToMessage(failure))),
+            (result) {
+              searchHotels = result;
+          if (kDebugMode) {
+            print(hotels);
+          }
+          emit(SearchSuccessState(result));
+        });
+    // if (kDebugMode) {
+    //   print(result);
+    // }
+  }
+
 
   String _mapFailureToMessage(Failure failure) {
     switch (failure.runtimeType) {
