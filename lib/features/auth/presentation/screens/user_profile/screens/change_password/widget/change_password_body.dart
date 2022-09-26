@@ -1,5 +1,6 @@
 // ignore_for_file: avoid_print, must_be_immutable, prefer_const_constructors
 
+import 'package:booking_app/core/themes/mode_cubit/mode_cubit.dart';
 import 'package:booking_app/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:booking_app/features/auth/presentation/screens/user_profile/screens/user_profile_screen/widget/custom_app_bar.dart';
 import 'package:booking_app/features/auth/presentation/screens/user_profile/screens/user_profile_screen/widget/custom_button.dart';
@@ -13,13 +14,15 @@ class ChangePasswordBody extends StatelessWidget {
   TextEditingController confirmController = TextEditingController();
   @override
   Widget build(BuildContext context) {
+    var color = ModeCubit.get(context).isDark == true
+        ? const Color(0xffffffff)
+        : const Color(0xff212525);
     var cubit = AuthCubit.get(context);
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: appbar(
         context: context,
         title: 'Change Password',
-        mycolor: Colors.black,
         myIcon: Icons.arrow_back_ios,
           ontap: (){
             Navigator.pop(context);

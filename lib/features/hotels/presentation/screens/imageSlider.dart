@@ -1,5 +1,6 @@
 // ignore_for_file: file_names, implementation_imports, annotate_overrides
 
+import 'package:booking_app/core/themes/mode_cubit/mode_cubit.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/rendering/sliver_persistent_header.dart';
@@ -21,6 +22,9 @@ class ImageSlider implements SliverPersistentHeaderDelegate {
   @override
   Widget build(
       BuildContext context, double shrinkOffset, bool overlapsContent) {
+    var color = ModeCubit.get(context).isDark == true
+        ? const Color(0xffffffff)
+        : const Color(0xff212525);
     var top = 0.0;
     return Stack(
       children: [
