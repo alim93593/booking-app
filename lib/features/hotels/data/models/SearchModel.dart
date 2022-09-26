@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'package:booking_app/features/hotels/data/models/HotelsModel.dart';
 
 /// status : {"type":"1"}
