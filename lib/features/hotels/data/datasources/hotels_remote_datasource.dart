@@ -1,3 +1,5 @@
+// ignore_for_file: unused_import, override_on_non_overriding_member
+
 import 'dart:convert';
 
 import 'package:booking_app/core/errors/exceptions.dart';

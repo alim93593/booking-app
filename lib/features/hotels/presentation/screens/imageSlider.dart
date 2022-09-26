@@ -1,3 +1,5 @@
+// ignore_for_file: file_names, implementation_imports, annotate_overrides
+
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/rendering/sliver_persistent_header.dart';
@@ -25,6 +27,8 @@ class ImageSlider implements SliverPersistentHeaderDelegate {
               .map((e) => Image(
                     image: NetworkImage(e.toString()),
                     fit: BoxFit.cover,
+                    width: 1000.0,
+                    height: 300,
                   ))
               .toList(),
           options: CarouselOptions(
@@ -35,7 +39,7 @@ class ImageSlider implements SliverPersistentHeaderDelegate {
             initialPage: 0,
             reverse: false,
             scrollDirection: Axis.horizontal,
-            viewportFraction: 1.0,
+            viewportFraction: 1,
             autoPlayInterval: const Duration(seconds: 3),
             enableInfiniteScroll: true,
           ),
@@ -60,8 +64,11 @@ class ImageSlider implements SliverPersistentHeaderDelegate {
                       color: Colors.blue,
                     ),
                     Text(
-                      'where are you going',
-                      style: TextStyle(color: Colors.black38),
+                      'search your hotel',
+                      style: TextStyle(
+                          color: Colors.black38,
+
+                      ),
                     )
                   ],
                 ),
@@ -76,7 +83,7 @@ class ImageSlider implements SliverPersistentHeaderDelegate {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: const [
                     Text(
-                      'best deals',
+                      'Best deals',
                       style: TextStyle(
                           color: Colors.white,
                           fontSize: 24,
@@ -86,11 +93,11 @@ class ImageSlider implements SliverPersistentHeaderDelegate {
                       height: 5,
                     ),
                     Text(
-                      'extraordinary five star',
+                      'Extraordinary five star',
                       style: TextStyle(color: Colors.white, fontSize: 20),
                     ),
                     Text(
-                      'outdoor activities',
+                      'Outdoor activities',
                       style: TextStyle(color: Colors.white, fontSize: 20),
                     ),
                     SizedBox(
