@@ -9,8 +9,6 @@ import 'package:booking_app/features/hotels/domain/usecases/get_hotels.dart';
 import 'package:booking_app/features/hotels/domain/usecases/search_hotels.dart';
 import 'package:booking_app/features/hotels/presentation/app_cubit/states.dart';
 import 'package:booking_app/features/hotels/presentation/screens/home_screen/home_screen.dart';
-import 'package:booking_app/features/hotels/presentation/screens/home_screen/hotels_screens/screen/bookings_screen.dart';
-import 'package:booking_app/features/hotels/presentation/screens/home_screen/settings_screen/settings_screen.dart';
 import 'package:booking_app/features/hotels/presentation/screens/profile_screen/profile_screen.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -22,6 +20,8 @@ import '../../../../core/errors/failures.dart';
 import '../../../../core/utils/constants/strings.dart';
 import '../../domain/entities/hotel.dart';
 import '../../domain/repositories/hotels_repository.dart';
+import '../screens/bookings_screens/screen/bookings_screen.dart';
+import '../screens/settings_screen/settings_screen.dart';
 
 class AppCubit extends Cubit<AppStates> {
   AppCubit(this.getHotelsUseCase,this.searchHotelsUseCase) : super(AppInitialStates());
