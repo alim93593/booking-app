@@ -29,7 +29,6 @@ class HomeScreen extends StatelessWidget {
                   minExtent: 240,
                 )),
             SliverToBoxAdapter(
-
               child: Padding(
                 padding: const EdgeInsets.only(top: 16.0, left: 16.0),
                 child: Text(
@@ -51,7 +50,14 @@ class HomeScreen extends StatelessWidget {
                     onTap: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) =>  HotelDetails()),
+                        MaterialPageRoute(
+                            builder: (context) => HotelDetails(
+                                  address: cubit.hotels?[index].address,
+                                  description: cubit.hotels?[index].description,
+                                  hotelName: cubit.hotels?[index].name,
+                                  price: cubit.hotels?[index].price,
+                                  rate: cubit.hotels?[index].rate,
+                                )),
                       );
                     },
                     child: Card(
@@ -142,7 +148,9 @@ class HomeScreen extends StatelessWidget {
                                         ),
                                       ]),
                                 ),
-                                SizedBox(height: 10,),
+                                SizedBox(
+                                  height: 10,
+                                ),
                               ],
                             ),
                           )
