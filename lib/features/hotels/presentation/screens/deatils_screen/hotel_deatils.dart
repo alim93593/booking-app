@@ -1,3 +1,5 @@
+// ignore_for_file: use_key_in_widget_constructors, prefer_const_declarations, unused_element, empty_catches, prefer_final_fields, prefer_const_constructors_in_immutables, sized_box_for_whitespace
+
 import 'dart:async';
 import 'dart:ui';
 
@@ -147,7 +149,7 @@ class _HotelDetailsState extends State<HotelDetails>
                           recognizer: TapGestureRecognizer()..onTap = () {},
                         ),
                         TextSpan(
-                          text: !isReadless ? 'read more' : '' + 'less',
+                          text: !isReadless ? 'read more' : '' 'less',
                           style: const TextStyle(
                             fontSize: 12,
                             color: Colors.blue,
@@ -310,25 +312,23 @@ class _HotelDetailsState extends State<HotelDetails>
               child: Stack(
                 children: [
                   IgnorePointer(
-                    child: Container(
-                      child: Stack(
-                        alignment: Alignment.bottomCenter,
-                        children: [
-                          Positioned(
-                            top: 0,
-                            right: 0,
-                            left: 0,
-                            bottom: 0,
-                            child: Container(
-                              width: MediaQuery.of(context).size.width,
-                              child: Image.asset(
-                                image,
-                                fit: BoxFit.cover,
-                              ),
+                    child: Stack(
+                      alignment: Alignment.bottomCenter,
+                      children: [
+                        Positioned(
+                          top: 0,
+                          right: 0,
+                          left: 0,
+                          bottom: 0,
+                          child: Container(
+                            width: MediaQuery.of(context).size.width,
+                            child: Image.asset(
+                              image,
+                              fit: BoxFit.cover,
                             ),
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
                   ),
                   Positioned(
@@ -619,7 +619,7 @@ class _HotelDetailsState extends State<HotelDetails>
                   children: [
                     Text(
                       view,
-                      style: TextStyle(fontSize: 12, color: Colors.blue),
+                      style: const TextStyle(fontSize: 12, color: Colors.blue),
                     ),
                     SizedBox(
                       height: 38,
