@@ -4,6 +4,8 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/rendering/sliver_persistent_header.dart';
 
+import 'home_screen/search_screen/search_screen.dart';
+
 class ImageSlider implements SliverPersistentHeaderDelegate {
   final double minExtent;
   final double maxExtent;
@@ -56,7 +58,9 @@ class ImageSlider implements SliverPersistentHeaderDelegate {
             child: Padding(
               padding: const EdgeInsets.all(8.0),
               child: InkWell(
-                onTap: () {},
+                onTap: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=>const SearchScreen()));
+                },
                 child: Row(
                   children: const [
                     Icon(

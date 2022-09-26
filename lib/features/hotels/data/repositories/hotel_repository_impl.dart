@@ -3,19 +3,22 @@
 import 'package:booking_app/core/errors/exceptions.dart';
 import 'package:booking_app/core/errors/failures.dart';
 import 'package:booking_app/core/network/network_info.dart';
-import 'package:booking_app/features/hotels/data/datasources/get_hotel_remote_data_source.dart';
 import 'package:booking_app/features/hotels/data/datasources/hotels_local_data_source.dart';
 import 'package:booking_app/features/hotels/data/datasources/hotels_remote_datasource.dart';
+import 'package:booking_app/features/hotels/data/datasources/search_hotel_data_source/search_hotel_remote_data_source.dart';
 import 'package:booking_app/features/hotels/domain/entities/booking.dart';
 import 'package:booking_app/features/hotels/domain/entities/facility.dart';
 import 'package:booking_app/features/hotels/domain/entities/hotel.dart';
 import 'package:booking_app/features/hotels/domain/repositories/hotels_repository.dart';
+import 'package:booking_app/features/hotels/domain/usecases/search_hotels.dart';
 import 'package:dartz/dartz.dart';
 
+import '../datasources/get_hotel_remote_data_source.dart';
 import '../models/HotelsModel.dart';
 
 class HotelsRepositoryImpl extends HotelsRepository {
   HotelsRepositoryImpl( {
+    required this.searchHotelService,
      required this.getHotelService,
     required this.networkInfo,
     required this.localDatasource,
@@ -26,6 +29,7 @@ class HotelsRepositoryImpl extends HotelsRepository {
   final HotelsLocalDatasource localDatasource;
   final NetworkInfo networkInfo;
   final GetHotelService getHotelService;
+  final SearchHotelService searchHotelService;
   @override
   Future<Either<Failure,List<Hotel>>> getHotels(
       {required int count, required int page}) async {
@@ -119,9 +123,23 @@ class HotelsRepositoryImpl extends HotelsRepository {
   }
 
   @override
-  Future<Either<Failure, List<Hotel>>> searchHotels({required String name}) {
-    // TODO: implement searchHotels
-    throw UnimplementedError();
+  Future<Either<Failure, List<Hotel>>> searchHotels({required String name,required int count, required int page}) async {
+    if (await networkInfo.isConnected) {
+      try {
+        final data = await searchHotelService.getHotels(page: page, count: count,name: name);
+        // await localDatasource.cacheHotels(hotels: data);
+        return Right(data.data!.data!);
+      } on ApiException {
+        return Left(ApiFailure());
+      }
+    } else {
+      try {
+        final data = await localDatasource.getCachedHotels();
+        return Right(data);
+      } on EmptyCacheException {
+        return Left(EmptyCacheFailure());
+      }
+    }
   }
 
 

@@ -12,6 +12,8 @@ abstract class HotelsRepository {
   // TODO: implement searchHotels
   Future<Either<Failure, List<Hotel>>> searchHotels({
     required String name,
+    required int count,
+    required int  page,
   });
 
   Future<Either<Failure, Unit>> createBooking({
