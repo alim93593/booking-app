@@ -2,14 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 final kDarkThemeData = ThemeData(
+  fontFamily: 'Ubuntu',
   scaffoldBackgroundColor: const Color(0xff121212),
   primarySwatch: Colors.blue,
   appBarTheme: const AppBarTheme(
     titleSpacing: 20,
-    backgroundColor: Color(0xff121212),
+    backgroundColor: Colors.black,
     elevation: 0.0,
     systemOverlayStyle: SystemUiOverlayStyle(
-      statusBarColor: Color(0xff121212),
+      statusBarColor: Colors.black,
       statusBarIconBrightness: Brightness.light,
     ),
     iconTheme: IconThemeData(
@@ -22,13 +23,17 @@ final kDarkThemeData = ThemeData(
     ),
     textTheme: TextTheme(
         bodyText1: TextStyle(
-          fontSize: 18,
-          fontWeight: FontWeight.w600,
-          color: Colors.white,
-        )),
+      fontSize: 18,
+      fontWeight: FontWeight.w600,
+      color: Colors.white,
+    )),
   ),
   drawerTheme: const DrawerThemeData(
     backgroundColor: Color(0xff333739),
   ),
   splashColor: Color(0xff333739),
+  tabBarTheme: const TabBarTheme(
+    labelColor: Colors.white,
+    unselectedLabelColor: Color(0xff575757),
+  ),
 );

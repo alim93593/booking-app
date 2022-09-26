@@ -1,4 +1,5 @@
 import 'dart:convert';
+
 import 'package:booking_app/core/errors/exceptions.dart';
 import 'package:booking_app/core/network/end_points.dart';
 import 'package:booking_app/features/auth/data/models/user_model.dart';

@@ -1,13 +1,14 @@
 // ignore_for_file: prefer_const_constructors_in_immutables, prefer_const_constructors, unused_import
 
+import 'package:booking_app/core/themes/mode_cubit/mode_cubit.dart';
 import 'package:booking_app/features/hotels/presentation/app_cubit/cubit.dart';
 import 'package:booking_app/features/hotels/presentation/app_cubit/states.dart';
 import 'package:booking_app/features/hotels/presentation/screens/deatils_screen/hotel_deatils.dart';
 import 'package:booking_app/features/hotels/presentation/screens/imageSlider.dart';
+import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -16,6 +17,17 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
     var cubit = AppCubit.get(context);
+    return BlocConsumer<AppCubit, AppStates>(
+  listener: (context, state) {
+    // TODO: implement listener
+  },
+  builder: (context, state) {
+    var color = ModeCubit.get(context).isDark == true
+        ? const Color(0xffffffff)
+        : const Color(0xff212525);
+    var cardColor = ModeCubit.get(context).isDark == true
+        ?  const Color(0xff212525)
+        : const Color(0xffffffff);
     return Scaffold(
       body: ConditionalBuilder(
         condition: cubit.hotels != null,
@@ -36,12 +48,14 @@ class HomeScreen extends StatelessWidget {
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 20,
+                    color: color,
                   ),
                 ),
               ),
             ),
             SliverList(
                 delegate: SliverChildBuilderDelegate(
+
               (context, index) {
                 return Padding(
                   padding: const EdgeInsets.only(
@@ -61,8 +75,9 @@ class HomeScreen extends StatelessWidget {
                       );
                     },
                     child: Card(
-                      elevation: 4,
-                      shadowColor: Colors.white,
+                       color: cardColor,
+                      elevation: 3,
+                      shadowColor: color,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20),
                       ),
@@ -86,6 +101,7 @@ class HomeScreen extends StatelessWidget {
                                   style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                     fontSize: 16,
+                                    color: color,
                                   ),
                                 ),
                                 const SizedBox(
@@ -169,5 +185,7 @@ class HomeScreen extends StatelessWidget {
         ),
       ),
     );
+  },
+);
   }
 }

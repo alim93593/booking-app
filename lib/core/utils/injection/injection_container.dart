@@ -17,13 +17,13 @@ import 'package:booking_app/features/hotels/data/repositories/hotel_repository_i
 import 'package:booking_app/features/hotels/domain/repositories/hotels_repository.dart';
 import 'package:booking_app/features/hotels/domain/usecases/get_hotels.dart';
 import 'package:booking_app/features/hotels/presentation/app_cubit/cubit.dart';
+import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:http/http.dart' as http;
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../features/hotels/data/datasources/get_hotel_remote_data_source.dart';
-import 'package:dio/dio.dart';
 
 final sl = GetIt.instance;
 

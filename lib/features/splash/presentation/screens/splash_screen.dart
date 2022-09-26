@@ -1,4 +1,5 @@
 import 'dart:async';
+
 import 'package:booking_app/features/on_boarding/presentation/screens/on_boarding.dart';
 import 'package:booking_app/features/splash/presentation/widgets/splash_body.dart';
 import 'package:flutter/material.dart';
