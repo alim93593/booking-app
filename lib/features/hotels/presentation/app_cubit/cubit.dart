@@ -6,10 +6,10 @@ import 'package:booking_app/features/auth/presentation/screens/user_profile/scre
 import 'package:booking_app/features/hotels/data/repositories/hotel_repository_impl.dart';
 import 'package:booking_app/features/hotels/domain/usecases/get_hotels.dart';
 import 'package:booking_app/features/hotels/presentation/app_cubit/states.dart';
+import 'package:booking_app/features/hotels/presentation/screens/bookings_screens/screen/bookings_screen.dart';
 import 'package:booking_app/features/hotels/presentation/screens/home_screen/home_screen.dart';
-import 'package:booking_app/features/hotels/presentation/screens/home_screen/hotels_screens/screen/bookings_screen.dart';
-import 'package:booking_app/features/hotels/presentation/screens/home_screen/settings_screen/settings_screen.dart';
 import 'package:booking_app/features/hotels/presentation/screens/profile_screen/profile_screen.dart';
+import 'package:booking_app/features/hotels/presentation/screens/settings_screen/settings_screen.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -55,9 +55,9 @@ class AppCubit extends Cubit<AppStates> {
   ];
   List<Widget> screens = [
     HomeScreen(),
-    const BookingsScreen(),
+     BookingsScreen(),
     UserProfileScreen(),
-    const SettingsScreen(),
+     SettingsScreen(),
   ];
   void changeBottomNavBar(int index) {
     currentIndex = index;

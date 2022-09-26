@@ -7,6 +7,7 @@ import 'package:booking_app/core/widget/main_button.dart';
 import 'package:booking_app/core/widget/no_account.dart';
 import 'package:booking_app/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:booking_app/features/auth/presentation/cubit/auth_states.dart';
+import 'package:booking_app/features/hotels/presentation/screens/home_layout/home_layout.dart';
 import 'package:booking_app/features/hotels/presentation/screens/home_screen/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -26,7 +27,7 @@ class RegisterScreenBody extends StatelessWidget {
       listener: (context, state) {
         if (state is RegisterSuccessState) {
           showSnackBar(context, 'User registered successfully');
-          navigateTo(context: context, route:  HomeScreen());
+          navigateTo(context: context, route:  HomeLayout());
         }
         if (state is RegisterErrorState) {
           showSnackBar(context, state.error);

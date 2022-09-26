@@ -32,5 +32,9 @@ final kLightThemeData = ThemeData(
   drawerTheme:  const DrawerThemeData(
     backgroundColor: Color(0xfff5f5f5),
   ),
+  tabBarTheme: const TabBarTheme(
+    labelColor: Colors.black,
+    unselectedLabelColor: Color(0xff575757),
 
+  ),
 );

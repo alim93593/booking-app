@@ -1,3 +1,4 @@
+import 'package:booking_app/core/themes/mode_cubit/mode_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -8,17 +9,21 @@ class VerticalHotelsListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: double.infinity,
-      height: 260,
-      child: ListView.separated(
+    var cardColor = ModeCubit.get(context).isDark == true
+        ? Colors.black
+        : const Color(0xffffffff);
+    var color = ModeCubit.get(context).isDark == true
+        ? const Color(0xffffffff)
+        : const Color(0xff212525);
+    return ListView.separated(
           scrollDirection: Axis.vertical,
           itemBuilder: (context, index) {
             return Container(
               height: 130,
               clipBehavior: Clip.hardEdge,
+
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: cardColor,
                 borderRadius: BorderRadius.circular(15),
                 boxShadow: [
                   BoxShadow(
@@ -53,11 +58,12 @@ class VerticalHotelsListView extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Text(
+                         Text(
                           'Century Park Hotel',
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 16,
+                            color: color,
                           ),
                         ),
                         const SizedBox(
@@ -75,6 +81,7 @@ class VerticalHotelsListView extends StatelessWidget {
                                 color: Colors.grey,
                                 fontSize: 15,
                                 fontWeight: FontWeight.bold,
+
                               ),
                             ),
                           ],
@@ -134,13 +141,15 @@ class VerticalHotelsListView extends StatelessWidget {
                         size: 20,
                       )),
                 ),
-              ]),
+              ]
+              ),
             );
+
           },
           separatorBuilder: (context, index) => const SizedBox(
             height: 20,
           ),
-          itemCount: 10),
-    );
+          itemCount: 10);
+
   }
 }
