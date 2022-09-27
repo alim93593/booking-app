@@ -48,7 +48,7 @@ class SearchScreen extends StatelessWidget {
                          style: TextStyle(
                            color: color
                          ),
-                        prefix: const Icon(Icons.search),
+                        prefix:  Icon(Icons.search, color: color,),
                         textInputType: TextInputType.text,
                         validator: (String? value) {
                           if (value!.isEmpty) {

@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:booking_app/core/themes/light.dart';
+import 'package:booking_app/core/themes/mode_cubit/mode_cubit.dart';
 import 'package:booking_app/core/utils/constants/constants.dart';
 import 'package:booking_app/core/widget/custom_text_form_field.dart';
 import 'package:booking_app/core/widget/main_button.dart';
@@ -48,6 +49,9 @@ class RegisterScreenBody extends StatelessWidget {
         }
       },
       builder: (context, state) {
+        var color = ModeCubit.get(context).isDark == true
+            ? const Color(0xffffffff)
+            : Colors.black;
         var cubit = AuthCubit.get(context);
         return SingleChildScrollView(
           child: Padding(
@@ -99,8 +103,8 @@ class RegisterScreenBody extends StatelessWidget {
                         color: Colors.grey,
                         fontFamily: 'Ubuntu',
                       ),
-                      style: const TextStyle(
-                        color: Colors.black,
+                      style:  TextStyle(
+                        color:color,
                         fontFamily: 'Ubuntu',
                       ),
                     ),
@@ -118,12 +122,12 @@ class RegisterScreenBody extends StatelessWidget {
                       textInputType: TextInputType.emailAddress,
                       prefix: const Icon(Icons.email_outlined),
                       hintText: 'Email Address',
-                      hintStyle: const TextStyle(
-                        color: Colors.grey,
+                      hintStyle:  TextStyle(
+                        color:color,
                         fontFamily: 'Ubuntu',
                       ),
-                      style: const TextStyle(
-                        color: Colors.black,
+                      style:  TextStyle(
+                        color:color,
                         fontFamily: 'Ubuntu',
                       ),
                     ),
@@ -147,8 +151,8 @@ class RegisterScreenBody extends StatelessWidget {
                         color: Colors.grey,
                         fontFamily: 'Ubuntu',
                       ),
-                      style: const TextStyle(
-                        color: Colors.black,
+                      style:  TextStyle(
+                        color:color,
                         fontFamily: 'Ubuntu',
                       ),
                       suffix: cubit.suffix,
@@ -171,10 +175,12 @@ class RegisterScreenBody extends StatelessWidget {
                         return null;
                       },
                       textInputType: TextInputType.visiblePassword,
-                      prefix: const Icon(Icons.lock_outline),
+                      prefix:  Icon(Icons.lock_outline,
+                      color: color,
+                      ),
                       hintText: 'Confirm Password',
-                      hintStyle: const TextStyle(
-                        color: Colors.grey,
+                      hintStyle:  TextStyle(
+                        color:color,
                         fontFamily: 'Ubuntu',
                       ),
                       style: const TextStyle(

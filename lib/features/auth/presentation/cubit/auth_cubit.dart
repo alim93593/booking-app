@@ -78,26 +78,37 @@ class AuthCubit extends Cubit<AuthStates> {
   //     emit(RegisterSuccessState());
   //   });
   // }
-  void userRegister({required String email, required String password, required String password_confirmation,required String name,}) {
+  void userRegister({
+    required String email,
+    required String password,
+    required String password_confirmation,
+    required String name,
+  }) {
     emit(RegisterLoadingState());
     DioHelper.postData(
-      url:  REGISTER,
-      data: { 'name': name,'email': email, 'password': password, 'password_confirmation': password_confirmation,},
+      url: REGISTER,
+      data: {
+        'name': name,
+        'email': email,
+        'password': password,
+        'password_confirmation': password_confirmation,
+      },
     ).then((value) {
       if (kDebugMode) {
         print(value!.data);
       }
       _userModel = UserModel.fromJson(value!.data);
-      emit(RegisterSuccessState( userModel: _userModel!));
+      emit(RegisterSuccessState(userModel: _userModel!));
     }).catchError((error) {
-      emit(const RegisterErrorState(error:'there is an error'));
+      emit(const RegisterErrorState(error: 'there is an error'));
     });
   }
+
   void login({required String email, required String password}) {
     emit(LoginLoadingState());
     DioHelper.postData(
-      url:  LOGIN,
-      data: { 'email': email, 'password': password},
+      url: LOGIN,
+      data: {'email': email, 'password': password},
     ).then((value) {
       if (kDebugMode) {
         print(value!.data);
@@ -105,9 +116,10 @@ class AuthCubit extends Cubit<AuthStates> {
       _userModel = UserModel.fromJson(value!.data);
       emit(LoginSuccessState(_userModel!.data!.apiToken!));
     }).catchError((error) {
-      emit(const LoginErrorState(error:'there is an error'));
+      emit(const LoginErrorState(error: 'there is an error'));
     });
   }
+
   Future<void> getProfileInfo({required String token}) async {
     emit(GetProfileLoadingState());
     final failureOrData = await getProfileInfoUseCase(token: token);
