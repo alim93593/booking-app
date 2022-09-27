@@ -7,10 +7,13 @@ import 'package:booking_app/core/widget/main_button.dart';
 import 'package:booking_app/core/widget/no_account.dart';
 import 'package:booking_app/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:booking_app/features/auth/presentation/cubit/auth_states.dart';
+import 'package:booking_app/features/auth/presentation/screens/login_screen/login_screen.dart';
 import 'package:booking_app/features/hotels/presentation/screens/home_layout/home_layout.dart';
 import 'package:booking_app/features/hotels/presentation/screens/home_screen/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../../../../../core/utils/local/cache_helper.dart';
 
 class RegisterScreenBody extends StatelessWidget {
   RegisterScreenBody({Key? key}) : super(key: key);
@@ -20,14 +23,25 @@ class RegisterScreenBody extends StatelessWidget {
   final TextEditingController passwordConfirmationController =
       TextEditingController();
   final formKey = GlobalKey<FormState>();
-
+  String? token;
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<AuthCubit, AuthStates>(
       listener: (context, state) {
         if (state is RegisterSuccessState) {
-          showSnackBar(context, 'User registered successfully');
-          navigateTo(context: context, route:  HomeLayout());
+          if (state.userModel!.status!.type !='0') {
+            showSnackBar(context, 'User registered successfully');
+            print(state.userModel!.data!.apiToken);
+            // print(state.login.message);
+            CacheHelper.saveData(key: 'token', value: state.userModel!.data!.apiToken)
+                .then((value) {
+              token = state.userModel!.data!.apiToken;
+            });
+            print(state.userModel!.status!.title);
+            showSnackBar(context, 'User registered successfully');
+            navigateTo(context: context, route:  LoginScreen());
+          }
+
         }
         if (state is RegisterErrorState) {
           showSnackBar(context, state.error);
@@ -186,11 +200,11 @@ class RegisterScreenBody extends StatelessWidget {
                       myColor: mainColor,
                       onTabbed: () {
                         if (formKey.currentState!.validate()) {
-                          cubit.registerUser(
+                          cubit.userRegister(
                               name: nameController.text,
                               email: emailAddressController.text,
                               password: passwordController.text,
-                              passwordConfirm:
+                              password_confirmation:
                                   passwordConfirmationController.text);
                         }
                       },

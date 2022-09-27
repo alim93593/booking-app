@@ -1,5 +1,6 @@
 import 'package:booking_app/features/auth/data/models/user_model.dart';
 
+import '../../../auth/data/models/UserModel.dart';
 import '../../domain/entities/booking.dart';
 import 'HotelsModel.dart';
 
@@ -16,7 +17,7 @@ class BookingModel extends Booking {
           userId: userId,
           hotelId: hotelId,
           type: type,
-          user: user,
+          // user: user,
           hotel: hotel,
         );
 
