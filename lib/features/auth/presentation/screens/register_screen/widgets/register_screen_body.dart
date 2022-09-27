@@ -1,17 +1,19 @@
-// ignore_for_file: prefer_const_constructors, unused_import
+// ignore_for_file: prefer_const_constructors
 
 import 'package:booking_app/core/themes/light.dart';
-import 'package:booking_app/core/themes/mode_cubit/mode_cubit.dart';
 import 'package:booking_app/core/utils/constants/constants.dart';
 import 'package:booking_app/core/widget/custom_text_form_field.dart';
 import 'package:booking_app/core/widget/main_button.dart';
 import 'package:booking_app/core/widget/no_account.dart';
 import 'package:booking_app/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:booking_app/features/auth/presentation/cubit/auth_states.dart';
+import 'package:booking_app/features/auth/presentation/screens/login_screen/login_screen.dart';
 import 'package:booking_app/features/hotels/presentation/screens/home_layout/home_layout.dart';
 import 'package:booking_app/features/hotels/presentation/screens/home_screen/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../../../../../core/utils/local/cache_helper.dart';
 
 class RegisterScreenBody extends StatelessWidget {
   RegisterScreenBody({Key? key}) : super(key: key);
@@ -21,23 +23,31 @@ class RegisterScreenBody extends StatelessWidget {
   final TextEditingController passwordConfirmationController =
       TextEditingController();
   final formKey = GlobalKey<FormState>();
-
+  String? token;
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<AuthCubit, AuthStates>(
       listener: (context, state) {
         if (state is RegisterSuccessState) {
-          showSnackBar(context, 'User registered successfully');
-          navigateTo(context: context, route: HomeLayout());
+          if (state.userModel!.status!.type !='0') {
+            showSnackBar(context, 'User registered successfully');
+            print(state.userModel!.data!.apiToken);
+            // print(state.login.message);
+            CacheHelper.saveData(key: 'token', value: state.userModel!.data!.apiToken)
+                .then((value) {
+              token = state.userModel!.data!.apiToken;
+            });
+            print(state.userModel!.status!.title);
+            showSnackBar(context, 'User registered successfully');
+            navigateTo(context: context, route:  LoginScreen());
+          }
+
         }
         if (state is RegisterErrorState) {
           showSnackBar(context, state.error);
         }
       },
       builder: (context, state) {
-        var color = ModeCubit.get(context).isDark == true
-            ? const Color(0xffffffff)
-            : const Color(0xff212525);
         var cubit = AuthCubit.get(context);
         return SingleChildScrollView(
           child: Padding(
@@ -57,7 +67,7 @@ class RegisterScreenBody extends StatelessWidget {
                     Text(
                       'REGISTER',
                       style: Theme.of(context).textTheme.headline4!.copyWith(
-                            color: color,
+                            color: Colors.black,
                             fontFamily: 'Ubuntu',
                           ),
                     ),
@@ -83,14 +93,14 @@ class RegisterScreenBody extends StatelessWidget {
                         return null;
                       },
                       textInputType: TextInputType.emailAddress,
-                      prefix: const Icon(Icons.perm_identity_outlined),
+                      prefix: const Icon(Icons.email_outlined),
                       hintText: 'Name',
                       hintStyle: const TextStyle(
                         color: Colors.grey,
                         fontFamily: 'Ubuntu',
                       ),
-                      style: TextStyle(
-                        color: color,
+                      style: const TextStyle(
+                        color: Colors.black,
                         fontFamily: 'Ubuntu',
                       ),
                     ),
@@ -112,8 +122,8 @@ class RegisterScreenBody extends StatelessWidget {
                         color: Colors.grey,
                         fontFamily: 'Ubuntu',
                       ),
-                      style: TextStyle(
-                        color: color,
+                      style: const TextStyle(
+                        color: Colors.black,
                         fontFamily: 'Ubuntu',
                       ),
                     ),
@@ -137,8 +147,8 @@ class RegisterScreenBody extends StatelessWidget {
                         color: Colors.grey,
                         fontFamily: 'Ubuntu',
                       ),
-                      style: TextStyle(
-                        color: color,
+                      style: const TextStyle(
+                        color: Colors.black,
                         fontFamily: 'Ubuntu',
                       ),
                       suffix: cubit.suffix,
@@ -167,8 +177,8 @@ class RegisterScreenBody extends StatelessWidget {
                         color: Colors.grey,
                         fontFamily: 'Ubuntu',
                       ),
-                      style: TextStyle(
-                        color: color,
+                      style: const TextStyle(
+                        color: Colors.black,
                         fontFamily: 'Ubuntu',
                       ),
                       suffix: cubit.suffix,
@@ -190,11 +200,11 @@ class RegisterScreenBody extends StatelessWidget {
                       myColor: mainColor,
                       onTabbed: () {
                         if (formKey.currentState!.validate()) {
-                          cubit.registerUser(
+                          cubit.userRegister(
                               name: nameController.text,
                               email: emailAddressController.text,
                               password: passwordController.text,
-                              passwordConfirm:
+                              password_confirmation:
                                   passwordConfirmationController.text);
                         }
                       },

@@ -17,10 +17,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'core/themes/dark.dart';
+import 'core/utils/dio_helper.dart';
 import 'core/utils/injection/injection_container.dart' as di;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await DioHelper.init();
   await di.init();
   await CacheHelper.init();
   Widget widget;

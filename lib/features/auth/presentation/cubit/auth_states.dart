@@ -1,5 +1,9 @@
 import 'package:equatable/equatable.dart';
 
+import '../../data/models/UserModel.dart';
+import '../../data/models/user_model.dart';
+import '../../domain/entities/user.dart';
+
 abstract class AuthStates extends Equatable {
   const AuthStates();
 
@@ -28,7 +32,10 @@ class LoginErrorState extends AuthStates {
 
 class RegisterLoadingState extends AuthStates {}
 
-class RegisterSuccessState extends AuthStates {}
+class RegisterSuccessState extends AuthStates {
+  const RegisterSuccessState({required this.userModel});
+  final UserModel? userModel;
+}
 
 class RegisterErrorState extends AuthStates {
   const RegisterErrorState({required this.error});
