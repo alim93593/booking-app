@@ -45,6 +45,9 @@ class SearchScreen extends StatelessWidget {
                           AppCubit.get(context).getSearch(name: name);
                         },
                         hintText: 'Search',
+                         style: TextStyle(
+                           color: color
+                         ),
                         prefix: const Icon(Icons.search),
                         textInputType: TextInputType.text,
                         validator: (String? value) {
