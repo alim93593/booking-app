@@ -70,94 +70,96 @@ class _BoardingBodyState extends State<BoardingBody> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(
-        16.0,
-      ),
-      child: Column(
-        children: [
-          SizedBox(
-            height: 500.0,
-            child: PageView.builder(
-              controller: boardingController,
-              onPageChanged: (int index) {
-                if (index == boarding.length - 1) {
-                  setState(() {
-                    isLast = true;
-                  });
-                } else {
-                  setState(() {
-                    isLast = false;
-                  });
-                }
-              },
-              physics: const BouncingScrollPhysics(),
-              itemBuilder: (context, index) =>
-                  BuildBoardingItem(model: boarding[index]),
-              itemCount: 3,
-            ),
-          ),
-          const SizedBox(
-            height: 32.0,
-          ),
-          CustomPageIndicator(
-            controller: boardingController,
-          ),
-          const SizedBox(
-            height: 32.0,
-          ),
-          MainButton(
-            width: 300.0,
-            height: 50.0,
-            onTabbed: () {
-              onSubmit();
-              navigateTo(context: context, route: const LoginScreen());
-            },
-            myStyle: const Text(
-              'Login',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 16.0,
-                fontWeight: FontWeight.w600,
+    return SingleChildScrollView(
+      child: Padding(
+        padding: const EdgeInsets.all(
+          16.0,
+        ),
+        child: Column(
+          children: [
+            SizedBox(
+              height: 500.0,
+              child: PageView.builder(
+                controller: boardingController,
+                onPageChanged: (int index) {
+                  if (index == boarding.length - 1) {
+                    setState(() {
+                      isLast = true;
+                    });
+                  } else {
+                    setState(() {
+                      isLast = false;
+                    });
+                  }
+                },
+                physics: const BouncingScrollPhysics(),
+                itemBuilder: (context, index) =>
+                    BuildBoardingItem(model: boarding[index]),
+                itemCount: 3,
               ),
             ),
-            myColor: mainColor,
-          ),
-          const SizedBox(
-            height: 16.0,
-          ),
-          Container(
-            decoration: BoxDecoration(
-              boxShadow: [
-                BoxShadow(
-                  blurRadius: 25.0,
-                  color: Colors.grey.withOpacity(0.4),
-                ),
-              ],
+            const SizedBox(
+              height: 32.0,
             ),
-            child: MainButton(
+            CustomPageIndicator(
+              controller: boardingController,
+            ),
+            const SizedBox(
+              height: 32.0,
+            ),
+            MainButton(
               width: 300.0,
               height: 50.0,
               onTabbed: () {
-                navigateTo(
-                  context: context,
-                  route: const RegisterScreen(),
-                );
+                onSubmit();
+                navigateTo(context: context, route: const LoginScreen());
               },
               myStyle: const Text(
-                'Create an account',
+                'Login',
                 style: TextStyle(
-                  color: Colors.black,
+                  color: Colors.white,
                   fontSize: 16.0,
                   fontWeight: FontWeight.w600,
                 ),
               ),
-              myColor: Colors.white.withOpacity(
-                0.8,
+              myColor: mainColor,
+            ),
+            const SizedBox(
+              height: 16.0,
+            ),
+            Container(
+              decoration: BoxDecoration(
+                boxShadow: [
+                  BoxShadow(
+                    blurRadius: 25.0,
+                    color: Colors.grey.withOpacity(0.4),
+                  ),
+                ],
+              ),
+              child: MainButton(
+                width: 300.0,
+                height: 50.0,
+                onTabbed: () {
+                  navigateTo(
+                    context: context,
+                    route: const RegisterScreen(),
+                  );
+                },
+                myStyle: const Text(
+                  'Create an account',
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 16.0,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                myColor: Colors.white.withOpacity(
+                  0.8,
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

@@ -1,3 +1,4 @@
+import 'package:booking_app/core/themes/mode_cubit/mode_cubit.dart';
 import 'package:flutter/material.dart';
 
 class CustomFormField extends StatelessWidget {
@@ -39,6 +40,12 @@ class CustomFormField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var color = ModeCubit.get(context).isDark == true
+        ? const Color(0xffffffff)
+        : const Color(0xff212525);
+    var cardColor = ModeCubit.get(context).isDark == true
+        ?  const Color(0xff212525)
+        : const Color(0xffffffff);
     return Container(
       decoration: BoxDecoration(
         boxShadow: [
@@ -61,7 +68,7 @@ class CustomFormField extends StatelessWidget {
         validator: validator,
         decoration: InputDecoration(
           filled: true,
-          fillColor: Colors.white,
+          fillColor: cardColor,
           prefixIcon: prefix,
           hintText: '$hintText',
           hintStyle: hintStyle,

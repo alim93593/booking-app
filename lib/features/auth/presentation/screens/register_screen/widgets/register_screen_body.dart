@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, unused_import
 
 import 'package:booking_app/core/themes/light.dart';
+import 'package:booking_app/core/themes/mode_cubit/mode_cubit.dart';
 import 'package:booking_app/core/utils/constants/constants.dart';
 import 'package:booking_app/core/widget/custom_text_form_field.dart';
 import 'package:booking_app/core/widget/main_button.dart';
@@ -34,6 +35,9 @@ class RegisterScreenBody extends StatelessWidget {
         }
       },
       builder: (context, state) {
+        var color = ModeCubit.get(context).isDark == true
+            ? const Color(0xffffffff)
+            : const Color(0xff212525);
         var cubit = AuthCubit.get(context);
         return SingleChildScrollView(
           child: Padding(
@@ -53,7 +57,7 @@ class RegisterScreenBody extends StatelessWidget {
                     Text(
                       'REGISTER',
                       style: Theme.of(context).textTheme.headline4!.copyWith(
-                            color: Colors.black,
+                            color: color,
                             fontFamily: 'Ubuntu',
                           ),
                     ),
@@ -79,7 +83,7 @@ class RegisterScreenBody extends StatelessWidget {
                         return null;
                       },
                       textInputType: TextInputType.emailAddress,
-                      prefix: const Icon(Icons.email_outlined),
+                      prefix: const Icon(Icons.perm_identity_outlined),
                       hintText: 'Name',
                       hintStyle: const TextStyle(
                         color: Colors.grey,
