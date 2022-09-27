@@ -133,13 +133,25 @@ class VerticalHotelsListView extends StatelessWidget {
                   ),
                   Align(
                     alignment: AlignmentDirectional.topEnd,
-                    child: IconButton(
-                        onPressed: () {},
-                        icon: const Icon(
-                          FontAwesomeIcons.bookmark,
-                          color: Colors.grey,
-                          size: 20,
-                        )),
+                    child: Column(
+                      children: [
+                        IconButton(
+                            onPressed: () {},
+                            icon: const Icon(
+                              FontAwesomeIcons.bookmark,
+                              color: Colors.grey,
+                              size: 20,
+                            )),
+                        SizedBox(height: 30,),
+                        IconButton(
+                            onPressed: () {},
+                            icon: const Icon(
+                              FontAwesomeIcons.trashCan,
+                              color: Colors.grey,
+                              size: 20,
+                            )),
+                      ],
+                    ),
                   ),
                 ]
                 ),
@@ -149,7 +161,7 @@ class VerticalHotelsListView extends StatelessWidget {
             separatorBuilder: (context, index) => const SizedBox(
               height: 20,
             ),
-            itemCount: 10),
+            itemCount: 10,
     );
 
   }

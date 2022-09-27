@@ -21,7 +21,7 @@ class BookingBody extends StatelessWidget {
         ? const Color(0xffffffff)
         : const Color(0xff212525);
     return DefaultTabController(
-      length: 2,
+      length:3,
       child: Scaffold(
         // centerTitle: false,
         appBar: AppBar(

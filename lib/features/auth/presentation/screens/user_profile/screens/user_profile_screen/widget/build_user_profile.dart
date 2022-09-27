@@ -164,10 +164,10 @@ class BuildUserProfile extends StatelessWidget {
           ),
 
           ProfileItem(
-            itemName: 'Payment',
+            itemName: 'Log Out',
             color: color,
             icon: Icon(
-              FontAwesomeIcons.wallet,
+              FontAwesomeIcons.arrowRightFromBracket,
               color:
               ModeCubit.get(context).isDark ? Colors.white : Colors.black,
             ),

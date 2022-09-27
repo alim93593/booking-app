@@ -37,4 +37,11 @@ final kLightThemeData = ThemeData(
     unselectedLabelColor: Color(0xff575757),
 
   ),
+  bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+    type: BottomNavigationBarType.fixed,
+    selectedItemColor: Colors.blueAccent,
+    elevation: 50.0,
+    unselectedItemColor: Colors.grey,
+    backgroundColor: Colors.white,
+  ),
 );
