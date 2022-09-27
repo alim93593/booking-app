@@ -2,6 +2,9 @@
 
 import 'package:booking_app/core/themes/mode_cubit/mode_cubit.dart';
 import 'package:booking_app/features/auth/presentation/screens/user_profile/screens/user_profile_screen/widget/custom_app_bar.dart';
+import 'package:booking_app/features/hotels/presentation/screens/bookings_screens/widget/canceled_bookings.dart';
+import 'package:booking_app/features/hotels/presentation/screens/bookings_screens/widget/completed_bookings.dart';
+import 'package:booking_app/features/hotels/presentation/screens/bookings_screens/widget/upcoming_bookings.dart';
 import 'package:booking_app/features/hotels/presentation/screens/home_screen/widgets/vertical_hotels_list_view.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -26,7 +29,7 @@ class BookingBody extends StatelessWidget {
             color:color,
           ),
           title: Text(
-            'My trips',
+            'Bookings',
             style: TextStyle(
               fontFamily: 'Ubuntu',
               fontSize: 20,
@@ -42,10 +45,13 @@ class BookingBody extends StatelessWidget {
             child: const TabBar(
               tabs: <Widget>[
                 Tab(
-                  text: 'Bookings',
+                  text: 'Completed',
                 ),
                 Tab(
-                  text: 'Favourites',
+                  text: 'Canceled',
+                ),
+                Tab(
+                  text: 'Upcoming',
                 ),
               ],
             ),
@@ -55,10 +61,13 @@ class BookingBody extends StatelessWidget {
               children: [
                 Padding(
                     padding: EdgeInsets.all(10),
-                    child: VerticalHotelsListView()),
+                    child: CompletedBookings()),
                 Padding(
                     padding: EdgeInsets.all(10),
-                    child: VerticalHotelsListView()),
+                    child: CanceledBookings()),
+                Padding(
+                    padding: EdgeInsets.all(10),
+                    child: UpComingBookings()),
               ],
             ),
           ),
