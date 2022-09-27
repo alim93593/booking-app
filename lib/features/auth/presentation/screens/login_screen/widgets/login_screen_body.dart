@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:booking_app/core/themes/light.dart';
+import 'package:booking_app/core/themes/mode_cubit/mode_cubit.dart';
 import 'package:booking_app/core/utils/constants/constants.dart';
 import 'package:booking_app/core/utils/constants/strings.dart';
 import 'package:booking_app/core/utils/local/cache_helper.dart';
@@ -42,6 +43,12 @@ class LoginScreenBody extends StatelessWidget {
         }
       },
       builder: (context, state) {
+        var color = ModeCubit.get(context).isDark == true
+            ? const Color(0xffffffff)
+            : Colors.black;
+        var cardColor = ModeCubit.get(context).isDark == true
+            ?  const Color(0xff212525)
+            : const Color(0xffffffff);
         var cubit = AuthCubit.get(context);
         return Center(
           child: SingleChildScrollView(
@@ -62,7 +69,7 @@ class LoginScreenBody extends StatelessWidget {
                       Text(
                         'LOGIN',
                         style: Theme.of(context).textTheme.headline4!.copyWith(
-                              color: Colors.black,
+                              color: color,
                               fontFamily: 'Ubuntu',
                             ),
                       ),
@@ -74,7 +81,8 @@ class LoginScreenBody extends StatelessWidget {
                         style: Theme.of(context).textTheme.bodyText1?.copyWith(
                               color: Colors.grey,
                               fontFamily: 'Ubuntu',
-                            ),
+
+                                                         ),
                       ),
                       const SizedBox(
                         height: 30.0,
@@ -94,8 +102,8 @@ class LoginScreenBody extends StatelessWidget {
                           color: Colors.grey,
                           fontFamily: 'Ubuntu',
                         ),
-                        style: const TextStyle(
-                          color: Colors.black,
+                        style:  TextStyle(
+                          color: color,
                           fontFamily: 'Ubuntu',
                         ),
                       ),
@@ -117,8 +125,8 @@ class LoginScreenBody extends StatelessWidget {
                           color: Colors.grey,
                           fontFamily: 'Ubuntu',
                         ),
-                        style: const TextStyle(
-                          color: Colors.black,
+                        style:  TextStyle(
+                          color: color,
                           fontFamily: 'Ubuntu',
                         ),
                         suffix: cubit.suffix,

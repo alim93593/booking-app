@@ -48,18 +48,17 @@ class AppCubit extends Cubit<AppStates> {
       ),
       label: 'Profile',
     ),
-    const BottomNavigationBarItem(
-      icon: Icon(
-        FontAwesomeIcons.gears,
-      ),
-      label: 'Settings',
-    ),
+    // const BottomNavigationBarItem(
+    //   icon: Icon(
+    //     FontAwesomeIcons.gears,
+    //   ),
+    //   label: 'Settings',
+    // ),
   ];
   List<Widget> screens = [
     HomeScreen(),
     const BookingsScreen(),
      UserProfileScreen(),
-    const SettingsScreen(),
   ];
   void changeBottomNavBar(int index) {
     currentIndex = index;

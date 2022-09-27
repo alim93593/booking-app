@@ -1,4 +1,4 @@
-// ignore_for_file: unnecessary_null_comparison, use_key_in_widget_constructors, prefer_const_constructors_in_immutables, unused_import, prefer_const_constructors
+// ignore_for_file: unnecessary_null_comparison, use_key_in_widget_constructors, prefer_const_constructors_in_immutables, unused_import, prefer_const_constructors, avoid_print, deprecated_member_use
 
 import 'package:booking_app/core/themes/light.dart';
 import 'package:booking_app/core/themes/mode_cubit/cubit_state.dart';
@@ -40,7 +40,7 @@ void main() async {
     }
   }
   bool? isDark = CacheHelper.getData(key: 'isDark');
-
+ print(isDark);
   BlocOverrides.runZoned(
     () {
       runApp(MyApp(
@@ -61,7 +61,7 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
         providers: [
           BlocProvider(
-            create: (_) => di.sl<AuthCubit>(),
+            create: (_) => di.sl<AuthCubit>()..getProfileInfo(token: toKen),
           ),
           BlocProvider(
             create: (_) => di.sl<AppCubit>()..getHotels(),
