@@ -11,6 +11,7 @@ import 'package:booking_app/core/widget/no_account.dart';
 import 'package:booking_app/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:booking_app/features/auth/presentation/cubit/auth_states.dart';
 import 'package:booking_app/features/auth/presentation/screens/register_screen/register_screen.dart';
+import 'package:booking_app/features/hotels/presentation/screens/home_layout/home_layout.dart';
 import 'package:booking_app/features/hotels/presentation/screens/home_screen/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -31,7 +32,7 @@ class LoginScreenBody extends StatelessWidget {
               value:state.tokeN
           ).then((value) async {
             toKen=state.tokeN;
-            navigateAndFinish(context: context, route: HomeScreen(),);
+            navigateAndFinish(context: context, route: HomeLayout(),);
           });
           // navigateAndFinish(context: context, route: HomeScreen(),);
         }
