@@ -28,7 +28,7 @@ class RegisterScreenBody extends StatelessWidget {
       listener: (context, state) {
         if (state is RegisterSuccessState) {
           showSnackBar(context, 'User registered successfully');
-          navigateTo(context: context, route:  HomeLayout());
+          navigateTo(context: context, route: HomeLayout());
         }
         if (state is RegisterErrorState) {
           showSnackBar(context, state.error);
@@ -89,8 +89,8 @@ class RegisterScreenBody extends StatelessWidget {
                         color: Colors.grey,
                         fontFamily: 'Ubuntu',
                       ),
-                      style: const TextStyle(
-                        color: Colors.black,
+                      style: TextStyle(
+                        color: color,
                         fontFamily: 'Ubuntu',
                       ),
                     ),
@@ -112,8 +112,8 @@ class RegisterScreenBody extends StatelessWidget {
                         color: Colors.grey,
                         fontFamily: 'Ubuntu',
                       ),
-                      style: const TextStyle(
-                        color: Colors.black,
+                      style: TextStyle(
+                        color: color,
                         fontFamily: 'Ubuntu',
                       ),
                     ),
@@ -137,8 +137,8 @@ class RegisterScreenBody extends StatelessWidget {
                         color: Colors.grey,
                         fontFamily: 'Ubuntu',
                       ),
-                      style: const TextStyle(
-                        color: Colors.black,
+                      style: TextStyle(
+                        color: color,
                         fontFamily: 'Ubuntu',
                       ),
                       suffix: cubit.suffix,
@@ -167,8 +167,8 @@ class RegisterScreenBody extends StatelessWidget {
                         color: Colors.grey,
                         fontFamily: 'Ubuntu',
                       ),
-                      style: const TextStyle(
-                        color: Colors.black,
+                      style: TextStyle(
+                        color: color,
                         fontFamily: 'Ubuntu',
                       ),
                       suffix: cubit.suffix,

@@ -91,7 +91,7 @@ class ChangePasswordBody extends StatelessWidget {
                             fontFamily: 'Ubuntu',
                           ),
                           style: TextStyle(
-                            color: Colors.black,
+                            color: color,
                             fontFamily: 'Ubuntu',
                           ),
                           suffix: cubit.suffix,
@@ -120,8 +120,8 @@ class ChangePasswordBody extends StatelessWidget {
                             color: Colors.grey,
                             fontFamily: 'Ubuntu',
                           ),
-                          style: const TextStyle(
-                            color: Colors.black,
+                          style:  TextStyle(
+                            color: color,
                             fontFamily: 'Ubuntu',
                           ),
                           suffix: cubit.suffix,

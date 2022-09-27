@@ -83,8 +83,8 @@ class UpdateUserProfile extends StatelessWidget {
                         color: Colors.grey,
                         fontFamily: 'Ubuntu',
                       ),
-                      style: const TextStyle(
-                        color: Colors.black,
+                      style:  TextStyle(
+                        color: color,
                         fontFamily: 'Ubuntu',
                       ),
                     ),
@@ -106,8 +106,8 @@ class UpdateUserProfile extends StatelessWidget {
                         color: Colors.grey,
                         fontFamily: 'Ubuntu',
                       ),
-                      style: const TextStyle(
-                        color: Colors.black,
+                      style:  TextStyle(
+                        color: color,
                         fontFamily: 'Ubuntu',
                       ),
                     ),
