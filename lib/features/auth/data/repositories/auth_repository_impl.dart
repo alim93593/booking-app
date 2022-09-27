@@ -1,4 +1,3 @@
-import 'package:booking_app/core/errors/exceptions.dart';
 import 'package:booking_app/core/errors/failures.dart';
 import 'package:booking_app/core/network/network_info.dart';
 import 'package:booking_app/features/auth/data/datasources/local_datasource.dart';

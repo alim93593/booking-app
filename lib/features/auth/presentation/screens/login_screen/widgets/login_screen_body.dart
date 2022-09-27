@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, unused_import, unused_local_variable
 
 import 'package:booking_app/core/themes/light.dart';
 import 'package:booking_app/core/themes/mode_cubit/mode_cubit.dart';

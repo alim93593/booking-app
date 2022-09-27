@@ -1,6 +1,8 @@
 /// status : {"type":"1","title":{"ar":"تم تسجيل الدخول بنجاح","en":"signed in successfuly"}}
 /// data : {"id":320,"name":"samio","email":"s@gmail.com","email_verified_at":null,"api_token":"iTqDmvbFGEaTQdjBmOZ2G6Y6T1EuxQR2i5OkyMZl3boQqR0KLKFCpImYeXOA","image":null,"created_at":"2022-09-26T22:02:40.000000Z","updated_at":"2022-09-26T22:02:40.000000Z","google_id":null,"provider":null}
 
+// ignore_for_file: file_names
+
 class UserModel {
   UserModel({
       this.status, 
