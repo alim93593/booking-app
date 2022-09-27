@@ -1,3 +1,5 @@
+// ignore_for_file: unused_local_variable
+
 import 'package:booking_app/core/themes/mode_cubit/mode_cubit.dart';
 import 'package:flutter/material.dart';
 

@@ -1,4 +1,4 @@
-// ignore_for_file: file_names, implementation_imports, annotate_overrides
+// ignore_for_file: file_names, implementation_imports, annotate_overrides, unused_local_variable
 
 import 'package:booking_app/core/themes/mode_cubit/mode_cubit.dart';
 import 'package:carousel_slider/carousel_slider.dart';

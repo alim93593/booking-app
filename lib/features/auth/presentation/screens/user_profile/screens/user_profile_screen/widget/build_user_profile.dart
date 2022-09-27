@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, must_be_immutable, sized_box_for_whitespace, unused_import, avoid_print, prefer_const_constructors_in_immutables, unrelated_type_equality_checks, unnecessary_string_interpolations, unused_local_variable
+// ignore_for_file: prefer_const_constructors, must_be_immutable, sized_box_for_whitespace, unused_import, avoid_print, prefer_const_constructors_in_immutables, unrelated_type_equality_checks, unnecessary_string_interpolations, unused_local_variable, deprecated_member_use
 
 import 'package:booking_app/core/themes/mode_cubit/mode_cubit.dart';
 import 'package:booking_app/core/utils/constants/constants.dart';
@@ -25,8 +25,7 @@ class BuildUserProfile extends StatelessWidget {
         ? const Color(0xffffffff)
         : const Color(0xff212525);
     var cubit = AuthCubit.get(context);
-    var main = cubit.getProfileInfo(token: toKen);
-
+    var profileimage = cubit.profileimage;
     return Scaffold(
       // backgroundColor: ModeCubit.get(context).isDark?Colors.black:Colors.white,
       appBar: appbar(
@@ -55,7 +54,7 @@ class BuildUserProfile extends StatelessWidget {
                             Align(
                               alignment: Alignment.topLeft,
                               child: Text(
-                                '${'Ali Mahmoud'}',
+                                '${cubit.userModel?.data!.name}',
                                 style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   fontSize: 20,
@@ -98,10 +97,8 @@ class BuildUserProfile extends StatelessWidget {
                                 radius: 64.0,
                                 child: CircleAvatar(
                                   radius: 60.0,
-                                  backgroundColor:
-                                      Theme.of(context).scaffoldBackgroundColor,
-                                  backgroundImage: AssetImage(
-                                      'assets/on_boarding/splash.jpg'),
+                                  backgroundColor: Theme.of(context).backgroundColor,
+                                  backgroundImage:profileimage==null? NetworkImage('https://static.vecteezy.com/system/resources/thumbnails/002/318/271/small/user-profile-icon-free-vector.jpg'):AuthCubit.get(context).userModel?.data!.image
                                 ),
                               ),
                               // IconButton(

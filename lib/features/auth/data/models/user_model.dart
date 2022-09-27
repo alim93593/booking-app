@@ -1,6 +1,4 @@
 
-import 'package:booking_app/core/utils/constants/constants.dart';
-import 'package:booking_app/features/auth/domain/entities/user.dart';
 
 // class UserModel extends User {
 //   const UserModel({

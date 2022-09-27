@@ -1,10 +1,11 @@
 import 'package:booking_app/core/themes/mode_cubit/mode_cubit.dart';
+// ignore_for_file: unused_local_variable
+
 import 'package:booking_app/features/hotels/presentation/app_cubit/cubit.dart';
 import 'package:booking_app/features/hotels/presentation/app_cubit/states.dart';
 import 'package:booking_app/features/hotels/presentation/screens/deatils_screen/hotel_deatils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../../../../../../core/utils/injection/injection_container.dart';
 import '../../../../../../core/widget/custom_text_form_field.dart';

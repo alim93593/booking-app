@@ -1,3 +1,5 @@
+// ignore_for_file: unused_import
+
 import 'dart:convert';
 
 import 'package:booking_app/core/errors/exceptions.dart';
@@ -94,7 +96,7 @@ class RemoteDatasourceImpl implements RemoteDatasource {
           '$BASE_URL$VERSION$PROFILE_INFO',
         ),
         headers: {"token": token});
-    if (response.statusCode == 200) {
+    if (response.statusCode == 1) {
       final decodedJson = json.decode(response.body);
       UserModel user = UserModel.fromJson(decodedJson['data']);
       return user;
