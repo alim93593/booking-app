@@ -36,4 +36,11 @@ final kDarkThemeData = ThemeData(
     labelColor: Colors.white,
     unselectedLabelColor: Color(0xff575757),
   ),
+  bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+    type: BottomNavigationBarType.fixed,
+    selectedItemColor: Colors.blueAccent,
+    unselectedItemColor: Colors.grey,
+    elevation: 50.0,
+    backgroundColor: Color(0xff333739),
+  ),
 );
