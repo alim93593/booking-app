@@ -1,4 +1,5 @@
 import 'package:booking_app/core/themes/light.dart';
+import 'package:booking_app/core/themes/mode_cubit/mode_cubit.dart';
 import 'package:flutter/material.dart';
 
 class DoNotHaveAccount extends StatelessWidget {
@@ -15,11 +16,17 @@ class DoNotHaveAccount extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var color = ModeCubit.get(context).isDark == true
+        ? const Color(0xffffffff)
+        : const Color(0xff212525);
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Text(
           '$label',
+          style: TextStyle(
+            color: color,
+          ),
         ),
         TextButton(
           onPressed: onPressed,
