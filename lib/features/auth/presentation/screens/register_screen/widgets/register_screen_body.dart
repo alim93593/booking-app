@@ -16,7 +16,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../../core/utils/injection/injection_container.dart';
 import '../../../../../../core/utils/local/cache_helper.dart';
-import '../../../../../../core/widget/toast.dart';
+import '../../../../../../core/utils/toast.dart';
 
 class RegisterScreenBody extends StatelessWidget {
   RegisterScreenBody({Key? key}) : super(key: key);

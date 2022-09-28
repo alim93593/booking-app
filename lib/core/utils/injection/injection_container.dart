@@ -2,8 +2,12 @@
 
 import 'package:booking_app/core/network/network_info.dart';
 import 'package:booking_app/features/auth/data/datasources/local_datasource.dart';
+import 'package:booking_app/features/auth/data/datasources/login_remote_data_source/login_remote_data_source.dart';
+import 'package:booking_app/features/auth/data/datasources/register__remote_data_source/register_user_remote_data_source.dart';
 import 'package:booking_app/features/auth/data/datasources/remote_datasource.dart';
+import 'package:booking_app/features/auth/data/datasources/update_profile_info__remote_data_source/update_profile_info_remote_data_source.dart';
 import 'package:booking_app/features/auth/data/repositories/auth_repository_impl.dart';
+import 'package:booking_app/features/auth/domain/entities/user.dart';
 import 'package:booking_app/features/auth/domain/repositories/auth_repository.dart';
 import 'package:booking_app/features/auth/domain/usecases/change_password.dart';
 import 'package:booking_app/features/auth/domain/usecases/get_profile_info.dart';
@@ -26,6 +30,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:dio/dio.dart';
 
+import '../../../features/auth/data/datasources/get_profile_info__remote_data_source/get_profile_info_remote_data_source.dart';
+import '../../../features/auth/domain/entities/getProfileEntity.dart';
 import '../../../features/hotels/data/datasources/get_hotel_remote_data_source.dart';
 
 
@@ -34,6 +40,10 @@ final sl = GetIt.instance;
 Future<void> init() async {
   sl.registerLazySingleton<Dio>(
           () => Dio( sl()));
+  sl.registerLazySingleton<UserModelEntity>(
+          () => UserModelEntity());
+  sl.registerLazySingleton<ProfileModelEntity>(
+          () => ProfileModelEntity());
   sl.registerLazySingleton<BaseOptions>(
           () => BaseOptions());
   //Cubits
@@ -42,7 +52,7 @@ Future<void> init() async {
       loginUseCase: sl(),
       updateProfileUseCase: sl(),
       registerUseCase: sl(),
-      getProfileInfoUseCase: sl(),
+      getProfileInfoUseCase: sl(), userModelEntity: sl(), profileModelEntity: sl(),
     ),
   );
   sl.registerFactory(
@@ -64,7 +74,11 @@ Future<void> init() async {
   // Repositories
   sl.registerLazySingleton<AuthRepository>(
     () => AuthRepositoryImpl(
-      remoteDatasource: sl(),
+      getProfileInfoDataSource: sl(),
+      loginDataSource: sl(),
+      registerUserDataSource: sl(),
+      updateProfileInfoDataSource: sl(),
+      // remoteDatasource: sl(),
       localDatasource: sl(),
       networkInfo: sl(),
     ),
@@ -89,6 +103,14 @@ Future<void> init() async {
           () => SearchHotelService(sl()));
   sl.registerLazySingleton<HotelsRemoteDatasource>(
           () => HotelsRemoteDatasourceImpl(client: sl()));
+  sl.registerLazySingleton<GetProfileInfoDataSource>(
+          () => GetProfileInfoDataSource( sl()));
+  sl.registerLazySingleton<RegisterUserDataSource>(
+          () => RegisterUserDataSource( sl()));
+  sl.registerLazySingleton<LoginDataSource>(
+          () => LoginDataSource( sl()));
+  sl.registerLazySingleton<UpdateProfileInfoDataSource>(
+          () => UpdateProfileInfoDataSource( sl()));
   sl.registerLazySingleton<HotelsLocalDatasource>(
           () => HotelsLocalDatasourceImpl(sharedPreferences: sl()));
   //Network Info
