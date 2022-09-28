@@ -9,7 +9,7 @@ import 'package:conditional_builder_null_safety/conditional_builder_null_safety.
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-
+import 'dart:math' as math;
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
@@ -66,8 +66,8 @@ class HomeScreen extends StatelessWidget {
                         context,
                         MaterialPageRoute(
                             builder: (context) => HotelDetails(
-                                  address: cubit.hotels?[index].address,
-                                  description: cubit.hotels?[index].description,
+                                  address: cubit.hotels![index].address!,
+                                  description: cubit.hotels![index].description!,
                                   hotelName: cubit.hotels?[index].name,
                                   price: cubit.hotels?[index].price,
                                   rate: cubit.hotels?[index].rate,
@@ -97,7 +97,7 @@ class HomeScreen extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  '${cubit.hotels?[index].name}',
+                                  '${cubit.hotels?[index].name?.substring(0,14)}',
                                   style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                     fontSize: 16,
@@ -114,7 +114,7 @@ class HomeScreen extends StatelessWidget {
                                       color: Colors.grey,
                                     ),
                                     Text(
-                                      '${cubit.hotels?[index].address}',
+                                      '${cubit.hotels?[index].address!.substring(0,28)}',
                                       style: TextStyle(
                                         color: Colors.grey,
                                         fontSize: 15,
