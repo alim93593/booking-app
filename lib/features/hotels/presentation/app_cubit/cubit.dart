@@ -79,6 +79,7 @@ class AppCubit extends Cubit<AppStates> {
     result.fold((failure) => emit(FailureState(_mapFailureToMessage(failure))),
         (result) {
       hotels = result;
+      print(hotels![0].latitude.toString());
       if (kDebugMode) {
         print(hotels![0].hotelImages);
       }

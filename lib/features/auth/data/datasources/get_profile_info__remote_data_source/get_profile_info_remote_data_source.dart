@@ -2,7 +2,6 @@
 
 import 'package:booking_app/core/network/end_points.dart';
 import 'package:booking_app/features/auth/data/models/ProfileModel.dart';
-import 'package:booking_app/features/auth/data/models/UserModel.dart';
 import 'package:dio/dio.dart';
 import 'package:retrofit/http.dart';
 

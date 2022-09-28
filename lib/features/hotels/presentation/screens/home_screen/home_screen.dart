@@ -1,9 +1,11 @@
-// ignore_for_file: prefer_const_constructors_in_immutables, prefer_const_constructors, unused_import
+// ignore_for_file: prefer_const_constructors_in_immutables, prefer_const_constructors, unused_import, sized_box_for_whitespace
 
 import 'package:booking_app/core/themes/mode_cubit/mode_cubit.dart';
+import 'package:booking_app/core/utils/constants/constants.dart';
 import 'package:booking_app/features/hotels/presentation/app_cubit/cubit.dart';
 import 'package:booking_app/features/hotels/presentation/app_cubit/states.dart';
 import 'package:booking_app/features/hotels/presentation/screens/deatils_screen/hotel_deatils.dart';
+import 'package:booking_app/features/hotels/presentation/screens/google_maps/screens/map_screen.dart';
 import 'package:booking_app/features/hotels/presentation/screens/imageSlider.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
@@ -43,13 +45,23 @@ class HomeScreen extends StatelessWidget {
             SliverToBoxAdapter(
               child: Padding(
                 padding: const EdgeInsets.only(top: 16.0, left: 16.0),
-                child: Text(
-                  'Best deals',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 20,
-                    color: color,
-                  ),
+                child: Row(
+                  children: [
+                    Container(
+                        width: 20,
+                        child: IconButton(onPressed: (){
+                          navigateTo(context: context, route: MapScreen(latitude:double.parse(cubit.hotels![0].longitude!) ,longitude: double.parse(cubit.hotels![0].latitude!),));
+                        }, icon: Icon(Icons.location_city,color: Colors.yellow,))),
+                    SizedBox(width: 20,),
+                    Text(
+                      'Best deals',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20,
+                        color: color,
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ),

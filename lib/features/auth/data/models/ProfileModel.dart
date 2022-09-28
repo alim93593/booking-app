@@ -1,3 +1,5 @@
+// ignore_for_file: file_names, must_be_immutable
+
 import 'package:booking_app/features/auth/domain/entities/user.dart';
 
 import '../../domain/entities/getProfileEntity.dart';

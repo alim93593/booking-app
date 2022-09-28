@@ -1,3 +1,5 @@
+// ignore_for_file: unused_import
+
 import 'package:booking_app/core/errors/failures.dart';
 import 'package:booking_app/features/auth/domain/entities/user.dart';
 import 'package:booking_app/features/auth/domain/repositories/auth_repository.dart';
