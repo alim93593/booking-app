@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, unused_import, must_be_immutable, avoid_print
+// ignore_for_file: prefer_const_constructors
 
 import 'package:booking_app/core/themes/light.dart';
 import 'package:booking_app/core/themes/mode_cubit/mode_cubit.dart';
@@ -14,38 +14,40 @@ import 'package:booking_app/features/hotels/presentation/screens/home_screen/hom
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../../../core/utils/injection/injection_container.dart';
 import '../../../../../../core/utils/local/cache_helper.dart';
+import '../../../../../../core/widget/toast.dart';
 
 class RegisterScreenBody extends StatelessWidget {
   RegisterScreenBody({Key? key}) : super(key: key);
   final TextEditingController emailAddressController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController nameController = TextEditingController();
-  final TextEditingController passwordConfirmationController =
-      TextEditingController();
+  final TextEditingController passwordConfirmationController = TextEditingController();
   final formKey = GlobalKey<FormState>();
   String? token;
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<AuthCubit, AuthStates>(
+    return BlocProvider(
+  create: (context) => AuthCubit(loginUseCase: sl(), registerUseCase: sl(), getProfileInfoUseCase: sl(), updateProfileUseCase: sl(),userModelEntity: sl(),profileModelEntity: sl()),
+  child: BlocConsumer<AuthCubit, AuthStates>(
       listener: (context, state) {
         if (state is RegisterSuccessState) {
-          if (state.userModel!.status!.type !='0') {
-            showSnackBar(context, 'User registered successfully');
-            print(state.userModel!.data!.apiToken);
+          if (state.userModelEntity.status!.type =='1') {
+            showToast(text: state.userModelEntity.status!.title!.ar!, state: ToastState.SUCCESS);
+            print(state.userModelEntity.data!.apiToken);
             // print(state.login.message);
-            CacheHelper.saveData(key: 'token', value: state.userModel!.data!.apiToken)
+            CacheHelper.saveData(key: 'token', value: state.userModelEntity.data!.apiToken)
                 .then((value) {
-              token = state.userModel!.data!.apiToken;
+              token = state.userModelEntity.data!.apiToken;
             });
-            print(state.userModel!.status!.title);
-            showSnackBar(context, 'User registered successfully');
+            print(state.userModelEntity.status!.title);
             navigateTo(context: context, route:  LoginScreen());
           }
 
         }
         if (state is RegisterErrorState) {
-          showSnackBar(context, state.error);
+          showToast(text: state.userModelEntity!.status!.title!.ar!, state: ToastState.ERROR);
         }
       },
       builder: (context, state) {
@@ -204,9 +206,9 @@ class RegisterScreenBody extends StatelessWidget {
                         style: TextStyle(fontSize: 18, color: Colors.white),
                       ),
                       myColor: mainColor,
-                      onTabbed: () {
+                      onTabbed: () async{
                         if (formKey.currentState!.validate()) {
-                          cubit.userRegister(
+                       await   cubit.userRegister(
                               name: nameController.text,
                               email: emailAddressController.text,
                               password: passwordController.text,
@@ -230,6 +232,7 @@ class RegisterScreenBody extends StatelessWidget {
           ),
         );
       },
-    );
+    ),
+);
   }
 }

@@ -1,17 +1,19 @@
 import 'package:booking_app/features/auth/domain/entities/user.dart';
 
+import '../../domain/entities/getProfileEntity.dart';
+
 /// status : {"type":"1","title":{"ar":"تم تسجيل الدخول بنجاح","en":"signed in successfuly"}}
 /// data : {"id":320,"name":"samio","email":"s@gmail.com","email_verified_at":null,"api_token":"iTqDmvbFGEaTQdjBmOZ2G6Y6T1EuxQR2i5OkyMZl3boQqR0KLKFCpImYeXOA","image":null,"created_at":"2022-09-26T22:02:40.000000Z","updated_at":"2022-09-26T22:02:40.000000Z","google_id":null,"provider":null}
 
-class UserModel extends UserModelEntity {
-  UserModel({
-   required Status status,
-   required UserData data
+class ProfileModel extends ProfileModelEntity {
+  ProfileModel({
+ required   StatusProfile status,
+   required UserProfileData data
   }):super(data: data,status: status);
 
-  UserModel.fromJson(dynamic json) {
-    status = json['status'] != null ? Status.fromJson(json['status']) : null;
-    data = json['data'] != null ? UserData.fromJson(json['data']) : null;
+  ProfileModel.fromJson(dynamic json) {
+    status = json['status'] != null ? StatusProfile.fromJson(json['status']) : null;
+    data = json['data'] != null ? UserProfileData.fromJson(json['data']) : null;
   }
 
 
@@ -38,31 +40,31 @@ class UserModel extends UserModelEntity {
 /// google_id : null
 /// provider : null
 
-class UserData extends User {
-  UserData(
+class UserProfileData extends User {
+  UserProfileData(
       {required num? id,
-      required String? name,
-      required String? email,
-      required dynamic emailVerifiedAt,
-      required String? apiToken,
-      required dynamic image,
-      required String? createdAt,
-      required String? updatedAt,
-      required dynamic googleId,
-      required dynamic provider})
+        required String? name,
+        required String? email,
+        required dynamic emailVerifiedAt,
+        required String? apiToken,
+        required dynamic image,
+        required String? createdAt,
+        required String? updatedAt,
+        required dynamic googleId,
+        required dynamic provider})
       : super(
-            name: name,
-            updatedAt: updatedAt,
-            createdAt: createdAt,
-            id: id,
-            apiToken: apiToken,
-            email: email,
-            emailVerifiedAt: emailVerifiedAt,
-            googleId: googleId,
-            image: image,
-            provider: provider);
+      name: name,
+      updatedAt: updatedAt,
+      createdAt: createdAt,
+      id: id,
+      apiToken: apiToken,
+      email: email,
+      emailVerifiedAt: emailVerifiedAt,
+      googleId: googleId,
+      image: image,
+      provider: provider);
 
-  UserData.fromJson(dynamic json) {
+  UserProfileData.fromJson(dynamic json) {
     id = json['id'];
     name = json['name'];
     email = json['email'];
@@ -92,51 +94,22 @@ class UserData extends User {
 }
 
 /// type : "1"
-/// title : {"ar":"تم تسجيل الدخول بنجاح","en":"signed in successfuly"}
 
-class Status {
-  Status({
+class StatusProfile {
+  StatusProfile({
     this.type,
-    this.title,
   });
 
-  Status.fromJson(dynamic json) {
+  StatusProfile.fromJson(dynamic json) {
     type = json['type'];
-    title = json['title'] != null ? Title.fromJson(json['title']) : null;
   }
   String? type;
-  Title? title;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
     map['type'] = type;
-    if (title != null) {
-      map['title'] = title?.toJson();
-    }
     return map;
   }
 }
 
-/// ar : "تم تسجيل الدخول بنجاح"
-/// en : "signed in successfuly"
 
-class Title {
-  Title({
-    this.ar,
-    this.en,
-  });
-
-  Title.fromJson(dynamic json) {
-    ar = json['ar'];
-    en = json['en'];
-  }
-  String? ar;
-  String? en;
-
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['ar'] = ar;
-    map['en'] = en;
-    return map;
-  }
-}

@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, unused_import, unused_local_variable
+// ignore_for_file: prefer_const_constructors
 
 import 'package:booking_app/core/themes/light.dart';
 import 'package:booking_app/core/themes/mode_cubit/mode_cubit.dart';
@@ -16,6 +16,9 @@ import 'package:booking_app/features/hotels/presentation/screens/home_screen/hom
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../../../core/utils/injection/injection_container.dart';
+import '../../../../../../core/widget/toast.dart';
+
 class LoginScreenBody extends StatelessWidget {
   LoginScreenBody({Key? key}) : super(key: key);
   final formKey = GlobalKey<FormState>();
@@ -24,23 +27,23 @@ class LoginScreenBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<AuthCubit, AuthStates>(
+    return BlocProvider(
+  create: (context) => AuthCubit(loginUseCase: sl(), registerUseCase:  sl(), getProfileInfoUseCase:  sl(), updateProfileUseCase:  sl(),userModelEntity: sl(),profileModelEntity: sl()),
+  child: BlocConsumer<AuthCubit, AuthStates>(
       listener: (context, state) {
         if (state is LoginSuccessState) {
+          showToast(text: state.userModelEntity.status!.title!.ar!, state: ToastState.SUCCESS);
           CacheHelper.saveData(
               key: 'toKen',
-              value:state.tokeN
+              value:state.userModelEntity.data!.apiToken
           ).then((value) async {
-            toKen=state.tokeN;
+            toKen=state.userModelEntity.data!.apiToken;
             navigateAndFinish(context: context, route: HomeLayout(),);
           });
-          // navigateAndFinish(context: context, route: HomeScreen(),);
         }
         if (state is LoginErrorState) {
-          showSnackBar(
-            context,
-            state.error,
-          );
+          showToast(text: state.userModelEntity?.status?.title?.ar??'', state: ToastState.ERROR);
+
         }
       },
       builder: (context, state) {
@@ -172,6 +175,7 @@ class LoginScreenBody extends StatelessWidget {
           ),
         );
       },
-    );
+    ),
+);
   }
 }
