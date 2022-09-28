@@ -2,10 +2,16 @@
 
 import 'package:booking_app/core/themes/mode_cubit/mode_cubit.dart';
 import 'package:booking_app/core/widget/custom_text_form_field.dart';
+import 'package:booking_app/features/auth/presentation/cubit/auth_cubit.dart';
+import 'package:booking_app/features/auth/presentation/cubit/auth_states.dart';
 import 'package:booking_app/features/auth/presentation/screens/user_profile/screens/user_profile_screen/widget/custom_app_bar.dart';
 import 'package:booking_app/features/auth/presentation/screens/user_profile/screens/user_profile_screen/widget/custom_button.dart';
 import 'package:booking_app/features/auth/presentation/screens/user_profile/screens/user_profile_screen/widget/my_input_feild.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../../../../../../../core/utils/constants/strings.dart';
+import '../../../../../../../../core/utils/injection/injection_container.dart';
 
 class UpdateUserProfile extends StatelessWidget {
    UpdateUserProfile({Key? key}) : super(key: key);
@@ -18,6 +24,15 @@ class UpdateUserProfile extends StatelessWidget {
     var color = ModeCubit.get(context).isDark == true
         ? const Color(0xffffffff)
         : const Color(0xff212525);
+    return BlocProvider(
+  create: (context) => AuthCubit(profileModelEntity: sl(), userModelEntity: sl(), loginUseCase: sl(), registerUseCase: sl(), getProfileInfoUseCase: sl(), updateProfileUseCase: sl()),
+  child: BlocConsumer<AuthCubit, AuthStates>(
+  listener: (context, state) {
+    // TODO: implement listener
+  },
+  builder: (context, state) {
+
+   var cubit=AuthCubit.get(context);
     return Scaffold(
         appBar: AppBar(
           title: Text(
@@ -114,6 +129,7 @@ class UpdateUserProfile extends StatelessWidget {
                     SizedBox(height: 50,),
                     DefaultButton(text: 'Update Profile',function: ()async{
                       if(formKey.currentState!.validate()) {
+                  await      cubit.updateProfileInfo(token: toKen!,name:name.text,email: email.text,image: '' ).then((value) => Navigator.pop(context));
                         /// update user profile
                         debugPrint('success');
                       }
@@ -125,5 +141,8 @@ class UpdateUserProfile extends StatelessWidget {
           ),
         )
     );
+  },
+),
+);
   }
 }

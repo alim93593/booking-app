@@ -8,15 +8,15 @@ class RegisterUseCase {
 
   final AuthRepository repository;
 
-  Future<Either<Failure, User>> call({
+  Future<Either<Failure, UserModelEntity>> call({
     required String email,
     required String password,
     required String name,
-    required String passwordConfirm,
+    required String password_confirmation,
   }) async {
     return await repository.registerUser(
       email: email,
-      passwordConfirm: passwordConfirm,
+      password_confirmation: password_confirmation,
       password: password,
       name: name,
     );

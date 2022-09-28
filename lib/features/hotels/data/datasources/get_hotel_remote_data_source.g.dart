@@ -16,7 +16,7 @@ class _GetHotelService implements GetHotelService {
   final Dio _dio;
 
   String? baseUrl;
-//new
+
   @override
   Future<HotelsModel> getHotels({count, page}) async {
     const _extra = <String, dynamic>{};

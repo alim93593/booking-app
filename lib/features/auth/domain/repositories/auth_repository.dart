@@ -2,26 +2,31 @@ import 'package:booking_app/core/errors/failures.dart';
 import 'package:booking_app/features/auth/domain/entities/user.dart';
 import 'package:dartz/dartz.dart';
 
+import '../entities/getProfileEntity.dart';
+
 abstract class AuthRepository {
-  Future<Either<Failure, User>> registerUser({
+  Future<Either<Failure, UserModelEntity>> registerUser({
     required String email,
     required String password,
     required String name,
-    required String passwordConfirm,
+    required String password_confirmation,
   });
 
-  Future<Either<Failure, User>> login({
+  Future<Either<Failure, UserModelEntity>> login({
     required String email,
     required String password,
   });
 
-  Future<Either<Failure, User>> getProfileInfo({required String token});
+  Future<Either<Failure, ProfileModelEntity>> getProfileInfo({required String token});
 
-  Future<Either<Failure, User>> updateProfileInfo({
-    required String email,
+  Future<Either<Failure, UserModelEntity>> updateProfileInfo({
     required String token,
     required String name,
-    required String image ,
+    required String email,
+    required String image,
+
+
+
   });
 
   Future<Either<Failure, Unit>> changePassword({

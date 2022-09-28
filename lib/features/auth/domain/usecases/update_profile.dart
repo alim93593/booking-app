@@ -8,17 +8,17 @@ class UpdateProfileUseCase {
 
   final AuthRepository repository;
 
-  Future<Either<Failure, User>> call({
-    required String image,
-    required String email,
+  Future<Either<Failure, UserModelEntity>> call({
+
     required String name,
+    required String email,
+    required String image,
     required String token,
   }) async {
     return await repository.updateProfileInfo(
-      email: email,
-      token: token,
-      name: name,
-      image: image,
+
+      token: token, name: name, email: email, image: image,
+
     );
   }
 }

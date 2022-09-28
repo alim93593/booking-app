@@ -61,10 +61,11 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
         providers: [
           BlocProvider(
-            create: (_) => di.sl<AuthCubit>()..getProfileInfo(token: toKen),
+            create: (_) => di.sl<AuthCubit>(),
+            lazy: true,
           ),
           BlocProvider(
-            create: (_) => di.sl<AppCubit>()..getHotels(),
+            create: (_) => di.sl<AppCubit>(),
           ),
           BlocProvider(
             create: (BuildContext context) =>

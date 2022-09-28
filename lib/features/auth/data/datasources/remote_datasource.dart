@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:booking_app/core/errors/exceptions.dart';
 import 'package:booking_app/core/network/end_points.dart';
-import 'package:booking_app/features/auth/data/models/user_model.dart';
 import 'package:dartz/dartz.dart';
 import 'package:http/http.dart' as http;
 
@@ -43,49 +42,7 @@ class RemoteDatasourceImpl implements RemoteDatasource {
 
   final http.Client client;
 
-  // @override
-  // Future<UserModel> registerUser(
-  //     {required String email,
-  //     required String password,
-  //     required String name,
-  //     required String passwordConfirm}) async {
-  //   final response = await client.post(
-  //       Uri.parse(
-  //         '$BASE_URL$VERSION$REGISTER',
-  //       ),
-  //       body: {
-  //         'name': name,
-  //         'email': email,
-  //         'password': password,
-  //         'password_confirmation': passwordConfirm,
-  //       });
-  //   if (response.statusCode == 200) {
-  //     // final decodedJson = json.decode(response.body);
-  //     UserModel user = UserModel.fromJson(json.decode(response.body));
-  //
-  //     return user;
-  //   }
-  //   throw ApiException();
-  // }
 
-  // @override
-  // Future<UserModel> login(
-  //     {required String email, required String password}) async {
-  //   final response = await client.post(
-  //       Uri.parse(
-  //         '$BASE_URL$VERSION$LOGIN',
-  //       ),
-  //       body: {
-  //         'email': email,
-  //         'password': password,
-  //       });
-  //   if (response.statusCode == 200) {
-  //     final decodedJson = json.decode(response.body);
-  //     UserModel user = UserModel.fromJson(decodedJson['data']);
-  //     return user;
-  //   }
-  //   throw ApiException();
-  // }
 
   @override
   Future<UserModel> getProfileInfo({required String token}) async {

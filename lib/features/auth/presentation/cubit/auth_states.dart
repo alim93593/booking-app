@@ -1,7 +1,6 @@
 import 'package:equatable/equatable.dart';
 
-import '../../data/models/UserModel.dart';
-import '../../data/models/user_model.dart';
+import '../../domain/entities/getProfileEntity.dart';
 import '../../domain/entities/user.dart';
 
 abstract class AuthStates extends Equatable {
@@ -18,13 +17,15 @@ class ChangePasswordVisibilityState extends AuthStates {}
 class LoginLoadingState extends AuthStates {}
 
 class LoginSuccessState extends AuthStates {
-  final String tokeN;
-  const LoginSuccessState(this.tokeN);
+ final UserModelEntity userModelEntity;
+
+  const LoginSuccessState( {required this.userModelEntity});
 }
 
 class LoginErrorState extends AuthStates {
-   const LoginErrorState({required this.error});
-  final String error;
+   const LoginErrorState({ this.userModelEntity,this.error});
+   final UserModelEntity? userModelEntity;
+  final String? error;
    @override
    List<Object?> get props => [];
 }
@@ -33,13 +34,14 @@ class LoginErrorState extends AuthStates {
 class RegisterLoadingState extends AuthStates {}
 
 class RegisterSuccessState extends AuthStates {
-  const RegisterSuccessState({required this.userModel});
-  final UserModel? userModel;
+  const RegisterSuccessState({required this.userModelEntity});
+  final UserModelEntity userModelEntity;
 }
 
 class RegisterErrorState extends AuthStates {
-  const RegisterErrorState({required this.error});
-  final String error;
+  const RegisterErrorState({ this.userModelEntity,this.error});
+  final UserModelEntity? userModelEntity;
+  final String? error;
 
   @override
   List<Object?> get props => [];
@@ -58,7 +60,10 @@ class UpdateProfileErrorState extends AuthStates {
 
 class GetProfileLoadingState extends AuthStates {}
 
-class GetProfileSuccessState extends AuthStates {}
+class GetProfileSuccessState extends AuthStates {
+ const GetProfileSuccessState({ required this.profileModelEntity});
+  final ProfileModelEntity profileModelEntity;
+}
 
 class GetProfileErrorState extends AuthStates {
   const GetProfileErrorState({required this.error});
