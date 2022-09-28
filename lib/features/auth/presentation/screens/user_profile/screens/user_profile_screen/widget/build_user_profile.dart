@@ -29,7 +29,7 @@ class BuildUserProfile extends StatelessWidget {
         : const Color(0xff212525);
 
     return BlocProvider(
-  create: (context) => AuthCubit(loginUseCase: sl(), registerUseCase: sl(), getProfileInfoUseCase: sl(), updateProfileUseCase: sl(), userModelEntity: sl(),profileModelEntity: sl())..getProfileInfo(token: 'DnkaEA2eU1DNZmKIpx5I7u6ptaKeEGAA1nq4bFkClgBsYsWLyTMNsJD7O06u'),
+  create: (context) => AuthCubit(loginUseCase: sl(), registerUseCase: sl(), getProfileInfoUseCase: sl(), updateProfileUseCase: sl(), userModelEntity: sl(),profileModelEntity: sl())..getProfileInfo(token: toKen!),
   child: BlocConsumer<AuthCubit, AuthStates>(
   listener: (context, state) {
     // TODO: implement listener
