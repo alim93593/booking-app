@@ -10,7 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class UpdateUserProfile extends StatelessWidget {
-   UpdateUserProfile({Key? key}) : super(key: key);
+  UpdateUserProfile({Key? key}) : super(key: key);
   var name = TextEditingController();
   var email = TextEditingController();
   var newPassword = TextEditingController();
@@ -21,124 +21,138 @@ class UpdateUserProfile extends StatelessWidget {
         ? const Color(0xffffffff)
         : const Color(0xff212525);
     var profileimage = AuthCubit.get(context).profileimage;
-    return BlocConsumer<AuthCubit,AuthStates>(
-        listener: (context,state){
-        },
-        builder: (context,state){
-          return Scaffold(
-              appBar: AppBar(
-                title: Text(
-                  'Update Profile',
-                  style: TextStyle(
-                    fontFamily: 'Ubuntu',
-                    fontSize: 20,
-                    color: color,
-
-                  ),
+    return BlocConsumer<AuthCubit, AuthStates>(
+      listener: (context, state) {},
+      builder: (context, state) {
+        return Scaffold(
+            appBar: AppBar(
+              title: Text(
+                'Update Profile',
+                style: TextStyle(
+                  fontFamily: 'Ubuntu',
+                  fontSize: 20,
+                  color: color,
                 ),
               ),
-              body:  Form(
-                key: formKey,
-                child: Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: SingleChildScrollView(
-                    physics: BouncingScrollPhysics(),
-                    child: Padding(
-                      padding: const EdgeInsets.all(16),
-                      child: Column(
-                        children: [
-                          Container(
-                            height: 190.0,
-                            child: Center(
-                              child: Stack(
-                                alignment: AlignmentDirectional.bottomCenter,
-                                children: [
-                                  Stack(
-                                    alignment: AlignmentDirectional.bottomEnd,
-                                    children: [
-                                      CircleAvatar(
-                                        radius: 64.0,
-                                        child: CircleAvatar(
-                                          radius: 60.0,
-                                          backgroundColor: Theme.of(context).backgroundColor,
-                                          backgroundImage:profileimage==null?
-                                          NetworkImage('https://static.vecteezy.com/system/resources/thumbnails/002/318/271/small/user-profile-icon-free-vector.jpg')
-                                            :FileImage(profileimage)as ImageProvider,
-                                        ),
+            ),
+            body: Form(
+              key: formKey,
+              child: Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: SingleChildScrollView(
+                  physics: BouncingScrollPhysics(),
+                  child: Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: Column(
+                      children: [
+                        Container(
+                          height: 190.0,
+                          child: Center(
+                            child: Stack(
+                              alignment: AlignmentDirectional.bottomCenter,
+                              children: [
+                                Stack(
+                                  alignment: AlignmentDirectional.bottomEnd,
+                                  children: [
+                                    CircleAvatar(
+                                      radius: 64.0,
+                                      child: CircleAvatar(
+                                        radius: 60.0,
+                                        backgroundColor:
+                                            Theme.of(context).backgroundColor,
+                                        backgroundImage: profileimage == null
+                                            ? NetworkImage(
+                                                'https://static.vecteezy.com/system/resources/thumbnails/002/318/271/small/user-profile-icon-free-vector.jpg')
+                                            : FileImage(profileimage)
+                                                as ImageProvider,
                                       ),
-                                      IconButton(onPressed: (){
-                                         AuthCubit.get(context).getcoverimage();
-                                      },
-                                          icon: CircleAvatar(
-                                              radius: 20.0,
-                                              child: Icon(Icons.add_a_photo_rounded,size: 20,))),
-                                    ],
-                                  ),
-                                ],
-                              ),
+                                    ),
+                                    IconButton(
+                                        onPressed: () {
+                                          AuthCubit.get(context)
+                                              .getcoverimage();
+                                        },
+                                        icon: CircleAvatar(
+                                            radius: 20.0,
+                                            child: Icon(
+                                              Icons.add_a_photo_rounded,
+                                              size: 20,
+                                            ))),
+                                  ],
+                                ),
+                              ],
                             ),
                           ),
-                          SizedBox(height: 35,),
-                          CustomFormField(
-                            controller: name,
-                            validator: (String? value) {
-                              if (value!.isEmpty) {
-                                return 'Please enter your name';
-                              }
-                              return null;
-                            },
-                            textInputType: TextInputType.emailAddress,
-                            prefix: const Icon(Icons.perm_identity_outlined),
-                            hintText: 'Name',
-                            hintStyle: const TextStyle(
-                              color: Colors.grey,
-                              fontFamily: 'Ubuntu',
-                            ),
-                            style:  TextStyle(
-                              color: color,
-                              fontFamily: 'Ubuntu',
-                            ),
+                        ),
+                        SizedBox(
+                          height: 35,
+                        ),
+                        CustomFormField(
+                          controller: name,
+                          validator: (String? value) {
+                            if (value!.isEmpty) {
+                              return 'Please enter your name';
+                            }
+                            return null;
+                          },
+                          textInputType: TextInputType.emailAddress,
+                          prefix: const Icon(Icons.perm_identity_outlined),
+                          hintText: 'Name',
+                          hintStyle: const TextStyle(
+                            color: Colors.grey,
+                            fontFamily: 'Ubuntu',
                           ),
-                          const SizedBox(
-                            height: 20,
+                          style: TextStyle(
+                            color: color,
+                            fontFamily: 'Ubuntu',
                           ),
-                          CustomFormField(
-                            controller: email,
-                            validator: (String? value) {
-                              if (value!.isEmpty) {
-                                return 'Please enter your email ';
-                              }
-                              return null;
-                            },
-                            textInputType: TextInputType.emailAddress,
-                            prefix: const Icon(Icons.email_outlined),
-                            hintText: 'Email Address',
-                            hintStyle: const TextStyle(
-                              color: Colors.grey,
-                              fontFamily: 'Ubuntu',
-                            ),
-                            style:  TextStyle(
-                              color: color,
-                              fontFamily: 'Ubuntu',
-                            ),
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        CustomFormField(
+                          controller: email,
+                          validator: (String? value) {
+                            if (value!.isEmpty) {
+                              return 'Please enter your email ';
+                            }
+                            return null;
+                          },
+                          textInputType: TextInputType.emailAddress,
+                          prefix: const Icon(Icons.email_outlined),
+                          hintText: 'Email Address',
+                          hintStyle: const TextStyle(
+                            color: Colors.grey,
+                            fontFamily: 'Ubuntu',
                           ),
-                          SizedBox(height: 50,),
-                          DefaultButton(text: 'Update Profile',function: ()async{
-                            if(formKey.currentState!.validate()) {
+                          style: TextStyle(
+                            color: color,
+                            fontFamily: 'Ubuntu',
+                          ),
+                        ),
+                        SizedBox(
+                          height: 50,
+                        ),
+                        DefaultButton(
+                          text: 'Update Profile',
+                          function: () async {
+                            if (formKey.currentState!.validate()) {
                               /// update user profile1
-                              AuthCubit.get(context).uploadprofileImage(name: name.text, email: email.text,image:profileimage.toString() );
+                              AuthCubit.get(context).uploadprofileImage(
+                                  name: name.text,
+                                  email: email.text,
+                                  image: profileimage.toString());
                               debugPrint('success');
                             }
-                          },)
-                        ],
-                      ),
+                          },
+                        )
+                      ],
                     ),
                   ),
                 ),
-              )
-          );
-        },
-
+              ),
+            ));
+      },
     );
   }
 }
