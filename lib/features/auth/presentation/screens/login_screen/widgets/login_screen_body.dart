@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, unused_import, unused_local_variable
 
 import 'package:booking_app/core/themes/light.dart';
 import 'package:booking_app/core/themes/mode_cubit/mode_cubit.dart';
@@ -8,6 +8,7 @@ import 'package:booking_app/core/utils/local/cache_helper.dart';
 import 'package:booking_app/core/widget/custom_text_form_field.dart';
 import 'package:booking_app/core/widget/main_button.dart';
 import 'package:booking_app/core/widget/no_account.dart';
+import 'package:booking_app/core/widget/toast.dart';
 import 'package:booking_app/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:booking_app/features/auth/presentation/cubit/auth_states.dart';
 import 'package:booking_app/features/auth/presentation/screens/register_screen/register_screen.dart';
@@ -17,7 +18,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../../core/utils/injection/injection_container.dart';
-import '../../../../../../core/utils/toast.dart';
+
 
 class LoginScreenBody extends StatelessWidget {
   LoginScreenBody({Key? key}) : super(key: key);
@@ -37,13 +38,12 @@ class LoginScreenBody extends StatelessWidget {
               key: 'toKen',
               value:state.userModelEntity.data!.apiToken
           ).then((value) async {
-            toKen=state.userModelEntity.data!.apiToken;
+            toKen=state.userModelEntity.data!.apiToken!;
             navigateAndFinish(context: context, route: HomeLayout(),);
           });
         }
         if (state is LoginErrorState) {
           showToast(text: state.userModelEntity?.status?.title?.ar??'', state: ToastState.ERROR);
-
         }
       },
       builder: (context, state) {

@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, must_be_immutable, sized_box_for_whitespace, unused_import, avoid_print, prefer_const_constructors_in_immutables, unrelated_type_equality_checks, unnecessary_string_interpolations, unused_local_variable
+// ignore_for_file: prefer_const_constructors, must_be_immutable, sized_box_for_whitespace, unused_import, avoid_print, prefer_const_constructors_in_immutables, unrelated_type_equality_checks, unnecessary_string_interpolations, unused_local_variable, deprecated_member_use
 
 import 'package:booking_app/core/themes/mode_cubit/mode_cubit.dart';
 import 'package:booking_app/core/utils/constants/constants.dart';
@@ -14,6 +14,7 @@ import 'package:booking_app/features/auth/presentation/screens/user_profile/scre
 import 'package:booking_app/features/auth/presentation/screens/user_profile/screens/user_profile_screen/widget/divider.dart';
 import 'package:booking_app/features/auth/presentation/screens/user_profile/screens/user_profile_screen/widget/update_user_profile.dart';
 import 'package:booking_app/features/hotels/presentation/app_cubit/cubit.dart';
+import 'package:booking_app/features/hotels/presentation/screens/google_maps/screens/map_screen.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -29,7 +30,7 @@ class BuildUserProfile extends StatelessWidget {
         : const Color(0xff212525);
 
     return BlocProvider(
-  create: (context) => AuthCubit(loginUseCase: sl(), registerUseCase: sl(), getProfileInfoUseCase: sl(), updateProfileUseCase: sl(), userModelEntity: sl(),profileModelEntity: sl())..getProfileInfo(token: toKen!),
+  create: (context) => AuthCubit(loginUseCase: sl(), registerUseCase: sl(), getProfileInfoUseCase: sl(), updateProfileUseCase: sl(), userModelEntity: sl(),profileModelEntity: sl())..getProfileInfo(token: 'DnkaEA2eU1DNZmKIpx5I7u6ptaKeEGAA1nq4bFkClgBsYsWLyTMNsJD7O06u'),
   child: BlocConsumer<AuthCubit, AuthStates>(
   listener: (context, state) {
     // TODO: implement listener
@@ -113,8 +114,8 @@ class BuildUserProfile extends StatelessWidget {
                                       radius: 60.0,
                                       backgroundColor:
                                       Theme.of(context).scaffoldBackgroundColor,
-                                      backgroundImage: AssetImage(
-                                          'assets/on_boarding/splash.jpg'),
+                                      backgroundImage: NetworkImage(
+                                          '${profileState.profileModelEntity.data?.image}'),
                                     ),
                                   ),
                                   // IconButton(
@@ -165,6 +166,8 @@ class BuildUserProfile extends StatelessWidget {
                   color:
                   ModeCubit.get(context).isDark ? Colors.white : Colors.black,
                 ),
+                onPressed: (){
+                },
               ),
               ProfileItem(
                 itemName: 'Credit Coupons',

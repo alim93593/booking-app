@@ -65,6 +65,9 @@ class GetProfileSuccessState extends AuthStates {
   final ProfileModelEntity profileModelEntity;
 }
 
+class SocialProfileImagePickedSuccessState extends AuthStates{}
+class SocialProfileImagePickedErrorState extends AuthStates{}
+
 class GetProfileErrorState extends AuthStates {
   const GetProfileErrorState({required this.error});
   final String error;

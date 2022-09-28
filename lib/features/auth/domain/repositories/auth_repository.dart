@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'package:booking_app/core/errors/failures.dart';
 import 'package:booking_app/features/auth/domain/entities/user.dart';
 import 'package:dartz/dartz.dart';

@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, must_be_immutable, avoid_print
 
 import 'package:booking_app/core/themes/light.dart';
 import 'package:booking_app/core/themes/mode_cubit/mode_cubit.dart';
@@ -9,14 +9,12 @@ import 'package:booking_app/core/widget/no_account.dart';
 import 'package:booking_app/features/auth/presentation/cubit/auth_cubit.dart';
 import 'package:booking_app/features/auth/presentation/cubit/auth_states.dart';
 import 'package:booking_app/features/auth/presentation/screens/login_screen/login_screen.dart';
-import 'package:booking_app/features/hotels/presentation/screens/home_layout/home_layout.dart';
-import 'package:booking_app/features/hotels/presentation/screens/home_screen/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../../core/utils/injection/injection_container.dart';
 import '../../../../../../core/utils/local/cache_helper.dart';
-import '../../../../../../core/utils/toast.dart';
+
 
 class RegisterScreenBody extends StatelessWidget {
   RegisterScreenBody({Key? key}) : super(key: key);
@@ -34,7 +32,7 @@ class RegisterScreenBody extends StatelessWidget {
       listener: (context, state) {
         if (state is RegisterSuccessState) {
           if (state.userModelEntity.status!.type =='1') {
-            showToast(text: state.userModelEntity.status!.title!.ar!, state: ToastState.SUCCESS);
+            // showToast(text: state.userModelEntity.status!.title!.ar!, state: ToastState.SUCCESS);
             print(state.userModelEntity.data!.apiToken);
             // print(state.login.message);
             CacheHelper.saveData(key: 'token', value: state.userModelEntity.data!.apiToken)
@@ -47,7 +45,7 @@ class RegisterScreenBody extends StatelessWidget {
 
         }
         if (state is RegisterErrorState) {
-          showToast(text: state.userModelEntity!.status!.title!.ar!, state: ToastState.ERROR);
+          // showToast(text: state.userModelEntity!.status!.title!.ar!, state: ToastState.ERROR);
         }
       },
       builder: (context, state) {

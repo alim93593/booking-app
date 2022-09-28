@@ -1,3 +1,9 @@
+// ignore_for_file: unused_import, avoid_print, non_constant_identifier_names
+
+
+
+import 'dart:io';
+
 import 'package:booking_app/core/utils/constants/constants.dart';
 import 'package:booking_app/features/auth/data/models/ProfileModel.dart';
 import 'package:booking_app/features/auth/domain/entities/user.dart';
@@ -9,6 +15,7 @@ import 'package:booking_app/features/auth/presentation/cubit/auth_states.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:booking_app/features/auth/data/models/UserModel.dart';
+import 'package:image_picker/image_picker.dart';
 
 import '../../domain/entities/getProfileEntity.dart';
 
@@ -100,4 +107,20 @@ class AuthCubit extends Cubit<AuthStates> {
       emit(UpdateProfileSuccessState());
     });
   }
+
+  File? profileimage;
+  var picker = ImagePicker();
+  Future<void> getprofileimage()async{
+    final pickedfile = await picker.getImage(source: ImageSource.gallery);
+    if(pickedfile != null){
+      profileimage = File(pickedfile.path);
+      print(pickedfile.path);
+      emit(SocialProfileImagePickedSuccessState());
+    }else{
+      print('No Image Selected....');
+      emit(SocialProfileImagePickedErrorState());
+    }
+  }
+
+
 }

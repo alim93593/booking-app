@@ -1,3 +1,5 @@
+// ignore_for_file: unused_import, non_constant_identifier_names
+
 import 'package:booking_app/core/errors/exceptions.dart';
 import 'package:booking_app/core/errors/failures.dart';
 import 'package:booking_app/core/network/network_info.dart';

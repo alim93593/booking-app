@@ -1,4 +1,4 @@
-// ignore_for_file: depend_on_referenced_packages
+// ignore_for_file: depend_on_referenced_packages, non_constant_identifier_names
 
 import 'package:booking_app/core/network/end_points.dart';
 import 'package:booking_app/features/auth/data/models/UserModel.dart';
