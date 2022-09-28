@@ -17,7 +17,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../../core/utils/injection/injection_container.dart';
-import '../../../../../../core/widget/toast.dart';
+import '../../../../../../core/utils/toast.dart';
 
 class LoginScreenBody extends StatelessWidget {
   LoginScreenBody({Key? key}) : super(key: key);

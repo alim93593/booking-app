@@ -28,19 +28,21 @@ void main() async {
   Widget widget;
   bool onBoarding = CacheHelper.getData(key: 'onBoarding') ?? false;
   var toKen = CacheHelper.getData(key: 'toKen');
+  print(toKen);
   debugPrint(onBoarding.toString());
   debugPrint(toKen.toString());
   if (onBoarding == false) {
-    widget = const OnBoardingScreen();
-  } else {
-    if (toKen != null) {
+    if (toKen != '') {
       widget = HomeLayout();
     } else {
       widget = const LoginScreen();
     }
+  } else {
+    widget = const OnBoardingScreen();
   }
+
   bool? isDark = CacheHelper.getData(key: 'isDark');
- print(isDark);
+  print(isDark);
   BlocOverrides.runZoned(
     () {
       runApp(MyApp(
@@ -68,7 +70,7 @@ class MyApp extends StatelessWidget {
           ),
           BlocProvider(
             create: (BuildContext context) =>
-               ModeCubit()..changeAppMode(fromShared: isDark),
+                ModeCubit()..changeAppMode(fromShared: isDark),
           ),
         ],
         child: BlocConsumer<ModeCubit, ModeStates>(
