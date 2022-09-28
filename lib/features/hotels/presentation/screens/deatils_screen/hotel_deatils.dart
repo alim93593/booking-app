@@ -4,6 +4,7 @@ import 'dart:async';
 import 'dart:ui';
 
 import 'package:booking_app/core/themes/mode_cubit/mode_cubit.dart';
+import 'package:booking_app/features/hotels/presentation/app_cubit/cubit.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
@@ -13,8 +14,8 @@ import 'hotel_room_list.dart';
 
 class HotelDetails extends StatefulWidget {
   final dynamic hotelName;
-  final dynamic description;
-  final dynamic address;
+  final String description;
+  final String address;
   final dynamic price;
   final dynamic rate;
 
@@ -104,173 +105,153 @@ class _HotelDetailsState extends State<HotelDetails>
         ?  const Color(0xff212525)
         : const Color(0xffffffff);
     imageHeight = MediaQuery.of(context).size.height;
-    return SafeArea(
-      child: Scaffold(
-        body: Stack(
-          children: [
-            Card(
-              color: Theme.of(context).scaffoldBackgroundColor,
-              child: ListView(
-                controller: scrollController,
-                padding: EdgeInsets.only(top: 24 + imageHeight),
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(left: 24, right: 24),
-                    child: getHotelsDetails(isInList: true),
+    var cubit = AppCubit.get(context);
+    return Scaffold(
+      body: Stack(
+        children: [
+          Card(
+            color: Theme.of(context).scaffoldBackgroundColor,
+            child: ListView(
+              controller: scrollController,
+              padding: EdgeInsets.only(top: 24 + imageHeight),
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(left: 24, right: 24),
+                  child: getHotelsDetails(isInList: true),
+                ),
+                const Padding(
+                  padding: EdgeInsets.all(16),
+                  child: Divider(
+                    height: 1,
+                    color: Colors.black,
                   ),
-                  const Padding(
-                    padding: EdgeInsets.all(16),
-                    child: Divider(
-                      height: 1,
-                      color: Colors.black,
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 24, right: 24),
-                    child: Row(
-                      children:  [
-                        Expanded(
-                          child: Text(
-                            'Summery',
-                            style: TextStyle(
-                                fontSize: 14,
-                                color: color,
-                                letterSpacing: 0.5),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(
-                        left: 24, right: 24, top: 4, bottom: 8),
-                    child: RichText(
-                      textAlign: TextAlign.justify,
-                      text: TextSpan(
-                        children: [
-                          TextSpan(
-                            text: !isReadless ? hotelText : hotelText2,
-                            style:  TextStyle(
-                              fontSize: 12,
-                              color:color,
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 24, right: 24),
+                  child: Column(
+                    children: [
+                      Row(
+                        children:  [
+                          Expanded(
+                            child: Text(
+                              'description',
+                              style: TextStyle(
+                                  fontSize: 14,
+                                  color: color,
+                                  letterSpacing: 0.5),
                             ),
-                            recognizer: TapGestureRecognizer()..onTap = () {},
-                          ),
-                          TextSpan(
-                            text: !isReadless ? 'read more' : '' 'less',
-                            style: const TextStyle(
-                              fontSize: 12,
-                              color: Colors.blue,
-                            ),
-                            recognizer: TapGestureRecognizer()
-                              ..onTap = () {
-                                setState(() {
-                                  isReadless = !isReadless;
-                                });
-                              },
                           ),
                         ],
                       ),
-                    ),
-                  ),
-                  getPhotoReviewUi(
-                      'Photos', 'View All', Icons.arrow_forward, () {}),
-                  const HotelRoomList(),
-                  Stack(
-                    alignment: Alignment.topRight,
-                    children: [
-                      Container(
-                        width: double.infinity,
-                        height: 200,
-                        padding:
-                            const EdgeInsetsDirectional.only(start: 14, end: 14),
-                        child: GoogleMap(
-                          mapType: MapType.normal,
-                          initialCameraPosition: _kGooglePlex,
-                          onMapCreated: (GoogleMapController controller) {
-                            _controller.complete(controller);
-                          },
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(right: 20, top: 10),
-                        child: FloatingActionButton.extended(
-                          backgroundColor: Colors.grey.withOpacity(0.6),
-                          onPressed: () {
-                            // Navigator.pushNamed(context, MapScreen.routeName);
-                          },
-                          label: const Text('see more'),
-                        ),
-                      ),
+            SizedBox(height: 10,),
+            Text(
+              widget.description.trimLeft(),
+              style: TextStyle(
+                  fontSize: 14,
+                  color: color,
+                  letterSpacing: 0.5),
+            ),
                     ],
                   ),
-                  Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Container(
-                      margin: const EdgeInsetsDirectional.only(top: 24, bottom: 14),
-                      decoration: const BoxDecoration(
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(20),
-                        ),
-                        color: Colors.blue,
-                      ),
-                      child: MaterialButton(
-                        onPressed: () {
-                          //booking room
+                ),
+
+                getPhotoReviewUi(
+                    'Photos', 'View All', Icons.arrow_forward, () {}),
+                const HotelRoomList(),
+                Stack(
+                  alignment: Alignment.topRight,
+                  children: [
+                    Container(
+                      width: double.infinity,
+                      height: 200,
+                      padding:
+                          const EdgeInsetsDirectional.only(start: 14, end: 14),
+                      child: GoogleMap(
+                        mapType: MapType.normal,
+                        initialCameraPosition: _kGooglePlex,
+                        onMapCreated: (GoogleMapController controller) {
+                          _controller.complete(controller);
                         },
-                        child: const Text(
-                          'Book Now',
-                          style: TextStyle(
-                            color: Colors.white,
-                          ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(right: 20, top: 10),
+                      child: FloatingActionButton.extended(
+                        backgroundColor: Colors.grey.withOpacity(0.6),
+                        onPressed: () {
+                          // Navigator.pushNamed(context, MapScreen.routeName);
+                        },
+                        label: const Text('see more'),
+                      ),
+                    ),
+                  ],
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Container(
+                    margin: const EdgeInsetsDirectional.only(top: 24, bottom: 14),
+                    decoration: const BoxDecoration(
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(20),
+                      ),
+                      color: Colors.blue,
+                    ),
+                    child: MaterialButton(
+                      onPressed: () {
+                        //booking room
+                      },
+                      child: const Text(
+                        'Book Now',
+                        style: TextStyle(
+                          color: Colors.white,
                         ),
                       ),
                     ),
                   ),
+                ),
 
-                  /*getPhotoReviewUi(
-                      'Reviews', 'View All', Icons.arrow_forward, () {
-                        Navigator.pushNamed(context, ReviewsListScreen.routeName);
-                  }),*/
+                /*getPhotoReviewUi(
+                    'Reviews', 'View All', Icons.arrow_forward, () {
+                      Navigator.pushNamed(context, ReviewsListScreen.routeName);
+                }),*/
+              ],
+            ),
+          ),
+          //background images , hotel names , their details and more animation view
+          //backgroundImageUi(widget.hotelListData ?? HotelListData()),
+          backgroundImageUi('assets/images/back.jpg'),
+          Padding(
+            padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
+            child: Container(
+              height: AppBar().preferredSize.height,
+              child: Row(
+                children: [
+                  _getAppBarUi(Theme.of(context).disabledColor.withOpacity(0.4),
+                      Icons.arrow_back, Theme.of(context).backgroundColor, () {
+                    if (scrollController.offset != 0.0) {
+                      scrollController.animateTo(0.0,
+                          duration: const Duration(milliseconds: 488),
+                          curve: Curves.easeInOutQuad);
+                    } else {
+                      Navigator.pop(context);
+                    }
+                  }),
+                  const Expanded(
+                    child: SizedBox(),
+                  ),
+                  /*  _getAppBarUi(
+                      Colors.white,
+                      isFav ? Icons.favorite : Icons.favorite_border,
+                      Theme.of(context).primaryColor, () {
+                    setState(() {
+                      isFav = !isFav;
+                    });
+                  })*/
                 ],
               ),
             ),
-            //background images , hotel names , their details and more animation view
-            //backgroundImageUi(widget.hotelListData ?? HotelListData()),
-            backgroundImageUi('assets/images/back.jpg'),
-            Padding(
-              padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
-              child: Container(
-                height: AppBar().preferredSize.height,
-                child: Row(
-                  children: [
-                    _getAppBarUi(Theme.of(context).disabledColor.withOpacity(0.4),
-                        Icons.arrow_back, Theme.of(context).backgroundColor, () {
-                      if (scrollController.offset != 0.0) {
-                        scrollController.animateTo(0.0,
-                            duration: const Duration(milliseconds: 488),
-                            curve: Curves.easeInOutQuad);
-                      } else {
-                        Navigator.pop(context);
-                      }
-                    }),
-                    const Expanded(
-                      child: SizedBox(),
-                    ),
-                    /*  _getAppBarUi(
-                        Colors.white,
-                        isFav ? Icons.favorite : Icons.favorite_border,
-                        Theme.of(context).primaryColor, () {
-                      setState(() {
-                        isFav = !isFav;
-                      });
-                    })*/
-                  ],
-                ),
-              ),
-            )
-          ],
-        ),
+          )
+        ],
       ),
     );
   }
@@ -511,12 +492,13 @@ class _HotelDetailsState extends State<HotelDetails>
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Text(
-                      widget.address,
+                      widget.address.substring(0,29),
                       style: const TextStyle(
                         color: Colors.grey,
                         fontSize: 11,
                       ),
                     ),
+                    SizedBox(width: 10,),
                     const Icon(
                       Icons.location_on_sharp,
                       color: Colors.blue,

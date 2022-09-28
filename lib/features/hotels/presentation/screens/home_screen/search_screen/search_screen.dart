@@ -135,6 +135,7 @@ class SearchScreen extends StatelessWidget {
                                                   cubit
                                                       .searchHotels![index]
                                                       .name!,
+                                                  overflow: TextOverflow.ellipsis,
                                                   style:  TextStyle(
                                                     fontWeight: FontWeight.bold,
                                                     fontSize: 16,
@@ -153,7 +154,7 @@ class SearchScreen extends StatelessWidget {
                                                     Text(
                                                       cubit
                                                           .searchHotels![index]
-                                                          .address!,
+                                                          .address!.substring(0,15),
                                                       style: const TextStyle(
                                                         color: Colors.grey,
                                                         fontSize: 15,

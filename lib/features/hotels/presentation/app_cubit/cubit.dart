@@ -80,7 +80,7 @@ class AppCubit extends Cubit<AppStates> {
         (result) {
       hotels = result;
       if (kDebugMode) {
-        print(hotels?.length);
+        print(hotels![0].hotelImages);
       }
       emit(SuccessState(result));
     });
