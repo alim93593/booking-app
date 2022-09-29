@@ -24,7 +24,8 @@ import '../screens/bookings_screens/screen/bookings_screen.dart';
 import '../screens/settings_screen/settings_screen.dart';
 
 class AppCubit extends Cubit<AppStates> {
-  AppCubit(this.getHotelsUseCase,this.searchHotelsUseCase) : super(AppInitialStates());
+  AppCubit(this.getHotelsUseCase, this.searchHotelsUseCase)
+      : super(AppInitialStates());
   static AppCubit get(context) => BlocProvider.of(context);
 
   int currentIndex = 0;
@@ -57,8 +58,8 @@ class AppCubit extends Cubit<AppStates> {
   ];
   List<Widget> screens = [
     HomeScreen(),
-    const BookingsScreen(),
-     UserProfileScreen(),
+    BookingsScreen(),
+    UserProfileScreen(),
   ];
   void changeBottomNavBar(int index) {
     currentIndex = index;
@@ -70,12 +71,21 @@ class AppCubit extends Cubit<AppStates> {
 //  getMethod
   List<Hotel>? hotels;
   List<Hotel>? searchHotels;
+  int lastPage = 1;
+  int total = 0;
+  int currentPage = 1;
 
   GetHotelsUseCase getHotelsUseCase;
   SearchHotelsUseCase searchHotelsUseCase;
-  dynamic getHotels() async {
+  dynamic getHotels({
+    bool isForce = false,
+  }) async {
     emit(LoadingState());
-    final result = await getHotelsUseCase.call(page: 1, count: 10);
+    if(isForce) {
+      hotels = [];
+      currentPage = 1;
+    }
+    final result = await getHotelsUseCase.call(page: currentPage, count: 10);
     result.fold((failure) => emit(FailureState(_mapFailureToMessage(failure))),
         (result) {
       hotels = result;
@@ -89,22 +99,24 @@ class AppCubit extends Cubit<AppStates> {
     //   print(result);
     // }
   }
+
   dynamic getSearch({required String name}) async {
     emit(SearchLoadingState());
-    final result = await searchHotelsUseCase.call(page: 1, count: 20,name: name);
-    result.fold((failure) => emit(SearchFailureState(_mapFailureToMessage(failure))),
-            (result) {
-              searchHotels = result;
-          if (kDebugMode) {
-            print(hotels);
-          }
-          emit(SearchSuccessState(result));
-        });
+    final result =
+        await searchHotelsUseCase.call(page: 1, count: 20, name: name);
+    result.fold(
+        (failure) => emit(SearchFailureState(_mapFailureToMessage(failure))),
+        (result) {
+      searchHotels = result;
+      if (kDebugMode) {
+        print(hotels);
+      }
+      emit(SearchSuccessState(result));
+    });
     // if (kDebugMode) {
     //   print(result);
     // }
   }
-
 
   String _mapFailureToMessage(Failure failure) {
     switch (failure.runtimeType) {
@@ -114,4 +126,12 @@ class AppCubit extends Cubit<AppStates> {
         return "Unexpected Error , Please try again later .";
     }
   }
+  bool isEnd = false;
+
+  void toggleIsEnd() {
+    isEnd = !isEnd;
+
+    emit(ToggleIsEndState());
+  }
+
 }

@@ -41,7 +41,8 @@ class HomeScreen extends StatelessWidget {
                 delegate: ImageSlider(
                   maxExtent: height / 1.6,
                   minExtent: 240,
-                )),
+                ),
+            ),
             SliverToBoxAdapter(
               child: Padding(
                 padding: const EdgeInsets.only(top: 16.0, left: 16.0),
@@ -50,7 +51,7 @@ class HomeScreen extends StatelessWidget {
                     Container(
                         width: 20,
                         child: IconButton(onPressed: (){
-                          navigateTo(context: context, route: MapScreen(latitude:double.parse(cubit.hotels![0].longitude!) ,longitude: double.parse(cubit.hotels![0].latitude!),));
+                          navigateTo(context: context, route: MapPage(latitude:'${cubit.hotels![0].longitude!}' ,longitude:' ${cubit.hotels![0].latitude!}'));
                         }, icon: Icon(Icons.location_city,color: Colors.yellow,))),
                     SizedBox(width: 20,),
                     Text(
@@ -78,6 +79,8 @@ class HomeScreen extends StatelessWidget {
                         context,
                         MaterialPageRoute(
                             builder: (context) => HotelDetails(
+                              latitude: cubit.hotels![index].latitude!,
+                                  longitude:  cubit.hotels![index].longitude!,
                                   address: cubit.hotels![index].address!,
                                   description: cubit.hotels![index].description!,
                                   hotelName: cubit.hotels?[index].name,

@@ -27,3 +27,4 @@ class SearchFailureState extends AppStates {
 SearchFailureState(this.message);
   final String message;
 }
+class ToggleIsEndState extends AppStates {}
