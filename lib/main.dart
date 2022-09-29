@@ -32,13 +32,13 @@ void main() async {
   debugPrint(onBoarding.toString());
   debugPrint(toKen.toString());
   if (onBoarding == false) {
-    if (toKen != '') {
+    widget = const OnBoardingScreen();
+  } else {
+    if (toKen != null) {
       widget = HomeLayout();
     } else {
-      widget = const LoginScreen();
+      widget =  LoginScreen();
     }
-  } else {
-    widget = const OnBoardingScreen();
   }
 
   bool? isDark = CacheHelper.getData(key: 'isDark');
@@ -65,7 +65,6 @@ class MyApp extends StatelessWidget {
           BlocProvider(
             create: (_) => di.sl<AuthCubit>(),
           ),
-
           BlocProvider(
             create: (_) => di.sl<AppCubit>()..getHotels(),
           ),

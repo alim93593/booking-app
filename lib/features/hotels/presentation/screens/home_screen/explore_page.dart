@@ -6,28 +6,27 @@ class ExplorePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Explore'),
-        centerTitle: true,
-        actions: [
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(
-              Icons.map_outlined,
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text('Explore'),
+          centerTitle: true,
+          actions: [
+            IconButton(
+              onPressed: () {},
+              icon: const Icon(
+                Icons.map_outlined,
+              ),
             ),
-          ),
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(
-              Icons.filter_alt_outlined,
+            IconButton(
+              onPressed: () {},
+              icon: const Icon(
+                Icons.filter_alt_outlined,
+              ),
             ),
-          ),
-        ],
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16),
-        child: const ExploreWidget(),
+          ],
+        ),
+        body: const ExploreWidget(),
       ),
     );
   }

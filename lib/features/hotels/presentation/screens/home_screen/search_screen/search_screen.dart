@@ -9,7 +9,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../../core/utils/injection/injection_container.dart';
 import '../../../../../../core/widget/custom_text_form_field.dart';
-
+import 'dart:math' as math;
 class SearchScreen extends StatelessWidget {
   const SearchScreen({Key? key}) : super(key: key);
   static const String routeName = 'SearchScreen';
@@ -118,9 +118,12 @@ class SearchScreen extends StatelessWidget {
                                                   BorderRadius.circular(15),
                                             ),
                                             child: Image.network(
-                                                'https://images.unsplash.com/photo-1615460549969-36fa19521a4f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MzR8fGhvdGVsfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60',
-                                                fit: BoxFit.cover),
-                                          ),
+                                                'http://api.mahmoudtaha.com/images/${cubit.searchHotels![index].hotelImages![math.Random().nextInt(cubit.searchHotels![index].hotelImages!.length)]}',
+                                              fit: BoxFit.cover,
+                                            width: 175,
+                                              height: 130,
+                                            ),
+                                        ),
                                         ),
                                         Align(
                                           alignment: AlignmentDirectional.topEnd,

@@ -39,7 +39,7 @@ class BuildUserProfile extends StatelessWidget {
           profileModelEntity: sl())
         ..getProfileInfo(
             token:
-                'DnkaEA2eU1DNZmKIpx5I7u6ptaKeEGAA1nq4bFkClgBsYsWLyTMNsJD7O06u'),
+                toKen),
       child: BlocConsumer<AuthCubit, AuthStates>(
         listener: (context, state) {
           // TODO: implement listener
