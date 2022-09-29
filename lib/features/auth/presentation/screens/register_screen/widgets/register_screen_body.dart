@@ -123,7 +123,7 @@ class RegisterScreenBody extends StatelessWidget {
                       prefix: const Icon(Icons.email_outlined),
                       hintText: 'Email Address',
                       hintStyle:  TextStyle(
-                        color:color,
+                        color: Colors.grey,
                         fontFamily: 'Ubuntu',
                       ),
                       style:  TextStyle(
@@ -180,11 +180,11 @@ class RegisterScreenBody extends StatelessWidget {
                       ),
                       hintText: 'Confirm Password',
                       hintStyle:  TextStyle(
-                        color:color,
+                        color: Colors.grey,
                         fontFamily: 'Ubuntu',
                       ),
-                      style: const TextStyle(
-                        color: Colors.black,
+                      style:  TextStyle(
+                        color:color,
                         fontFamily: 'Ubuntu',
                       ),
                       suffix: cubit.suffix,
