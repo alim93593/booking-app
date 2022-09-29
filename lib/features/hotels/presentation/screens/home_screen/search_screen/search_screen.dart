@@ -79,6 +79,8 @@ class SearchScreen extends StatelessWidget {
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) => HotelDetails(
+                                              latitude: cubit.searchHotels![index].latitude!,
+                                              longitude:  cubit.searchHotels![index].longitude!,
                                               address: cubit.searchHotels![index].address!,
                                               description: cubit.searchHotels![index].description!,
                                               hotelName: cubit.searchHotels![index].name!,

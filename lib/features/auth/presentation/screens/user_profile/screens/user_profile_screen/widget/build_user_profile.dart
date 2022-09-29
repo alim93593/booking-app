@@ -30,175 +30,196 @@ class BuildUserProfile extends StatelessWidget {
         : const Color(0xff212525);
 
     return BlocProvider(
-  create: (context) => AuthCubit(loginUseCase: sl(), registerUseCase: sl(), getProfileInfoUseCase: sl(), updateProfileUseCase: sl(), userModelEntity: sl(),profileModelEntity: sl())..getProfileInfo(token: 'DnkaEA2eU1DNZmKIpx5I7u6ptaKeEGAA1nq4bFkClgBsYsWLyTMNsJD7O06u'),
-  child: BlocConsumer<AuthCubit, AuthStates>(
-  listener: (context, state) {
-    // TODO: implement listener
-  },
-  builder: (context, state) {
-    var cubit = AuthCubit.get(context);
-        return ConditionalBuilder(
-        condition:state is GetProfileSuccessState ,
-        builder: (context)  {
-         var profileState = GetProfileSuccessState(profileModelEntity: cubit.profileModelEntity);
-          return Scaffold(
-          // backgroundColor: ModeCubit.get(context).isDark?Colors.black:Colors.white,
-          appBar: appbar(
-            context: context,
-            title: 'Edit Profile',
-          ),
-          body: SingleChildScrollView(
-            physics: BouncingScrollPhysics(),
-            child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Container(
-                color: ModeCubit.get(context).isDark ? Colors.black : Colors.white,
-                child: InkWell(
-                  onTap: () {
-                    navigateTo(context: context, route: UpdateUserProfile());
-                  },
-                  child: Padding(
-                    padding: const EdgeInsets.all(10),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Column(
-                          children: [
-                            Stack(
-                              alignment: AlignmentDirectional.topStart,
-                              children: [
-                                Align(
-                                  alignment: Alignment.topLeft,
-                                  child: Text(
-                                    '${profileState.profileModelEntity.data?.name}',
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 20,
-                                      color: color,
+      create: (context) => AuthCubit(
+          loginUseCase: sl(),
+          registerUseCase: sl(),
+          getProfileInfoUseCase: sl(),
+          updateProfileUseCase: sl(),
+          userModelEntity: sl(),
+          profileModelEntity: sl())
+        ..getProfileInfo(
+            token:
+                'DnkaEA2eU1DNZmKIpx5I7u6ptaKeEGAA1nq4bFkClgBsYsWLyTMNsJD7O06u'),
+      child: BlocConsumer<AuthCubit, AuthStates>(
+        listener: (context, state) {
+          // TODO: implement listener
+        },
+        builder: (context, state) {
+          var color = ModeCubit.get(context).isDark == true
+              ? const Color(0xffffffff)
+              : const Color(0xff212525);
+          var cardColor = ModeCubit.get(context).isDark == true
+              ?  const Color(0xff212525)
+              : const Color(0xffffffff);
+          var cubit = AuthCubit.get(context);
+          return ConditionalBuilder(
+              condition: state is GetProfileSuccessState,
+              builder: (context) {
+                var profileState = GetProfileSuccessState(
+                    profileModelEntity: cubit.profileModelEntity);
+                return Scaffold(
+                  // backgroundColor: ModeCubit.get(context).isDark?Colors.black:Colors.white,
+                  appBar: appbar(
+                    context: context,
+                    title: 'Edit Profile',
+                  ),
+                  body: SingleChildScrollView(
+                    physics: BouncingScrollPhysics(),
+                    child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                            color: cardColor,
+                            child: InkWell(
+                              onTap: () {
+                                navigateTo(
+                                    context: context,
+                                    route: UpdateUserProfile());
+                              },
+                              child: Padding(
+                                padding: const EdgeInsets.all(10),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Column(
+                                      children: [
+                                        Stack(
+                                          alignment:
+                                              AlignmentDirectional.topStart,
+                                          children: [
+                                            Align(
+                                              alignment: Alignment.topLeft,
+                                              child: Text(
+                                                '${profileState.profileModelEntity.data?.name}',
+                                                style: TextStyle(
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: 20,
+                                                  color: color,
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                        SizedBox(
+                                          height: 20,
+                                        ),
+                                        Stack(
+                                          alignment:
+                                              AlignmentDirectional.topStart,
+                                          children: [
+                                            Align(
+                                              alignment: Alignment.topCenter,
+                                              child: Text(
+                                                ' Update Your Profile ',
+                                                style: TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 15,
+                                                    color: color),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ],
                                     ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            SizedBox(
-                              height: 20,
-                            ),
-                            Stack(
-                              alignment: AlignmentDirectional.topStart,
-                              children: [
-                                Align(
-                                  alignment: Alignment.topCenter,
-                                  child: Text(
-                                    ' Update Your Profile ',
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 15,
-                                        color: color),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                        Container(
-                          height: 170.0,
-                          padding: EdgeInsets.all(20),
-                          child: Stack(
-                            alignment: AlignmentDirectional.topEnd,
-                            children: [
-                              Stack(
-                                alignment: AlignmentDirectional.bottomEnd,
-                                children: [
-                                  CircleAvatar(
-                                    radius: 64.0,
-                                    child: CircleAvatar(
-                                      radius: 60.0,
-                                      backgroundColor:
-                                      Theme.of(context).scaffoldBackgroundColor,
-                                      backgroundImage: NetworkImage(
-                                          '${profileState.profileModelEntity.data?.image}'),
+                                    Container(
+                                      height: 170.0,
+                                      padding: EdgeInsets.all(20),
+                                      child: Stack(
+                                        alignment: AlignmentDirectional.topEnd,
+                                        children: [
+                                          Stack(
+                                            alignment:
+                                                AlignmentDirectional.bottomEnd,
+                                            children: [
+                                              CircleAvatar(
+                                                radius: 64.0,
+                                                child: CircleAvatar(
+                                                  radius: 60.0,
+                                                  backgroundColor: Theme.of(
+                                                          context)
+                                                      .scaffoldBackgroundColor,
+                                                  backgroundImage: NetworkImage(
+                                                      '${profileState.profileModelEntity.data?.image}'),
+                                                ),
+                                              ),
+                                              // IconButton(
+                                              //     onPressed: () {},
+                                              //     icon: CircleAvatar(
+                                              //         radius: 20.0,
+                                              //         child: Icon(
+                                              //           Icons.add_a_photo_rounded,
+                                              //           size: 20,
+                                              //         ))),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
                                     ),
-                                  ),
-                                  // IconButton(
-                                  //     onPressed: () {},
-                                  //     icon: CircleAvatar(
-                                  //         radius: 20.0,
-                                  //         child: Icon(
-                                  //           Icons.add_a_photo_rounded,
-                                  //           size: 20,
-                                  //         ))),
-                                ],
+                                  ],
+                                ),
                               ),
-                            ],
+                            ),
                           ),
-                        ),
-                      ],
-                    ),
+                          ProfileItem(
+                              itemName: 'Change Password',
+                              color: color,
+                              icon: Icon(
+                                FontAwesomeIcons.lock,
+                               color: color,
+                              ),
+                              onPressed: () {
+                                navigateTo(
+                                    context: context,
+                                    route: ChangePasswordScreen());
+                              }),
+                          ProfileItem(
+                            itemName: 'Theme Mode',
+                            color: color,
+                            icon: Icon(
+                              FontAwesomeIcons.lightbulb,
+                              color: color,
+                            ),
+                            onPressed: () {
+                              ModeCubit.get(context).changeAppMode();
+                            },
+                          ),
+                          ProfileItem(
+                            itemName: 'Invite Friend',
+                            color: color,
+                            icon: Icon(
+                              FontAwesomeIcons.userFriends,
+                              color: color,
+                            ),
+                            onPressed: () {},
+                          ),
+                          ProfileItem(
+                            itemName: 'Credit Coupons',
+                            color: color,
+                            icon: Icon(
+                              FontAwesomeIcons.gift,
+                              color: color,
+                            ),
+                          ),
+                          ProfileItem(
+                            itemName: 'Log Out',
+                            color: color,
+                            icon: Icon(
+                              FontAwesomeIcons.arrowRightFromBracket,
+                              color: color,
+                            ),
+                            isLast: true,
+                          ),
+                        ]),
                   ),
-                ),
-              ),
-              ProfileItem(
-                  itemName: 'Change Password',
-                  color: color,
-                  icon: Icon(
-                    FontAwesomeIcons.lock,
-                    color:
-                    ModeCubit.get(context).isDark ? Colors.white : Colors.black,
-                  ),
-                  onPressed: () {
-                    navigateTo(context: context, route: ChangePasswordScreen());
-                  }),
-              ProfileItem(
-                itemName:'Theme Mode',
-                color: color,
-                icon: Icon(
-                  FontAwesomeIcons.lightbulb,
-                  color:
-                  ModeCubit.get(context).isDark ? Colors.white : Colors.black,
-                ),
-                onPressed:  () {
-                  ModeCubit.get(context).changeAppMode();
-                },
-              ), ProfileItem(
-                itemName: 'Invite Friend',
-                color: color,
-                icon: Icon(
-                  FontAwesomeIcons.userFriends,
-                  color:
-                  ModeCubit.get(context).isDark ? Colors.white : Colors.black,
-                ),
-                onPressed: (){
-                },
-              ),
-              ProfileItem(
-                itemName: 'Credit Coupons',
-                color: color,
-                icon: Icon(
-                  FontAwesomeIcons.gift,
-                  color:
-                  ModeCubit.get(context).isDark ? Colors.white : Colors.black,
-                ),
-              ),
-
-              ProfileItem(
-                itemName: 'Log Out',
-                color: color,
-                icon: Icon(
-                  FontAwesomeIcons.arrowRightFromBracket,
-                  color:
-                  ModeCubit.get(context).isDark ? Colors.white : Colors.black,
-                ),
-                isLast: true,
-              ),
-            ]),
-          ),
-        );},
-        fallback: (context) => const Center(
-          child: CircularProgressIndicator(),
-        ));
-
-  },
-),
-);
+                );
+              },
+              fallback: (context) => const Center(
+                    child: CircularProgressIndicator(),
+                  ));
+        },
+      ),
+    );
   }
 }
 
@@ -209,14 +230,14 @@ class ProfileItem extends StatelessWidget {
     this.onPressed,
     required this.itemName,
     required this.icon,
-    this.isLast=false,
+    this.isLast = false,
   }) : super(key: key);
 
   final VoidCallback? onPressed;
   final Color color;
   final String itemName;
   final Widget icon;
-  final  bool isLast;
+  final bool isLast;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -240,8 +261,7 @@ class ProfileItem extends StatelessWidget {
               ),
             ],
           ),
-          isLast ? SizedBox.shrink():
-          MyDivider(),
+          isLast ? SizedBox.shrink() : MyDivider(),
         ],
       ),
     );

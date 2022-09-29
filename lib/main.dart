@@ -65,6 +65,7 @@ class MyApp extends StatelessWidget {
           BlocProvider(
             create: (_) => di.sl<AuthCubit>(),
           ),
+
           BlocProvider(
             create: (_) => di.sl<AppCubit>()..getHotels(),
           ),

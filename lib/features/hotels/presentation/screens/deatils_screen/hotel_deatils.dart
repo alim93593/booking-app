@@ -5,6 +5,7 @@ import 'dart:ui';
 
 import 'package:booking_app/core/themes/mode_cubit/mode_cubit.dart';
 import 'package:booking_app/features/hotels/presentation/app_cubit/cubit.dart';
+import 'package:booking_app/features/hotels/presentation/screens/google_maps/screens/map_screen.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
@@ -18,9 +19,12 @@ class HotelDetails extends StatefulWidget {
   final String address;
   final dynamic price;
   final dynamic rate;
-
+  final String latitude;
+  final String longitude;
   HotelDetails(
-      {required this.hotelName,
+      {required this.latitude,
+      required this.longitude,
+      required this.hotelName,
       required this.description,
       required this.address,
       required this.price,
@@ -43,30 +47,44 @@ class _HotelDetailsState extends State<HotelDetails>
   bool isFav = false;
   bool isReadless = false;
 
+  String? firstHalf;
+  String? secondHalf;
+
+  bool flag = true;
   late AnimationController animationController;
   var imageHeight = 0.0;
 
   late AnimationController _animationController;
 
   Completer<GoogleMapController> _controller = Completer();
-  static final CameraPosition _kGooglePlex = const CameraPosition(
-    target: LatLng(37.42796133580664, -122.085749655962),
-    zoom: 14.4746,
-  );
+  static final CameraPosition _kGooglePlex = CameraPosition(
+    // bearing: 192.8334901395799,
+      target:LatLng(30.0504042,
+          31.3590117),
+      //tilt: 59.440717697143555,
+      zoom:  14.4746);
 
-  static final CameraPosition _kLake = const CameraPosition(
-      bearing: 192.8334901395799,
-      target: LatLng(37.43296265331129, -122.08832357078792),
-      tilt: 59.440717697143555,
-      zoom: 19.151926040649414);
+  static final CameraPosition _kLake = CameraPosition(
+    // bearing: 192.8334901395799,
+      target:LatLng(30.0504042,
+          31.3590117),
+      //tilt: 59.440717697143555,
+      zoom:  14.4746);
 
   @override
   void initState() {
     // TODO: implement initState
-    animationController = AnimationController(
-        duration: const Duration(milliseconds: 200), vsync: this);
-    _animationController = AnimationController(
-        duration: const Duration(milliseconds: 0), vsync: this);
+    if (widget.description.length > 50) {
+      firstHalf = widget.description.substring(0, 50);
+      secondHalf = widget.description.substring(50, widget.description.length);
+    } else {
+      firstHalf = widget.description;
+      secondHalf = "";
+    }
+    animationController =
+        AnimationController(duration: Duration(milliseconds: 200), vsync: this);
+    _animationController =
+        AnimationController(duration: Duration(milliseconds: 0), vsync: this);
     animationController.forward();
     scrollController.addListener(() {
       if (mounted) {
@@ -96,13 +114,14 @@ class _HotelDetailsState extends State<HotelDetails>
     super.dispose();
   }
 
+  bool descTextShowFlag = false;
   @override
   Widget build(BuildContext context) {
     var color = ModeCubit.get(context).isDark == true
         ? const Color(0xffffffff)
         : const Color(0xff212525);
     var cardColor = ModeCubit.get(context).isDark == true
-        ?  const Color(0xff212525)
+        ? const Color(0xff212525)
         : const Color(0xffffffff);
     imageHeight = MediaQuery.of(context).size.height;
     var cubit = AppCubit.get(context);
@@ -131,7 +150,7 @@ class _HotelDetailsState extends State<HotelDetails>
                   child: Column(
                     children: [
                       Row(
-                        children:  [
+                        children: [
                           Expanded(
                             child: Text(
                               'description',
@@ -143,18 +162,58 @@ class _HotelDetailsState extends State<HotelDetails>
                           ),
                         ],
                       ),
-            SizedBox(height: 10,),
-            Text(
-              widget.description.trimLeft(),
-              style: TextStyle(
-                  fontSize: 14,
-                  color: color,
-                  letterSpacing: 0.5),
-            ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(
+                            left: 24, right: 24, top: 4, bottom: 8),
+                        child: Text(
+                          widget.description,
+                          maxLines: descTextShowFlag ? 20 : 2,
+                          textAlign: TextAlign.start,
+                          style: TextStyle(
+                              fontFamily: 'Poppins',
+                              fontSize: 12,
+                              color: Colors.grey),
+                        ),
+                      ),
+                      InkWell(
+                        onTap: () {
+                          setState(() {
+                            descTextShowFlag = !descTextShowFlag;
+                          });
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.only(
+                            left: 24,
+                            right: 24,
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: <Widget>[
+                              descTextShowFlag
+                                  ? const Text(
+                                      "Show Less",
+                                      style: TextStyle(
+                                          fontFamily: 'Poppins',
+                                          fontSize: 12,
+                                          color: Colors.blue),
+                                    )
+                                  : const Text(
+                                      "Show More",
+                                      style: TextStyle(
+                                          fontFamily: 'Poppins',
+                                          fontSize: 12,
+                                          color: Colors.blue),
+                                    )
+                            ],
+                          ),
+                        ),
+                      ),
                     ],
                   ),
                 ),
-
                 getPhotoReviewUi(
                     'Photos', 'View All', Icons.arrow_forward, () {}),
                 const HotelRoomList(),
@@ -168,7 +227,12 @@ class _HotelDetailsState extends State<HotelDetails>
                           const EdgeInsetsDirectional.only(start: 14, end: 14),
                       child: GoogleMap(
                         mapType: MapType.normal,
-                        initialCameraPosition: _kGooglePlex,
+                        initialCameraPosition: CameraPosition(
+                            // bearing: 192.8334901395799,
+                            target: LatLng(double.parse(widget.latitude),
+                                double.parse(widget.longitude)),
+                            //tilt: 59.440717697143555,
+                            zoom: 14.4746),
                         onMapCreated: (GoogleMapController controller) {
                           _controller.complete(controller);
                         },
@@ -179,7 +243,7 @@ class _HotelDetailsState extends State<HotelDetails>
                       child: FloatingActionButton.extended(
                         backgroundColor: Colors.grey.withOpacity(0.6),
                         onPressed: () {
-                          // Navigator.pushNamed(context, MapScreen.routeName);
+                         Navigator.push(context, MaterialPageRoute(builder:(context)=> MapPage(latitude: widget.latitude,longitude: widget.longitude,)));
                         },
                         label: const Text('see more'),
                       ),
@@ -189,7 +253,8 @@ class _HotelDetailsState extends State<HotelDetails>
                 Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: Container(
-                    margin: const EdgeInsetsDirectional.only(top: 24, bottom: 14),
+                    margin:
+                        const EdgeInsetsDirectional.only(top: 24, bottom: 14),
                     decoration: const BoxDecoration(
                       borderRadius: BorderRadius.all(
                         Radius.circular(20),
@@ -482,8 +547,7 @@ class _HotelDetailsState extends State<HotelDetails>
               Text(
                 widget.hotelName,
                 textAlign: TextAlign.left,
-                style: const TextStyle(
-                     color: Colors.grey, fontSize: 18),
+                style: const TextStyle(color: Colors.grey, fontSize: 18),
               ),
               SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
@@ -492,31 +556,30 @@ class _HotelDetailsState extends State<HotelDetails>
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Text(
-                      widget.address.substring(0,29),
+                      widget.address.substring(0, 29),
                       style: const TextStyle(
                         color: Colors.grey,
                         fontSize: 11,
                       ),
                     ),
-                    SizedBox(width: 10,),
+                    SizedBox(
+                      width: 10,
+                    ),
                     const Icon(
                       Icons.location_on_sharp,
                       color: Colors.blue,
                       size: 13,
                     ),
-                     const Text(
+                    const Text(
                       //"${widget.hotelListData.dist.toStringAsFixed(1)}",
                       '2.0',
                       overflow: TextOverflow.ellipsis,
-                      style: TextStyle( color: Colors.grey, fontSize: 11),
+                      style: TextStyle(color: Colors.grey, fontSize: 11),
                     ),
                     const Text(
                       'KM To City',
                       overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
-                        fontSize: 11,
-                        color: Colors.grey
-                      ),
+                      style: TextStyle(fontSize: 11, color: Colors.grey),
                     ),
                   ],
                 ),
@@ -596,8 +659,8 @@ class _HotelDetailsState extends State<HotelDetails>
           Expanded(
             child: Text(
               title,
-              style:  TextStyle(
-                  color: color,
+              style: TextStyle(
+                color: color,
                 fontWeight: FontWeight.bold,
                 fontSize: 12,
               ),
@@ -639,6 +702,11 @@ class _HotelDetailsState extends State<HotelDetails>
 
   Future<void> _goToTheLake() async {
     final GoogleMapController controller = await _controller.future;
-    controller.animateCamera(CameraUpdate.newCameraPosition(_kLake));
+    controller.animateCamera(CameraUpdate.newCameraPosition(CameraPosition(
+      // bearing: 192.8334901395799,
+        target:LatLng(double.parse(widget.latitude),double.parse(widget.longitude)
+        ),
+        //tilt: 59.440717697143555,
+        zoom:  14.4746)));
   }
 }

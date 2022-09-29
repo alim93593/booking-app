@@ -1,6 +1,8 @@
 // ignore_for_file: file_names, implementation_imports, annotate_overrides, unused_local_variable
 
 import 'package:booking_app/core/themes/mode_cubit/mode_cubit.dart';
+import 'package:booking_app/core/widget/main_button.dart';
+import 'package:booking_app/features/hotels/presentation/screens/home_screen/explore_page.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/rendering/sliver_persistent_header.dart';
@@ -89,8 +91,8 @@ class ImageSlider implements SliverPersistentHeaderDelegate {
                 padding: const EdgeInsets.only(top: 300, left: 16),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: const [
-                    Text(
+                  children:  [
+                    const Text(
                       'Best deals',
                       style: TextStyle(
                           color: Colors.white,
@@ -111,6 +113,19 @@ class ImageSlider implements SliverPersistentHeaderDelegate {
                     SizedBox(
                       height: 15,
                     ),
+                    MainButton(
+                        onTabbed: (){
+                          Navigator.push(context, MaterialPageRoute(builder: (context)=> ExplorePage()));
+                        },
+                        myStyle: Text('Explore',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 16,
+                        ),
+                        ),
+                        myColor: Colors.blue,
+                        width: 120,
+                        height: 50)
                   ],
                 ),
               )
