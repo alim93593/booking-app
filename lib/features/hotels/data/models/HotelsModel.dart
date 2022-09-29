@@ -9,8 +9,9 @@ import '../../domain/entities/hotel.dart';
 
 class HotelsModel {
   HotelsModel({
-      this.status, 
-      this.data,});
+    this.status,
+    this.data,
+  });
 
   HotelsModel.fromJson(dynamic json) {
     status = json['status'] != null ? Status.fromJson(json['status']) : null;
@@ -29,7 +30,6 @@ class HotelsModel {
     }
     return map;
   }
-
 }
 
 /// current_page : 1
@@ -48,19 +48,20 @@ class HotelsModel {
 
 class PageData {
   PageData({
-      this.currentPage, 
-      this.hotels,
-      this.firstPageUrl, 
-      this.from, 
-      this.lastPage, 
-      this.lastPageUrl, 
-      this.links, 
-      this.nextPageUrl, 
-      this.path, 
-      this.perPage, 
-      this.prevPageUrl, 
-      this.to, 
-      this.total,});
+    this.currentPage,
+    this.hotels,
+    this.firstPageUrl,
+    this.from,
+    this.lastPage,
+    this.lastPageUrl,
+    this.links,
+    this.nextPageUrl,
+    this.path,
+    this.perPage,
+    this.prevPageUrl,
+    this.to,
+    this.total,
+  });
 
   PageData.fromJson(dynamic json) {
     currentPage = json['current_page'];
@@ -122,7 +123,6 @@ class PageData {
     map['total'] = total;
     return map;
   }
-
 }
 
 /// url : null
@@ -131,9 +131,10 @@ class PageData {
 
 class Links {
   Links({
-      this.url, 
-      this.label, 
-      this.active,});
+    this.url,
+    this.label,
+    this.active,
+  });
 
   Links.fromJson(dynamic json) {
     url = json['url'];
@@ -151,7 +152,6 @@ class Links {
     map['active'] = active;
     return map;
   }
-
 }
 
 /// id : 9
@@ -167,7 +167,7 @@ class Links {
 /// hotel_images : [{"id":7,"hotel_id":"9","image":"35321662903840.jpg","created_at":null,"updated_at":null},{"id":8,"hotel_id":"9","image":"21831662903840.png","created_at":null,"updated_at":null}]
 /// hotel_facilities : [{"id":7,"hotel_id":"9","facility_id":"1","created_at":null,"updated_at":null},{"id":8,"hotel_id":"9","facility_id":"2","created_at":null,"updated_at":null}]
 
-class HotelModel extends Hotel{
+class HotelModel extends Hotel {
   HotelModel({
     num? id,
     String? name,
@@ -179,8 +179,19 @@ class HotelModel extends Hotel{
     String? rate,
     String? createdAt,
     String? updatedAt,
-    List<HotelImages>? hotelImages,
-    List<HotelFacilities>? hotelFacilities,}):super(id: id,name: name,description: description,price: price,address: address,hotelFacilities: hotelFacilities,hotelImages: hotelImages,latitude: latitude,longitude: longitude,rate: rate);
+    List<dynamic>? hotelImages,
+    List<HotelFacilities>? hotelFacilities,
+  }) : super(
+            id: id,
+            name: name,
+            description: description,
+            price: price,
+            address: address,
+            hotelFacilities: hotelFacilities,
+            hotelImages: hotelImages,
+            latitude: latitude,
+            longitude: longitude,
+            rate: rate);
 
   HotelModel.fromJson(dynamic json) {
     id = json['id'];
@@ -193,12 +204,7 @@ class HotelModel extends Hotel{
     rate = json['rate'];
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
-    if (json['hotel_images'] != null) {
-      hotelImages = [];
-      json['hotel_images'].forEach((v) {
-        hotelImages?.add(HotelImages.fromJson(v));
-      });
-    }
+    hotelImages = List<String>.from(json['hotel_images'].map((x) => x['image']));
     if (json['hotel_facilities'] != null) {
       hotelFacilities = [];
       json['hotel_facilities'].forEach((v) {
@@ -206,7 +212,6 @@ class HotelModel extends Hotel{
       });
     }
   }
-
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -220,15 +225,13 @@ class HotelModel extends Hotel{
     map['rate'] = rate;
     map['created_at'] = createdAt;
     map['updated_at'] = updatedAt;
-    if (hotelImages != null) {
-      map['hotel_images'] = hotelImages?.map((v) => v.toJson()).toList();
-    }
+    map['hotel_images'] = hotelImages;
     if (hotelFacilities != null) {
-      map['hotel_facilities'] = hotelFacilities?.map((v) => v.toJson()).toList();
+      map['hotel_facilities'] =
+          hotelFacilities?.map((v) => v.toJson()).toList();
     }
     return map;
   }
-
 }
 
 /// id : 7
@@ -237,13 +240,19 @@ class HotelModel extends Hotel{
 /// created_at : null
 /// updated_at : null
 
-class HotelFacilities extends Facility{
+class HotelFacilities extends Facility {
   HotelFacilities({
     num? id,
     String? hotelId,
     String? facilityId,
     dynamic createdAt,
-    dynamic updatedAt,}):super(id: id,hotelId: hotelId,facilityId: facilityId,createdAt: createdAt,updatedAt: updatedAt);
+    dynamic updatedAt,
+  }) : super(
+            id: id,
+            hotelId: hotelId,
+            facilityId: facilityId,
+            createdAt: createdAt,
+            updatedAt: updatedAt);
 
   HotelFacilities.fromJson(dynamic json) {
     id = json['id'];
@@ -252,7 +261,6 @@ class HotelFacilities extends Facility{
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
   }
-
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -263,7 +271,6 @@ class HotelFacilities extends Facility{
     map['updated_at'] = updatedAt;
     return map;
   }
-
 }
 
 /// id : 7
@@ -274,11 +281,12 @@ class HotelFacilities extends Facility{
 
 class HotelImages {
   HotelImages({
-      this.id, 
-      this.hotelId, 
-      this.image, 
-      this.createdAt, 
-      this.updatedAt,});
+    this.id,
+    this.hotelId,
+    this.image,
+    this.createdAt,
+    this.updatedAt,
+  });
 
   HotelImages.fromJson(dynamic json) {
     id = json['id'];
@@ -302,14 +310,14 @@ class HotelImages {
     map['updated_at'] = updatedAt;
     return map;
   }
-
 }
 
 /// type : "1"
 
 class Status {
   Status({
-      this.type,});
+    this.type,
+  });
 
   Status.fromJson(dynamic json) {
     type = json['type'];
@@ -321,5 +329,4 @@ class Status {
     map['type'] = type;
     return map;
   }
-
 }

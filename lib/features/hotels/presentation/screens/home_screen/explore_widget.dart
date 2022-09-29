@@ -3,6 +3,7 @@ import 'dart:math' as math;
 import 'package:booking_app/core/themes/mode_cubit/mode_cubit.dart';
 import 'package:booking_app/features/hotels/presentation/app_cubit/cubit.dart';
 import 'package:booking_app/features/hotels/presentation/app_cubit/states.dart';
+import 'package:booking_app/features/hotels/presentation/screens/deatils_screen/hotel_deatils.dart';
 import 'package:booking_app/features/hotels/presentation/screens/home_screen/search_screen/search_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -50,6 +51,7 @@ class _ExploreWidgetState extends State<ExploreWidget> {
         var cardColor = ModeCubit.get(context).isDark == true
             ?  const Color(0xff212525)
             : const Color(0xffffffff);
+        var cubit = AppCubit.get(context);
         return CustomScrollView(
           controller: scrollController,
           slivers: [
@@ -155,130 +157,121 @@ class _ExploreWidgetState extends State<ExploreWidget> {
                         padding: const EdgeInsets.symmetric(
                           horizontal: 16.0,
                         ),
-                        child: Container(
-                          width: double.infinity,
-                          decoration: BoxDecoration(
-                            color: cardColor,
-                            borderRadius: BorderRadius.circular(10),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey[300]!,
-                                blurRadius: 10,
-                                offset: const Offset(0, 5),
-                              ),
-                            ],
-                          ),
-                          clipBehavior: Clip.antiAliasWithSaveLayer,
-                          child: Column(
-                            children: [
-                              SizedBox(
-                                width: double.infinity,
-                                height: 200,
-                                child: Stack(
-                                  children: [
-                                    Image(
-                                      image: NetworkImage(
-                                          'https://images.unsplash.com/photo-1615460549969-36fa19521a4f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MzR8fGhvdGVsfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60'),                                      width: double.infinity,
-                                      height: 200.0,
-                                      fit: BoxFit.cover,
-                                    ),
-                                    // Container(
-                                    //   width: double.infinity,
-                                    //   height: 200,
-                                    //   color: Colors.black38,
-                                    // ),
-                                    // Align(
-                                    //   alignment: Alignment.bottomLeft,
-                                    //   child: Padding(
-                                    //     padding: const EdgeInsets.all(8.0),
-                                    //     child: Row(
-                                    //       children: [
-                                    //         Container(
-                                    //           width: 40.0,
-                                    //           height: 40.0,
-                                    //           decoration: BoxDecoration(
-                                    //             color: Colors.white,
-                                    //             borderRadius: BorderRadius.circular(10),
-                                    //           ),
-                                    //           child: const Icon(
-                                    //             Icons.ac_unit,
-                                    //             color: Colors.grey,
-                                    //           ),
-                                    //         ),
-                                    //         const SizedBox(
-                                    //           width: 8.0,
-                                    //         ),
-                                    //         Container(
-                                    //           width: 40.0,
-                                    //           height: 40.0,
-                                    //           decoration: BoxDecoration(
-                                    //             color: Colors.white,
-                                    //             borderRadius: BorderRadius.circular(10),
-                                    //           ),
-                                    //           child: const Icon(
-                                    //             Icons.ac_unit,
-                                    //             color: Colors.grey,
-                                    //           ),
-                                    //         ),
-                                    //       ],
-                                    //     ),
-                                    //   ),
-                                    // ),
-                                  ],
+                        child: InkWell(
+                          onTap: (){
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => HotelDetails(
+                                    latitude: cubit.hotels![index].latitude!,
+                                    longitude:
+                                    cubit.hotels![index].longitude!,
+                                    address: cubit.hotels![index].address!,
+                                    description:
+                                    cubit.hotels![index].description!,
+                                    hotelName: cubit.hotels?[index].name,
+                                    price: cubit.hotels?[index].price,
+                                    rate: cubit.hotels?[index].rate,
+                                  )),
+                            );
+                          },
+                          child: Container(
+                            width: double.infinity,
+                            decoration: BoxDecoration(
+                              color: cardColor,
+                              borderRadius: BorderRadius.circular(10),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey[300]!,
+                                  blurRadius: 10,
+                                  offset: const Offset(0, 5),
                                 ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(16.0),
-                                child: Column(
-                                  children: [
-                                    Row(
-                                      children: [
-                                        Expanded(
-                                          child: Text(
+                              ],
+                            ),
+                            clipBehavior: Clip.antiAliasWithSaveLayer,
+                            child: Column(
+                              children: [
+                                SizedBox(
+                                  width: double.infinity,
+                                  height: 200,
+                                  child: Stack(
+                                    children: [
+                                      Image(
+                                        image: NetworkImage(
+                                            'http://api.mahmoudtaha.com/images/${cubit.hotels![index].hotelImages![math.Random().nextInt(cubit.hotels![index].hotelImages!.length)]}'),
+                                        width: double.infinity,
+                                        height: 200.0,
+                                        fit: BoxFit.cover,
+                                      ),
+
+                                    ],
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(16.0),
+                                  child: Column(
+                                    children: [
+                                      Row(
+                                        children: [
+                                          Expanded(
+                                            child: Text(
+                                              AppCubit.get(context)
+                                                  .hotels![index]
+                                                  .name!,
+                                              style:  TextStyle(
+                                                fontSize: 16,
+                                                color: color,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                          ),
+                                          Text.rich(
+                                            TextSpan(
+                                                text:
+                                                '\$${cubit.hotels?[index].price}',
+                                                style: TextStyle(
+                                                  color: Colors.blueAccent,
+                                                  fontSize: 15,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                                children: const <InlineSpan>[
+                                                  TextSpan(
+                                                    text: ' /night',
+                                                    style: TextStyle(
+                                                      color: Colors.grey,
+                                                      fontSize: 15,
+                                                      fontWeight: FontWeight.bold,
+                                                    ),
+                                                  ),
+                                                ]),
+                                          ),
+                                        ],
+                                      ),
+                                      const SizedBox(height: 8),
+                                      Row(
+                                        children: [
+                                          const Icon(
+                                            Icons.star_rate_rounded,
+                                            color: Colors.amber,
+                                            size: 24,
+                                          ),
+                                          Text(
                                             AppCubit.get(context)
                                                 .hotels![index]
-                                                .name!,
+                                                .rate!,
                                             style:  TextStyle(
                                               fontSize: 16,
                                               color: color,
                                               fontWeight: FontWeight.bold,
                                             ),
                                           ),
-                                        ),
-                                        Text(
-                                          '${AppCubit.get(context).hotels![index].price!}\$',
-                                          style:  TextStyle(
-                                            fontSize: 16,
-                                            color: color,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    const SizedBox(height: 8),
-                                    Row(
-                                      children: [
-                                        const Icon(
-                                          Icons.star_rate_rounded,
-                                          color: Colors.amber,
-                                          size: 24,
-                                        ),
-                                        Text(
-                                          AppCubit.get(context)
-                                              .hotels![index]
-                                              .rate!,
-                                          style:  TextStyle(
-                                            fontSize: 16,
-                                            color: color,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
+                                        ],
+                                      ),
+                                    ],
+                                  ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                         ),
                       ),

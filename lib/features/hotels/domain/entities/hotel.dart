@@ -16,7 +16,7 @@ class Hotel extends Equatable {
   String? rate;
   String? createdAt;
   String? updatedAt;
-  List<HotelImages>? hotelImages;
+  List<dynamic>? hotelImages;
   List<HotelFacilities>? hotelFacilities;
 
   @override
