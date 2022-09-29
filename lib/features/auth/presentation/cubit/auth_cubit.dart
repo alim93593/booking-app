@@ -5,6 +5,7 @@
 import 'dart:io';
 
 import 'package:booking_app/core/utils/constants/constants.dart';
+import 'package:booking_app/core/utils/local/cache_helper.dart';
 import 'package:booking_app/features/auth/data/models/ProfileModel.dart';
 import 'package:booking_app/features/auth/domain/entities/user.dart';
 import 'package:booking_app/features/auth/domain/usecases/get_profile_info.dart';
@@ -79,7 +80,7 @@ class AuthCubit extends Cubit<AuthStates> {
 
   Future<void> getProfileInfo({required String token}) async {
     emit(GetProfileLoadingState());
-    final failureOrData = await getProfileInfoUseCase(token: token);
+    final failureOrData = await getProfileInfoUseCase(token: CacheHelper.getData(key: 'toKen'));
     failureOrData.fold((l) {
       emit(GetProfileErrorState(error: mapFailureToString(l)));
     }, (r) {

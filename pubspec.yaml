@@ -48,7 +48,7 @@ flutter:
   uses-material-design: true
   assets:
     - assets/images/
-    - assets/on_boarding/
+    - assets/boarding/
     - assets/user/
 
 

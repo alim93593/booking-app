@@ -2,12 +2,12 @@
 
 import 'package:booking_app/core/themes/mode_cubit/mode_cubit.dart';
 import 'package:booking_app/core/widget/main_button.dart';
-import 'package:booking_app/features/hotels/presentation/screens/home_screen/explore_page.dart';
+import 'package:booking_app/features/hotels/presentation/screens/explore_screen/explore_page.dart';
+import 'package:booking_app/features/hotels/presentation/screens/search_screen/search_screen.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/rendering/sliver_persistent_header.dart';
 
-import 'home_screen/search_screen/search_screen.dart';
 
 class ImageSlider implements SliverPersistentHeaderDelegate {
   final double minExtent;
@@ -99,25 +99,25 @@ class ImageSlider implements SliverPersistentHeaderDelegate {
                           fontSize: 24,
                           fontWeight: FontWeight.bold),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 5,
                     ),
-                    Text(
+                    const Text(
                       'Extraordinary five star',
                       style: TextStyle(color: Colors.white, fontSize: 20),
                     ),
-                    Text(
+                    const Text(
                       'Outdoor activities',
                       style: TextStyle(color: Colors.white, fontSize: 20),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 15,
                     ),
                     MainButton(
                         onTabbed: (){
                           Navigator.push(context, MaterialPageRoute(builder: (context)=> ExplorePage()));
                         },
-                        myStyle: Text('Explore',
+                        myStyle: const Text('Explore',
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 16,
