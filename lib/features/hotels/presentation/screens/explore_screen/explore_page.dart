@@ -1,4 +1,4 @@
-import 'package:booking_app/features/hotels/presentation/screens/home_screen/explore_widget.dart';
+import 'package:booking_app/features/hotels/presentation/screens/explore_screen/explore_widget.dart';
 import 'package:flutter/material.dart';
 
 class ExplorePage extends StatelessWidget {
