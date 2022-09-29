@@ -1,4 +1,4 @@
-// ignore_for_file: file_names, implementation_imports, annotate_overrides, unused_local_variable
+// ignore_for_file: file_names, implementation_imports, annotate_overrides, unused_local_variable, prefer_const_constructors
 
 import 'package:booking_app/core/themes/mode_cubit/mode_cubit.dart';
 import 'package:booking_app/core/widget/main_button.dart';
@@ -89,44 +89,47 @@ class ImageSlider implements SliverPersistentHeaderDelegate {
         shrinkOffset >= 0 && shrinkOffset < 50
             ? Padding(
                 padding: const EdgeInsets.only(top: 300, left: 16),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children:  [
-                    const Text(
-                      'Best deals',
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 24,
-                          fontWeight: FontWeight.bold),
-                    ),
-                    SizedBox(
-                      height: 5,
-                    ),
-                    Text(
-                      'Extraordinary five star',
-                      style: TextStyle(color: Colors.white, fontSize: 20),
-                    ),
-                    Text(
-                      'Outdoor activities',
-                      style: TextStyle(color: Colors.white, fontSize: 20),
-                    ),
-                    SizedBox(
-                      height: 15,
-                    ),
-                    MainButton(
-                        onTabbed: (){
-                          Navigator.push(context, MaterialPageRoute(builder: (context)=> ExplorePage()));
-                        },
-                        myStyle: Text('Explore',
+                child: SingleChildScrollView(
+                  physics: BouncingScrollPhysics(),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children:  [
+                      const Text(
+                        'Best deals',
                         style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 16,
-                        ),
-                        ),
-                        myColor: Colors.blue,
-                        width: 120,
-                        height: 50)
-                  ],
+                            color: Colors.white,
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold),
+                      ),
+                      SizedBox(
+                        height: 5,
+                      ),
+                      Text(
+                        'Extraordinary five star',
+                        style: TextStyle(color: Colors.white, fontSize: 20),
+                      ),
+                      Text(
+                        'Outdoor activities',
+                        style: TextStyle(color: Colors.white, fontSize: 20),
+                      ),
+                      SizedBox(
+                        height: 15,
+                      ),
+                      MainButton(
+                          onTabbed: (){
+                            Navigator.push(context, MaterialPageRoute(builder: (context)=> ExplorePage()));
+                          },
+                          myStyle: Text('Explore',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 16,
+                          ),
+                          ),
+                          myColor: Colors.blue,
+                          width: 120,
+                          height: 50)
+                    ],
+                  ),
                 ),
               )
             : AnimatedOpacity(

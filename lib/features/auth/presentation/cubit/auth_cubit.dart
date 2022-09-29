@@ -90,19 +90,21 @@ class AuthCubit extends Cubit<AuthStates> {
   }
 
   Future<void> updateProfileInfo(
-      {required String token,  required String name,
+      {required String token,
+        required String name,
         required String email,
-        required String image,}) async {
+         String? image,}) async {
     emit(UpdateProfileLoadingState());
     final failureOrData = await updateProfileUseCase(
       email: email,
-      image: image,
+      image: image!,
       name:name ,
       token: token,);
     failureOrData.fold((l) {
       emit(UpdateProfileErrorState(error: mapFailureToString(l)));
     }, (r) {
       userModelEntity = r;
+      // getProfileInfo(token: 'blLPj2TYu9KvtRXyyFAM7CS1KmebhPIJW8vqBN0U6hLdaJrsd9VhCu0R7Abj');
       print(userModelEntity.data);
       emit(UpdateProfileSuccessState());
     });
@@ -121,6 +123,7 @@ class AuthCubit extends Cubit<AuthStates> {
       emit(SocialProfileImagePickedErrorState());
     }
   }
+
 
 
 }

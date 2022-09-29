@@ -32,7 +32,7 @@ class UpdateUserProfile extends StatelessWidget {
           updateProfileUseCase: sl(),
           userModelEntity: sl(),
           profileModelEntity: sl())
-        ..getProfileInfo(token:'DnkaEA2eU1DNZmKIpx5I7u6ptaKeEGAA1nq4bFkClgBsYsWLyTMNsJD7O06u'),
+        ..getProfileInfo(token:'blLPj2TYu9KvtRXyyFAM7CS1KmebhPIJW8vqBN0U6hLdaJrsd9VhCu0R7Abj'),
       child: BlocConsumer<AuthCubit, AuthStates>(
         listener: (context, state) {
         },
@@ -164,7 +164,7 @@ class UpdateUserProfile extends StatelessWidget {
                                       if(profileimage!=null){
                                         await cubit
                                             .updateProfileInfo(
-                                            token: toKen,
+                                            token: 'blLPj2TYu9KvtRXyyFAM7CS1KmebhPIJW8vqBN0U6hLdaJrsd9VhCu0R7Abj',
                                             name: name.text,
                                             email: email.text,
                                             image: Uri.file(profileimage.path).pathSegments.last)
@@ -176,12 +176,13 @@ class UpdateUserProfile extends StatelessWidget {
                                       }else{
                                         await cubit
                                             .updateProfileInfo(
-                                            token: toKen,
+                                            token: 'blLPj2TYu9KvtRXyyFAM7CS1KmebhPIJW8vqBN0U6hLdaJrsd9VhCu0R7Abj',
                                             name: name.text,
                                             email: email.text,
                                             image: profileState.profileModelEntity.data?.image)
-                                            .then((value) =>
-                                            Navigator.pop(context));
+                                            .then((value) {});
+                                            // Navigator.pop(context)
+                                        // );
                                       }
                                       showToast(text: 'Unable To Update Profile', state: ToastState.ERROR);
                                       /// update user profile
