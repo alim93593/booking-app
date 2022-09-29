@@ -39,22 +39,23 @@ class BuildUserProfile extends StatelessWidget {
           profileModelEntity: sl())
         ..getProfileInfo(
             token:
-                toKen),
+                'yfkuKpDVsQ9DmkunkoBYz6VeDaujOrHHefNOy9hb1MFMVbaVMnkFBQKKAZoB'),
       child: BlocConsumer<AuthCubit, AuthStates>(
         listener: (context, state) {
           // TODO: implement listener
         },
         builder: (context, state) {
-          var color = ModeCubit.get(context).isDark == true
-              ? const Color(0xffffffff)
-              : const Color(0xff212525);
-          var cardColor = ModeCubit.get(context).isDark == true
-              ?  const Color(0xff212525)
-              : const Color(0xffffffff);
+
           var cubit = AuthCubit.get(context);
           return ConditionalBuilder(
               condition: state is GetProfileSuccessState,
               builder: (context) {
+                var color = ModeCubit.get(context).isDark == true
+                    ? const Color(0xffffffff)
+                    : const Color(0xff212525);
+                var cardColor = ModeCubit.get(context).isDark == true
+                    ?  const Color(0xff212525)
+                    : const Color(0xffffffff);
                 var profileState = GetProfileSuccessState(
                     profileModelEntity: cubit.profileModelEntity);
                 return Scaffold(
@@ -94,7 +95,7 @@ class BuildUserProfile extends StatelessWidget {
                                                 '${profileState.profileModelEntity.data?.name}',
                                                 style: TextStyle(
                                                   fontWeight: FontWeight.bold,
-                                                  fontSize: 20,
+                                                  fontSize: 16,
                                                   color: color,
                                                 ),
                                               ),
