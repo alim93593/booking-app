@@ -49,25 +49,25 @@ class HomeScreen extends StatelessWidget {
                     padding: const EdgeInsets.only(top: 16.0, left: 16.0),
                     child: Row(
                       children: [
-                        Container(
-                            width: 20,
-                            child: IconButton(
-                                onPressed: () {
-                                  navigateTo(
-                                      context: context,
-                                      route: MapPage(
-                                          latitude:
-                                              '${cubit.hotels![0].longitude!}',
-                                          longitude:
-                                              ' ${cubit.hotels![0].latitude!}'));
-                                },
-                                icon: Icon(
-                                  Icons.location_city,
-                                  color: Colors.yellow,
-                                ))),
-                        SizedBox(
-                          width: 20,
-                        ),
+                        // Container(
+                        //     width: 20,
+                        //     child: IconButton(
+                        //         onPressed: () {
+                        //           navigateTo(
+                        //               context: context,
+                        //               route: MapPage(
+                        //                   latitude:
+                        //                       '${cubit.hotels![0].longitude!}',
+                        //                   longitude:
+                        //                       ' ${cubit.hotels![0].latitude!}'));
+                        //         },
+                        //         icon: Icon(
+                        //           Icons.location_city,
+                        //           color: Colors.yellow,
+                        //         ))),
+                        // SizedBox(
+                        //   width: 20,
+                        // ),
                         Text(
                           'Best deals',
                           style: TextStyle(
