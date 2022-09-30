@@ -167,7 +167,7 @@ class Links {
 /// hotel_images : [{"id":7,"hotel_id":"9","image":"35321662903840.jpg","created_at":null,"updated_at":null},{"id":8,"hotel_id":"9","image":"21831662903840.png","created_at":null,"updated_at":null}]
 /// hotel_facilities : [{"id":7,"hotel_id":"9","facility_id":"1","created_at":null,"updated_at":null},{"id":8,"hotel_id":"9","facility_id":"2","created_at":null,"updated_at":null}]
 
-class HotelModel extends Hotel {
+class HotelModel extends HotelEntity {
   HotelModel({
     num? id,
     String? name,

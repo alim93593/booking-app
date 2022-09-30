@@ -6,12 +6,14 @@ import 'package:booking_app/features/hotels/presentation/app_cubit/cubit.dart';
 import 'package:booking_app/features/hotels/presentation/app_cubit/states.dart';
 import 'package:booking_app/features/hotels/presentation/screens/deatils_screen/hotel_deatils.dart';
 import 'package:booking_app/features/hotels/presentation/screens/google_maps/screens/map_screen.dart';
-import 'package:booking_app/features/hotels/presentation/screens/home_screen/widgets/imageSlider.dart';
+import 'package:booking_app/features/hotels/presentation/screens/imageSlider.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'dart:math' as math;
+
+import '../../../../auth/presentation/cubit/auth_cubit.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -81,7 +83,8 @@ class HomeScreen extends StatelessWidget {
                                           cubit.hotels![index].description!,
                                       hotelName: cubit.hotels?[index].name,
                                       price: cubit.hotels?[index].price,
-                                      rate: cubit.hotels?[index].rate,
+                                      rate: cubit.hotels?[index].rate,   hotelId: cubit.hotels![index].id!.toInt(),
+                                  userId:AuthCubit.get(context).userModelEntity.data?.id?.toInt()??1 ,
                                     )),
                           );
                         },

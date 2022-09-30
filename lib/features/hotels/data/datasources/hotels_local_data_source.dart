@@ -4,6 +4,7 @@ import 'dart:convert';
 
 import 'package:booking_app/core/errors/exceptions.dart';
 import 'package:booking_app/core/utils/constants/strings.dart';
+import 'package:booking_app/features/hotels/data/models/GetBookingModel.dart';
 import 'package:booking_app/features/hotels/data/models/booking_model.dart';
 import 'package:booking_app/features/hotels/data/models/facility_model.dart';
 import 'package:dartz/dartz.dart';
@@ -18,7 +19,7 @@ abstract class HotelsLocalDatasource {
 
   Future<Unit> cacheBookings({required List<BookingModel> bookings});
 
-  Future<List<BookingModel>> getCachedBookings();
+  Future<GetBookingModel> getCachedBookings();
 
   Future<Unit> cacheFacilities({required List<HotelFacilities> facilities});
 
@@ -55,13 +56,13 @@ class HotelsLocalDatasourceImpl implements HotelsLocalDatasource {
   }
 
   @override
-  Future<List<BookingModel>> getCachedBookings() {
+  Future<GetBookingModel> getCachedBookings() {
     final jsonString = sharedPreferences.getString(CACHED_BOOKINGS);
     if (jsonString != null) {
-      List decodedJson = json.decode(jsonString);
-      List<BookingModel> jsonToModels = decodedJson
-          .map<BookingModel>((e) => BookingModel.fromJson(e))
-          .toList();
+      var jsonToModels = json.decode(jsonString);
+      // List<BookingModel> jsonToModels = decodedJson
+      //     .map<BookingModel>((e) => BookingModel.fromJson(e))
+      //     .toList();
       return Future.value(jsonToModels);
     } else {
       throw EmptyCacheException();

@@ -5,7 +5,7 @@ import 'package:equatable/equatable.dart';
 
 import '../../data/models/HotelsModel.dart';
 
-class Hotel extends Equatable {
+class HotelEntity extends Equatable {
   num? id;
   String? name;
   String? description;
@@ -33,7 +33,7 @@ class Hotel extends Equatable {
         hotelFacilities,
       ];
 
-  Hotel(
+  HotelEntity(
       {this.id,
       this.name,
       this.description,

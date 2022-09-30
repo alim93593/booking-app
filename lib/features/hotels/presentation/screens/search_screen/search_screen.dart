@@ -10,6 +10,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../../../core/utils/injection/injection_container.dart';
 import '../../../../../../core/widget/custom_text_form_field.dart';
 import 'dart:math' as math;
+
+import '../../../../auth/presentation/cubit/auth_cubit.dart';
 class SearchScreen extends StatelessWidget {
   const SearchScreen({Key? key}) : super(key: key);
   static const String routeName = 'SearchScreen';
@@ -18,7 +20,7 @@ class SearchScreen extends StatelessWidget {
     var formKey = GlobalKey<FormState>();
     var searchController = TextEditingController();
     return BlocProvider(
-      create: (context) => AppCubit(sl(), sl()),
+      create: (context) => AppCubit(sl(), sl(),sl(),sl(),sl()),
       child: BlocConsumer<AppCubit, AppStates>(
           listener: (context, state) {},
           builder: (context, state) {
@@ -79,6 +81,8 @@ class SearchScreen extends StatelessWidget {
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) => HotelDetails(
+                                              hotelId: cubit.hotels![index].id!.toInt(),
+                                              userId:AuthCubit.get(context).userModelEntity.data!.id!.toInt() ,
                                               latitude: cubit.searchHotels![index].latitude!,
                                               longitude:  cubit.searchHotels![index].longitude!,
                                               address: cubit.searchHotels![index].address!,

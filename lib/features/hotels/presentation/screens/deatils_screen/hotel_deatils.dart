@@ -5,15 +5,24 @@ import 'dart:ui';
 
 import 'package:booking_app/core/themes/mode_cubit/mode_cubit.dart';
 import 'package:booking_app/features/hotels/presentation/app_cubit/cubit.dart';
+import 'package:booking_app/features/hotels/presentation/app_cubit/states.dart';
 import 'package:booking_app/features/hotels/presentation/screens/google_maps/screens/map_screen.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
+import '../../../../../core/utils/constants/strings.dart';
+import '../../../../../core/utils/injection/injection_container.dart';
+import '../../../../../core/utils/local/cache_helper.dart';
+import '../../../../../core/widget/toast.dart';
+import '../../../../auth/presentation/cubit/auth_cubit.dart';
 import 'hotel_room_list.dart';
 
 class HotelDetails extends StatefulWidget {
+  final int hotelId;
+  final int userId;
+
   final dynamic hotelName;
   final String description;
   final String address;
@@ -23,6 +32,8 @@ class HotelDetails extends StatefulWidget {
   final String longitude;
   HotelDetails(
       {required this.latitude,
+      required this.hotelId,
+      required this.userId,
       required this.longitude,
       required this.hotelName,
       required this.description,
@@ -57,19 +68,17 @@ class _HotelDetailsState extends State<HotelDetails>
   late AnimationController _animationController;
 
   Completer<GoogleMapController> _controller = Completer();
-  static final CameraPosition _kGooglePlex = CameraPosition(
-    // bearing: 192.8334901395799,
-      target:LatLng(30.0504042,
-          31.3590117),
+  static final CameraPosition _kGooglePlex = const CameraPosition(
+      // bearing: 192.8334901395799,
+      target: LatLng(30.0504042, 31.3590117),
       //tilt: 59.440717697143555,
-      zoom:  14.4746);
+      zoom: 14.4746);
 
-  static final CameraPosition _kLake = CameraPosition(
-    // bearing: 192.8334901395799,
-      target:LatLng(30.0504042,
-          31.3590117),
+  static final CameraPosition _kLake = const CameraPosition(
+      // bearing: 192.8334901395799,
+      target: LatLng(30.0504042, 31.3590117),
       //tilt: 59.440717697143555,
-      zoom:  14.4746);
+      zoom: 14.4746);
 
   @override
   void initState() {
@@ -81,10 +90,10 @@ class _HotelDetailsState extends State<HotelDetails>
       firstHalf = widget.description;
       secondHalf = "";
     }
-    animationController =
-        AnimationController(duration: Duration(milliseconds: 200), vsync: this);
-    _animationController =
-        AnimationController(duration: Duration(milliseconds: 0), vsync: this);
+    animationController = AnimationController(
+        duration: const Duration(milliseconds: 200), vsync: this);
+    _animationController = AnimationController(
+        duration: const Duration(milliseconds: 0), vsync: this);
     animationController.forward();
     scrollController.addListener(() {
       if (mounted) {
@@ -117,6 +126,7 @@ class _HotelDetailsState extends State<HotelDetails>
   bool descTextShowFlag = false;
   @override
   Widget build(BuildContext context) {
+
     var color = ModeCubit.get(context).isDark == true
         ? const Color(0xffffffff)
         : const Color(0xff212525);
@@ -124,199 +134,228 @@ class _HotelDetailsState extends State<HotelDetails>
         ? const Color(0xff212525)
         : const Color(0xffffffff);
     imageHeight = MediaQuery.of(context).size.height;
-    var cubit = AppCubit.get(context);
-    return Scaffold(
-      body: Stack(
-        children: [
-          Card(
-            color: Theme.of(context).scaffoldBackgroundColor,
-            child: ListView(
-              controller: scrollController,
-              padding: EdgeInsets.only(top: 24 + imageHeight),
+    return BlocProvider(
+      create: (context) => AppCubit(sl(), sl(), sl(),sl(),sl()),
+      child: BlocConsumer<AppCubit, AppStates>(
+        listener: (context, state) {
+          // TODO: implement listener
+          if (state is CreateBookingSuccessState) {
+            showToast(text: state.createBookingEntity.status!.title!.ar!, state: ToastState.SUCCESS);
+
+          }
+          if (state is CreateBookingErrorState) {
+            showToast(text: 'there is error', state: ToastState.ERROR);
+          }
+
+        },
+        builder: (context, state) {
+          var cubit = AppCubit.get(context);
+
+          return Scaffold(
+            body: Stack(
               children: [
-                Padding(
-                  padding: const EdgeInsets.only(left: 24, right: 24),
-                  child: getHotelsDetails(isInList: true),
-                ),
-                const Padding(
-                  padding: EdgeInsets.all(16),
-                  child: Divider(
-                    height: 1,
-                    color: Colors.black,
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 24, right: 24),
-                  child: Column(
+                Card(
+                  color: Theme.of(context).scaffoldBackgroundColor,
+                  child: ListView(
+                    controller: scrollController,
+                    padding: EdgeInsets.only(top: 24 + imageHeight),
                     children: [
-                      Row(
+                      Padding(
+                        padding: const EdgeInsets.only(left: 24, right: 24),
+                        child: getHotelsDetails(isInList: true),
+                      ),
+                      const Padding(
+                        padding: EdgeInsets.all(16),
+                        child: Divider(
+                          height: 1,
+                          color: Colors.black,
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 24, right: 24),
+                        child: Column(
+                          children: [
+                            Row(
+                              children: [
+                                Expanded(
+                                  child: Text(
+                                    'description',
+                                    style: TextStyle(
+                                        fontSize: 14,
+                                        color: color,
+                                        letterSpacing: 0.5),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                  left: 24, right: 24, top: 4, bottom: 8),
+                              child: Text(
+                                widget.description,
+                                maxLines: descTextShowFlag ? 20 : 2,
+                                textAlign: TextAlign.start,
+                                style: const TextStyle(
+                                    fontFamily: 'Poppins',
+                                    fontSize: 12,
+                                    color: Colors.grey),
+                              ),
+                            ),
+                            InkWell(
+                              onTap: () {
+                                setState(() {
+                                  descTextShowFlag = !descTextShowFlag;
+                                });
+                              },
+                              child: Padding(
+                                padding: const EdgeInsets.only(
+                                  left: 24,
+                                  right: 24,
+                                ),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: <Widget>[
+                                    descTextShowFlag
+                                        ? const Text(
+                                            "Show Less",
+                                            style: TextStyle(
+                                                fontFamily: 'Poppins',
+                                                fontSize: 12,
+                                                color: Colors.blue),
+                                          )
+                                        : const Text(
+                                            "Show More",
+                                            style: TextStyle(
+                                                fontFamily: 'Poppins',
+                                                fontSize: 12,
+                                                color: Colors.blue),
+                                          )
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      getPhotoReviewUi(
+                          'Photos', 'View All', Icons.arrow_forward, () {}),
+                      const HotelRoomList(),
+                      Stack(
+                        alignment: Alignment.topRight,
                         children: [
-                          Expanded(
-                            child: Text(
-                              'description',
-                              style: TextStyle(
-                                  fontSize: 14,
-                                  color: color,
-                                  letterSpacing: 0.5),
+                          Container(
+                            width: double.infinity,
+                            height: 200,
+                            padding: const EdgeInsetsDirectional.only(
+                                start: 14, end: 14),
+                            child: GoogleMap(
+                              mapType: MapType.normal,
+                              initialCameraPosition: CameraPosition(
+                                  // bearing: 192.8334901395799,
+                                  target: LatLng(double.parse(widget.latitude),
+                                      double.parse(widget.longitude)),
+                                  //tilt: 59.440717697143555,
+                                  zoom: 14.4746),
+                              onMapCreated: (GoogleMapController controller) {
+                                _controller.complete(controller);
+                              },
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(right: 20, top: 10),
+                            child: FloatingActionButton.extended(
+                              backgroundColor: Colors.grey.withOpacity(0.6),
+                              onPressed: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => MapPage(
+                                              latitude: widget.latitude,
+                                              longitude: widget.longitude,
+                                            )));
+                              },
+                              label: const Text('see more'),
                             ),
                           ),
                         ],
                       ),
-                      SizedBox(
-                        height: 10,
-                      ),
                       Padding(
-                        padding: const EdgeInsets.only(
-                            left: 24, right: 24, top: 4, bottom: 8),
-                        child: Text(
-                          widget.description,
-                          maxLines: descTextShowFlag ? 20 : 2,
-                          textAlign: TextAlign.start,
-                          style: TextStyle(
-                              fontFamily: 'Poppins',
-                              fontSize: 12,
-                              color: Colors.grey),
-                        ),
-                      ),
-                      InkWell(
-                        onTap: () {
-                          setState(() {
-                            descTextShowFlag = !descTextShowFlag;
-                          });
-                        },
-                        child: Padding(
-                          padding: const EdgeInsets.only(
-                            left: 24,
-                            right: 24,
+                        padding: const EdgeInsets.all(16.0),
+                        child: Container(
+                          margin: const EdgeInsetsDirectional.only(
+                              top: 24, bottom: 14),
+                          decoration: const BoxDecoration(
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(20),
+                            ),
+                            color: Colors.blue,
                           ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: <Widget>[
-                              descTextShowFlag
-                                  ? const Text(
-                                      "Show Less",
-                                      style: TextStyle(
-                                          fontFamily: 'Poppins',
-                                          fontSize: 12,
-                                          color: Colors.blue),
-                                    )
-                                  : const Text(
-                                      "Show More",
-                                      style: TextStyle(
-                                          fontFamily: 'Poppins',
-                                          fontSize: 12,
-                                          color: Colors.blue),
-                                    )
-                            ],
+                          child: MaterialButton(
+                            onPressed: ()   async {
+                              //booking room
+                             await  cubit.createBooking(token: CacheHelper.getData(key: 'toKen'), userId: 11, hotelId: 18);
+                            },
+                            child: const Text(
+                              'Book Now',
+                              style: TextStyle(
+                                color: Colors.white,
+                              ),
+                            ),
                           ),
                         ),
                       ),
+
+                      /*getPhotoReviewUi(
+                      'Reviews', 'View All', Icons.arrow_forward, () {
+                        Navigator.pushNamed(context, ReviewsListScreen.routeName);
+                  }),*/
                     ],
                   ),
                 ),
-                getPhotoReviewUi(
-                    'Photos', 'View All', Icons.arrow_forward, () {}),
-                const HotelRoomList(),
-                Stack(
-                  alignment: Alignment.topRight,
-                  children: [
-                    Container(
-                      width: double.infinity,
-                      height: 200,
-                      padding:
-                          const EdgeInsetsDirectional.only(start: 14, end: 14),
-                      child: GoogleMap(
-                        mapType: MapType.normal,
-                        initialCameraPosition: CameraPosition(
-                            // bearing: 192.8334901395799,
-                            target: LatLng(double.parse(widget.latitude),
-                                double.parse(widget.longitude)),
-                            //tilt: 59.440717697143555,
-                            zoom: 14.4746),
-                        onMapCreated: (GoogleMapController controller) {
-                          _controller.complete(controller);
-                        },
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(right: 20, top: 10),
-                      child: FloatingActionButton.extended(
-                        backgroundColor: Colors.grey.withOpacity(0.6),
-                        onPressed: () {
-                         Navigator.push(context, MaterialPageRoute(builder:(context)=> MapPage(latitude: widget.latitude,longitude: widget.longitude,)));
-                        },
-                        label: const Text('see more'),
-                      ),
-                    ),
-                  ],
-                ),
+                //background images , hotel names , their details and more animation view
+                //backgroundImageUi(widget.hotelListData ?? HotelListData()),
+                backgroundImageUi('assets/images/back.jpg',AppCubit.get(context)),
                 Padding(
-                  padding: const EdgeInsets.all(16.0),
+                  padding:
+                      EdgeInsets.only(top: MediaQuery.of(context).padding.top),
                   child: Container(
-                    margin:
-                        const EdgeInsetsDirectional.only(top: 24, bottom: 14),
-                    decoration: const BoxDecoration(
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(20),
-                      ),
-                      color: Colors.blue,
-                    ),
-                    child: MaterialButton(
-                      onPressed: () {
-                        //booking room
-                      },
-                      child: const Text(
-                        'Book Now',
-                        style: TextStyle(
-                          color: Colors.white,
+                    height: AppBar().preferredSize.height,
+                    child: Row(
+                      children: [
+                        _getAppBarUi(
+                            Theme.of(context).disabledColor.withOpacity(0.4),
+                            Icons.arrow_back,
+                            Theme.of(context).backgroundColor, () {
+                          if (scrollController.offset != 0.0) {
+                            scrollController.animateTo(0.0,
+                                duration: const Duration(milliseconds: 488),
+                                curve: Curves.easeInOutQuad);
+                          } else {
+                            Navigator.pop(context);
+                          }
+                        }),
+                        const Expanded(
+                          child: SizedBox(),
                         ),
-                      ),
+                        /*  _getAppBarUi(
+                        Colors.white,
+                        isFav ? Icons.favorite : Icons.favorite_border,
+                        Theme.of(context).primaryColor, () {
+                      setState(() {
+                        isFav = !isFav;
+                      });
+                    })*/
+                      ],
                     ),
                   ),
-                ),
-
-                /*getPhotoReviewUi(
-                    'Reviews', 'View All', Icons.arrow_forward, () {
-                      Navigator.pushNamed(context, ReviewsListScreen.routeName);
-                }),*/
+                )
               ],
             ),
-          ),
-          //background images , hotel names , their details and more animation view
-          //backgroundImageUi(widget.hotelListData ?? HotelListData()),
-          backgroundImageUi('assets/images/back.jpg'),
-          Padding(
-            padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
-            child: Container(
-              height: AppBar().preferredSize.height,
-              child: Row(
-                children: [
-                  _getAppBarUi(Theme.of(context).disabledColor.withOpacity(0.4),
-                      Icons.arrow_back, Theme.of(context).backgroundColor, () {
-                    if (scrollController.offset != 0.0) {
-                      scrollController.animateTo(0.0,
-                          duration: const Duration(milliseconds: 488),
-                          curve: Curves.easeInOutQuad);
-                    } else {
-                      Navigator.pop(context);
-                    }
-                  }),
-                  const Expanded(
-                    child: SizedBox(),
-                  ),
-                  /*  _getAppBarUi(
-                      Colors.white,
-                      isFav ? Icons.favorite : Icons.favorite_border,
-                      Theme.of(context).primaryColor, () {
-                    setState(() {
-                      isFav = !isFav;
-                    });
-                  })*/
-                ],
-              ),
-            ),
-          )
-        ],
+          );
+        },
       ),
     );
   }
@@ -352,7 +391,7 @@ class _HotelDetailsState extends State<HotelDetails>
     );
   }
 
-  backgroundImageUi(String image) {
+  backgroundImageUi(String image,AppCubit appCubit) {
     return Positioned(
       top: 0,
       left: 0,
@@ -426,7 +465,9 @@ class _HotelDetailsState extends State<HotelDetails>
                                               borderRadius:
                                                   BorderRadius.circular(32)),
                                           child: MaterialButton(
-                                            onPressed: () {
+                                            onPressed: ()async {
+                                              await  appCubit.createBooking(token: CacheHelper.getData(key: 'toKen'), userId: 11, hotelId: 18);
+
                                               //go to room book screen
                                               //video 22.40 minute
                                             },
@@ -562,7 +603,7 @@ class _HotelDetailsState extends State<HotelDetails>
                         fontSize: 11,
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 10,
                     ),
                     const Icon(
@@ -703,10 +744,10 @@ class _HotelDetailsState extends State<HotelDetails>
   Future<void> _goToTheLake() async {
     final GoogleMapController controller = await _controller.future;
     controller.animateCamera(CameraUpdate.newCameraPosition(CameraPosition(
-      // bearing: 192.8334901395799,
-        target:LatLng(double.parse(widget.latitude),double.parse(widget.longitude)
-        ),
+        // bearing: 192.8334901395799,
+        target: LatLng(
+            double.parse(widget.latitude), double.parse(widget.longitude)),
         //tilt: 59.440717697143555,
-        zoom:  14.4746)));
+        zoom: 14.4746)));
   }
 }

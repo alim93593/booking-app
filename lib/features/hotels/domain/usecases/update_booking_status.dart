@@ -2,19 +2,24 @@ import 'package:booking_app/core/errors/failures.dart';
 import 'package:booking_app/features/hotels/domain/repositories/hotels_repository.dart';
 import 'package:dartz/dartz.dart';
 
+import '../entities/create_booking_entity.dart';
+import '../entities/update_booking_status.dart';
+
 class UpdateBookingUseCase {
   const UpdateBookingUseCase({required this.hotelsRepository});
 
   final HotelsRepository hotelsRepository;
 
-  Future<Either<Failure, Unit>> call({
-    required String token,
-    required String status,
-    required int bookingId,
+  Future<Either<Failure, UpdateBookingEntity>> call({
+    required String type,
+    required num bookingId,
+    required String contentType
   }) async {
     return await hotelsRepository.updateBookingStatus(
-      status: status,
+      type: type,
       bookingId: bookingId,
+      contentType:contentType
+
     );
   }
 }

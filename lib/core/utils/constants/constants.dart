@@ -2,10 +2,21 @@
 
 import 'package:booking_app/core/errors/failures.dart';
 import 'package:booking_app/core/utils/constants/strings.dart';
+import 'package:booking_app/features/auth/presentation/screens/login_screen/login_screen.dart';
 import 'package:flutter/material.dart';
+
+import '../local/cache_helper.dart';
 
 const String defaultUserImage = '';
 
+
+ signOut(BuildContext context){
+  CacheHelper.removeData(key: 'token').then((value) {
+    if (value) {
+      Navigator.pushReplacement(context, MaterialPageRoute(builder:(context)=> const LoginScreen()));
+    }
+  });
+}
 
 
 navigateAndFinish({

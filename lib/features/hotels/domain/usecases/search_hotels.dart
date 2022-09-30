@@ -8,7 +8,7 @@ class SearchHotelsUseCase {
 
   final HotelsRepository hotelsRepository;
   // TODO: implement searchHotels
-  Future<Either<Failure, List<Hotel>>> call({required String name,required int count,required int page}) async {
+  Future<Either<Failure, List<HotelEntity>>> call({required String name,required int count,required int page}) async {
     return await hotelsRepository.searchHotels(name: name, count: count, page:page);
   }
 }

@@ -17,7 +17,7 @@ class Booking extends Equatable {
   final int? hotelId;
   final String? type;
   final User? user;
-  final Hotel? hotel;
+  final HotelEntity? hotel;
 
   Map<String, dynamic> toJson() => {};
 

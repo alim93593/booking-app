@@ -4,6 +4,8 @@ import 'package:booking_app/features/hotels/presentation/screens/home_screen/wid
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../home_screen/widgets/cancelled_vertical_hotels_list_view.dart';
+
 class CanceledBookings extends StatelessWidget {
   const CanceledBookings({Key? key}) : super(key: key);
 
@@ -15,7 +17,7 @@ class CanceledBookings extends StatelessWidget {
       },
       builder: (context, state) {
         return const Scaffold(
-          body: VerticalHotelsListView(),
+          body: CancelledVerticalHotelsListView(),
         );
       },
     );

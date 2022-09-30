@@ -5,6 +5,7 @@ import 'package:booking_app/features/auth/data/datasources/local_datasource.dart
 import 'package:booking_app/features/auth/presentation/screens/user_profile/screens/user_profile_screen/screen/user_profile_screen.dart';
 import 'package:booking_app/features/hotels/data/datasources/search_hotel_data_source/search_hotel_remote_data_source.dart';
 import 'package:booking_app/features/hotels/data/repositories/hotel_repository_impl.dart';
+import 'package:booking_app/features/hotels/domain/usecases/get_bookings.dart';
 import 'package:booking_app/features/hotels/domain/usecases/get_hotels.dart';
 import 'package:booking_app/features/hotels/domain/usecases/search_hotels.dart';
 import 'package:booking_app/features/hotels/presentation/app_cubit/states.dart';
@@ -17,14 +18,21 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../core/errors/failures.dart';
+import '../../../../core/utils/constants/constants.dart';
 import '../../../../core/utils/constants/strings.dart';
+import '../../data/models/GetBookingModel.dart';
+import '../../domain/entities/create_booking_entity.dart';
+import '../../domain/entities/get_booking_entity.dart';
 import '../../domain/entities/hotel.dart';
+import '../../domain/entities/update_booking_status.dart';
 import '../../domain/repositories/hotels_repository.dart';
+import '../../domain/usecases/create_booking.dart';
+import '../../domain/usecases/update_booking_status.dart';
 import '../screens/bookings_screens/screen/bookings_screen.dart';
 import '../screens/settings_screen/settings_screen.dart';
 
 class AppCubit extends Cubit<AppStates> {
-  AppCubit(this.getHotelsUseCase, this.searchHotelsUseCase)
+  AppCubit(this.getHotelsUseCase,this.updateBookingUseCase, this.searchHotelsUseCase,this.createBookingUseCase,this.getBookingsUseCase)
       : super(AppInitialStates());
   static AppCubit get(context) => BlocProvider.of(context);
 
@@ -66,17 +74,23 @@ class AppCubit extends Cubit<AppStates> {
     emit(AppBottomNavStates());
   }
 
-  // HotelsRepository hotelsRepository =HotelsRepositoryImpl(networkInfo: NetworkInfo(sl()), localDatasource: LocalDatasourceImpl( sharedPreferences: sl()), remoteDatasource: null)
 
 //  getMethod
-  List<Hotel>? hotels;
-  List<Hotel>? searchHotels;
+  List<HotelEntity>? hotels;
+  List<HotelEntity>? searchHotels;
   int lastPage = 1;
   int total = 0;
   int currentPage = 1;
 
   GetHotelsUseCase getHotelsUseCase;
   SearchHotelsUseCase searchHotelsUseCase;
+  CreateBookingUseCase createBookingUseCase;
+  CreateBookingEntity? createBookingEntity;
+
+  UpdateBookingEntity? updateBookingEntity;
+  UpdateBookingUseCase updateBookingUseCase;
+  GetBookingEntity? getBookingEntity;
+  GetBookingsUseCase getBookingsUseCase;
   dynamic getHotels({
     bool isForce = false,
   }) async {
@@ -117,6 +131,107 @@ class AppCubit extends Cubit<AppStates> {
     //   print(result);
     // }
   }
+
+  dynamic updateBooking(
+      {required String type,  required num bookingId,
+
+      }) async {
+    emit(UpdateBookingLoadingState());
+    final failureOrData = await updateBookingUseCase(type: type,bookingId: bookingId,contentType: 'multipart/form-data');
+    failureOrData.fold((l) {
+      emit(UpdateBookingErrorState());
+    }, (r) {
+      updateBookingEntity = r;
+      print('isDAta');
+      emit(UpdateBookingSuccessState(
+      ));
+    });
+  }
+
+  dynamic createBooking(
+      {required String token,  required int userId,
+        required int hotelId,
+       }) async {
+    emit(CreateBookingLoadingState());
+    final failureOrData = await createBookingUseCase(
+     userId:userId ,token: token,hotelId:hotelId ,);
+    failureOrData.fold((l) {
+      emit(CreateBookingErrorState(error: mapFailureToString(l)));
+    }, (r) {
+       createBookingEntity = r;
+      print('isDAta');
+      emit(CreateBookingSuccessState(
+        createBookingEntity: createBookingEntity!
+      ));
+    });
+  }
+
+  List<BookingData> completed = [];
+  List<BookingData> upcomming  = [];
+  List<BookingData> cancelled  = [];
+
+
+
+  dynamic getCompletedBooking(
+      {required String token,  required num count,
+        required String type,
+      }) async {
+    emit(GetCompletedBookingLoadingState());
+    final failureOrData = await getBookingsUseCase(
+      count:10 ,token: token,type:type ,);
+    failureOrData.fold((l) {
+      emit(GetCompletedBookingErrorState());
+    }, (r) {
+      getBookingEntity = r;
+      completed = getBookingEntity!.data!.data!;
+      print('isDAta');
+      emit(GetCompletedBookingSuccessState(
+
+      ));
+    });
+  }
+  dynamic getCancelledBooking(
+      {required String token,  required num count,
+        required String type,
+      }) async {
+    emit(GetCancelledBookingLoadingState());
+    final failureOrData = await getBookingsUseCase(
+      count:10 ,token: token,type:type ,);
+    failureOrData.fold((l) {
+      emit(GetCancelledBookingErrorState());
+    }, (r) {
+      getBookingEntity = r;
+      cancelled = getBookingEntity!.data!.data!;
+
+      print('isDAta');
+      emit(GetCancelledBookingSuccessState(
+
+      ));
+    });
+  }
+  dynamic getUpcomingBooking(
+      {required String token,  required num count,
+        required String type,
+      }) async {
+    emit(GetUpcomingBookingLoadingState());
+    final failureOrData = await getBookingsUseCase(
+      count:10 ,token: token,type:type ,);
+    failureOrData.fold((l) {
+      emit(GetUpcomingBookingErrorState());
+    }, (r) {
+      getBookingEntity = r;
+      upcomming = getBookingEntity!.data!.data!;
+
+      print('isDAta');
+      emit(GetUpcomingBookingSuccessState(
+
+      ));
+    });
+  }
+
+
+
+
 
   String _mapFailureToMessage(Failure failure) {
     switch (failure.runtimeType) {

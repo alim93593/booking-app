@@ -11,8 +11,6 @@ import 'package:booking_app/features/auth/data/models/ProfileModel.dart';
 import 'package:booking_app/features/auth/domain/entities/user.dart';
 import 'package:booking_app/features/auth/domain/repositories/auth_repository.dart';
 import 'package:dartz/dartz.dart';
-import 'package:dio/dio.dart';
-import 'package:http/http.dart';
 
 import '../datasources/get_profile_info__remote_data_source/get_profile_info_remote_data_source.dart';
 import '../datasources/update_profile_info__remote_data_source/update_profile_info_remote_data_source.dart';
@@ -113,7 +111,7 @@ class AuthRepositoryImpl extends AuthRepository {
   Future<Either<Failure, UserModelEntity>> updateProfileInfo(
       {required String token,  required String name,
         required String email,
-        String? image,}) async {
+        required String image,}) async {
     if (await networkInfo.isConnected) {
       final user = await updateProfileInfoDataSource.updateProfileInfo(
           token: token);
