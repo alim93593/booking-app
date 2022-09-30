@@ -19,7 +19,9 @@ import 'package:booking_app/features/hotels/data/datasources/hotels_local_data_s
 import 'package:booking_app/features/hotels/data/datasources/hotels_remote_datasource.dart';
 import 'package:booking_app/features/hotels/data/datasources/search_hotel_data_source/search_hotel_remote_data_source.dart';
 import 'package:booking_app/features/hotels/data/repositories/hotel_repository_impl.dart';
+import 'package:booking_app/features/hotels/domain/entities/create_booking_entity.dart';
 import 'package:booking_app/features/hotels/domain/repositories/hotels_repository.dart';
+import 'package:booking_app/features/hotels/domain/usecases/get_bookings.dart';
 import 'package:booking_app/features/hotels/domain/usecases/get_hotels.dart';
 import 'package:booking_app/features/hotels/domain/usecases/search_hotels.dart';
 import 'package:booking_app/features/hotels/presentation/app_cubit/cubit.dart';
@@ -32,38 +34,39 @@ import 'package:dio/dio.dart';
 
 import '../../../features/auth/data/datasources/get_profile_info__remote_data_source/get_profile_info_remote_data_source.dart';
 import '../../../features/auth/domain/entities/getProfileEntity.dart';
+import '../../../features/hotels/data/datasources/create_booking_data_source/create_booking_data_source.dart';
+import '../../../features/hotels/data/datasources/get_booking_data_source/get_booking_data_source.dart';
 import '../../../features/hotels/data/datasources/get_hotel_remote_data_source.dart';
-
+import '../../../features/hotels/domain/usecases/create_booking.dart';
 
 final sl = GetIt.instance;
 
 Future<void> init() async {
-  sl.registerLazySingleton<Dio>(
-          () => Dio( sl()));
-  sl.registerLazySingleton<UserModelEntity>(
-          () => UserModelEntity());
-  sl.registerLazySingleton<ProfileModelEntity>(
-          () => ProfileModelEntity());
-  sl.registerLazySingleton<BaseOptions>(
-          () => BaseOptions());
+  sl.registerLazySingleton<Dio>(() => Dio(sl()));
+  sl.registerLazySingleton<UserModelEntity>(() => UserModelEntity());
+  sl.registerLazySingleton<CreateBookingEntity>(() => CreateBookingEntity());
+  sl.registerLazySingleton<ProfileModelEntity>(() => ProfileModelEntity());
+  sl.registerLazySingleton<BaseOptions>(() => BaseOptions());
   //Cubits
   sl.registerFactory(
     () => AuthCubit(
       loginUseCase: sl(),
       updateProfileUseCase: sl(),
       registerUseCase: sl(),
-      getProfileInfoUseCase: sl(), userModelEntity: sl(), profileModelEntity: sl(),
+      getProfileInfoUseCase: sl(),
+      userModelEntity: sl(),
+      profileModelEntity: sl(),
     ),
   );
   sl.registerFactory(
-        () => AppCubit(
-     sl(),sl()
-    ),
+    () => AppCubit(sl(), sl(), sl(), sl()),
   );
 
   //Usecases
-  sl.registerLazySingleton(() => GetHotelsUseCase( hotelsRepository:  sl()));
-  sl.registerLazySingleton(() => SearchHotelsUseCase( hotelsRepository:  sl()));
+  sl.registerLazySingleton(() => GetHotelsUseCase(hotelsRepository: sl()));
+  sl.registerLazySingleton(() => SearchHotelsUseCase(hotelsRepository: sl()));
+  sl.registerLazySingleton(() => CreateBookingUseCase(hotelsRepository: sl()));
+  sl.registerLazySingleton(() => GetBookingsUseCase(hotelsRepository: sl()));
 
   sl.registerLazySingleton(() => UpdateProfileUseCase(repository: sl()));
   sl.registerLazySingleton(() => RegisterUseCase(repository: sl()));
@@ -84,9 +87,11 @@ Future<void> init() async {
     ),
   );
   sl.registerLazySingleton<HotelsRepository>(
-        () => HotelsRepositoryImpl(
-          searchHotelService: sl(),
-          getHotelService: sl(),
+    () => HotelsRepositoryImpl(
+      createBookingDataSource: sl(),
+      getBookingDataSource: sl(),
+      searchHotelService: sl(),
+      getHotelService: sl(),
       remoteDatasource: sl(),
       localDatasource: sl(),
       networkInfo: sl(),
@@ -97,22 +102,23 @@ Future<void> init() async {
       () => RemoteDatasourceImpl(client: sl()));
   sl.registerLazySingleton<LocalDatasource>(
       () => LocalDatasourceImpl(sharedPreferences: sl()));
-  sl.registerLazySingleton<GetHotelService>(
-          () => GetHotelService(sl()));
-  sl.registerLazySingleton<SearchHotelService>(
-          () => SearchHotelService(sl()));
+  sl.registerLazySingleton<GetHotelService>(() => GetHotelService(sl()));
+  sl.registerLazySingleton<CreateBookingDataSource>(
+      () => CreateBookingDataSource(sl()));
+  sl.registerLazySingleton<SearchHotelService>(() => SearchHotelService(sl()));
   sl.registerLazySingleton<HotelsRemoteDatasource>(
-          () => HotelsRemoteDatasourceImpl(client: sl()));
+      () => HotelsRemoteDatasourceImpl(client: sl()));
   sl.registerLazySingleton<GetProfileInfoDataSource>(
-          () => GetProfileInfoDataSource( sl()));
+      () => GetProfileInfoDataSource(sl()));
+  sl.registerLazySingleton<GetBookingDataSource>(
+          () => GetBookingDataSource(sl()));
   sl.registerLazySingleton<RegisterUserDataSource>(
-          () => RegisterUserDataSource( sl()));
-  sl.registerLazySingleton<LoginDataSource>(
-          () => LoginDataSource( sl()));
+      () => RegisterUserDataSource(sl()));
+  sl.registerLazySingleton<LoginDataSource>(() => LoginDataSource(sl()));
   sl.registerLazySingleton<UpdateProfileInfoDataSource>(
-          () => UpdateProfileInfoDataSource( sl()));
+      () => UpdateProfileInfoDataSource(sl()));
   sl.registerLazySingleton<HotelsLocalDatasource>(
-          () => HotelsLocalDatasourceImpl(sharedPreferences: sl()));
+      () => HotelsLocalDatasourceImpl(sharedPreferences: sl()));
   //Network Info
   sl.registerLazySingleton<NetworkInfo>(() => NetworkInfoImpl(sl()));
 

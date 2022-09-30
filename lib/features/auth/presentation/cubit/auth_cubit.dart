@@ -5,7 +5,6 @@
 import 'dart:io';
 
 import 'package:booking_app/core/utils/constants/constants.dart';
-import 'package:booking_app/core/utils/local/cache_helper.dart';
 import 'package:booking_app/features/auth/data/models/ProfileModel.dart';
 import 'package:booking_app/features/auth/domain/entities/user.dart';
 import 'package:booking_app/features/auth/domain/usecases/get_profile_info.dart';
@@ -80,7 +79,7 @@ class AuthCubit extends Cubit<AuthStates> {
 
   Future<void> getProfileInfo({required String token}) async {
     emit(GetProfileLoadingState());
-    final failureOrData = await getProfileInfoUseCase(token: CacheHelper.getData(key: 'toKen'));
+    final failureOrData = await getProfileInfoUseCase(token: token);
     failureOrData.fold((l) {
       emit(GetProfileErrorState(error: mapFailureToString(l)));
     }, (r) {
@@ -91,21 +90,19 @@ class AuthCubit extends Cubit<AuthStates> {
   }
 
   Future<void> updateProfileInfo(
-      {required String token,
-        required String name,
+      {required String token,  required String name,
         required String email,
-         String? image,}) async {
+        required String image,}) async {
     emit(UpdateProfileLoadingState());
     final failureOrData = await updateProfileUseCase(
       email: email,
-      image: image!,
+      image: image,
       name:name ,
       token: token,);
     failureOrData.fold((l) {
       emit(UpdateProfileErrorState(error: mapFailureToString(l)));
     }, (r) {
       userModelEntity = r;
-      // getProfileInfo(token: 'blLPj2TYu9KvtRXyyFAM7CS1KmebhPIJW8vqBN0U6hLdaJrsd9VhCu0R7Abj');
       print(userModelEntity.data);
       emit(UpdateProfileSuccessState());
     });
@@ -124,7 +121,6 @@ class AuthCubit extends Cubit<AuthStates> {
       emit(SocialProfileImagePickedErrorState());
     }
   }
-
 
 
 }

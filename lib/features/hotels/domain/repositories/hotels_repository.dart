@@ -4,21 +4,26 @@ import 'package:booking_app/features/hotels/domain/entities/facility.dart';
 import 'package:booking_app/features/hotels/domain/entities/hotel.dart';
 import 'package:dartz/dartz.dart';
 
+import '../entities/create_booking_entity.dart';
+import '../entities/get_booking_entity.dart';
+
 abstract class HotelsRepository {
-  Future<Either<Failure,List<Hotel>>> getHotels({
+  Future<Either<Failure,List<HotelEntity>>> getHotels({
   required int count,
     required int  page,
 });
   // TODO: implement searchHotels
-  Future<Either<Failure, List<Hotel>>> searchHotels({
+  Future<Either<Failure, List<HotelEntity>>> searchHotels({
     required String name,
     required int count,
     required int  page,
   });
 
-  Future<Either<Failure, Unit>> createBooking({
+  Future<Either<Failure, CreateBookingEntity>> createBooking({
     required String token,
     required int hotelId,
+    required int userId,
+
   });
 
   Future<Either<Failure, Unit>> updateBookingStatus({
@@ -26,9 +31,10 @@ abstract class HotelsRepository {
     required int? bookingId,
   });
 
-  Future<Either<Failure, List<Booking>>> getBookings({
+  Future<Either<Failure, GetBookingEntity>> getBookings({
     required String token,
     required String type,
+    required num count,
   });
 
   Future<Either<Failure, List<Facility>>> getFacilities();

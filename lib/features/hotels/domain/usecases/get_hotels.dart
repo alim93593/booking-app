@@ -8,7 +8,7 @@ class GetHotelsUseCase {
 
   final HotelsRepository hotelsRepository;
 
-  Future<Either<Failure, List<Hotel>>> call(
+  Future<Either<Failure, List<HotelEntity>>> call(
       {required int page, required int count}) async {
     return await hotelsRepository.getHotels(
       count: count,

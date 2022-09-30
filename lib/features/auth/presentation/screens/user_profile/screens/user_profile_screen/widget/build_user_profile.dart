@@ -25,9 +25,6 @@ class BuildUserProfile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var color = ModeCubit.get(context).isDark == true
-        ? const Color(0xffffffff)
-        : const Color(0xff212525);
 
     return BlocProvider(
       create: (context) => AuthCubit(
@@ -56,8 +53,7 @@ class BuildUserProfile extends StatelessWidget {
                 var cardColor = ModeCubit.get(context).isDark == true
                     ?  const Color(0xff212525)
                     : const Color(0xffffffff);
-                var profileState = GetProfileSuccessState(
-                    profileModelEntity: cubit.profileModelEntity);
+                var profileState = GetProfileSuccessState(profileModelEntity: cubit.profileModelEntity);
                 return Scaffold(
                   // backgroundColor: ModeCubit.get(context).isDark?Colors.black:Colors.white,
                   appBar: appbar(
@@ -141,7 +137,7 @@ class BuildUserProfile extends StatelessWidget {
                                                           context)
                                                       .scaffoldBackgroundColor,
                                                   backgroundImage: NetworkImage(
-                                                      '${profileState.profileModelEntity.data?.image}'),
+                                                      'http://api.mahmoudtaha.com/images/${profileState.profileModelEntity.data?.image}'),
                                                 ),
                                               ),
                                               // IconButton(
@@ -210,6 +206,7 @@ class BuildUserProfile extends StatelessWidget {
                               color: color,
                             ),
                             isLast: true,
+                            // onPressed: signOut(context),
                           ),
                         ]),
                   ),
