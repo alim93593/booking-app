@@ -10,8 +10,8 @@ import '../../../../../../core/utils/injection/injection_container.dart';
 import '../../../../../../core/utils/local/cache_helper.dart';
 import '../../../app_cubit/cubit.dart';
 
-class VerticalHotelsListView extends StatelessWidget {
-  const VerticalHotelsListView({
+class CancelledVerticalHotelsListView extends StatelessWidget {
+  const CancelledVerticalHotelsListView({
     Key? key,
   }) : super(key: key);
 
@@ -28,7 +28,7 @@ class VerticalHotelsListView extends StatelessWidget {
         ? const Color(0xffffffff)
         : const Color(0xff212525);
     return BlocProvider(
-      create: (context) => AppCubit(sl(),sl(),sl(),sl(),sl())..getUpcomingBooking(token:  'DbEKpvqg2uKSMVONmzLyAEZyInLsWdVIZcVTsjP2ivgfNzqgJ9MRCDt95KaB', count: 10, type: 'cancelled'),
+      create: (context) => AppCubit(sl(),sl(),sl(),sl(),sl())..getCancelledBooking(token:  'DbEKpvqg2uKSMVONmzLyAEZyInLsWdVIZcVTsjP2ivgfNzqgJ9MRCDt95KaB', count: 10, type: 'cancelled'),
       child: BlocConsumer<AppCubit, AppStates>(
   listener: (context, state) {
     // TODO: implement listener
@@ -186,7 +186,7 @@ class VerticalHotelsListView extends StatelessWidget {
         const SizedBox(
           height: 20,
         ),
-        itemCount: AppCubit.get(context).completed.length,
+        itemCount: AppCubit.get(context).cancelled.length,
       );
   },
 ),

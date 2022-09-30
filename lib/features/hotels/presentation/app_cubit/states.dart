@@ -63,3 +63,6 @@ class GetCompletedBookingErrorState extends AppStates {}
 class GetCancelledBookingLoadingState extends AppStates {}
 class GetCancelledBookingSuccessState extends AppStates {}
 class GetCancelledBookingErrorState extends AppStates {}
+class UpdateBookingLoadingState extends AppStates {}
+class UpdateBookingSuccessState extends AppStates {}
+class UpdateBookingErrorState extends AppStates {}

@@ -24,13 +24,15 @@ import '../../data/models/GetBookingModel.dart';
 import '../../domain/entities/create_booking_entity.dart';
 import '../../domain/entities/get_booking_entity.dart';
 import '../../domain/entities/hotel.dart';
+import '../../domain/entities/update_booking_status.dart';
 import '../../domain/repositories/hotels_repository.dart';
 import '../../domain/usecases/create_booking.dart';
+import '../../domain/usecases/update_booking_status.dart';
 import '../screens/bookings_screens/screen/bookings_screen.dart';
 import '../screens/settings_screen/settings_screen.dart';
 
 class AppCubit extends Cubit<AppStates> {
-  AppCubit(this.getHotelsUseCase, this.searchHotelsUseCase,this.createBookingUseCase,this.getBookingsUseCase)
+  AppCubit(this.getHotelsUseCase,this.updateBookingUseCase, this.searchHotelsUseCase,this.createBookingUseCase,this.getBookingsUseCase)
       : super(AppInitialStates());
   static AppCubit get(context) => BlocProvider.of(context);
 
@@ -84,6 +86,9 @@ class AppCubit extends Cubit<AppStates> {
   SearchHotelsUseCase searchHotelsUseCase;
   CreateBookingUseCase createBookingUseCase;
   CreateBookingEntity? createBookingEntity;
+
+  UpdateBookingEntity? updateBookingEntity;
+  UpdateBookingUseCase updateBookingUseCase;
   GetBookingEntity? getBookingEntity;
   GetBookingsUseCase getBookingsUseCase;
   dynamic getHotels({
@@ -127,7 +132,21 @@ class AppCubit extends Cubit<AppStates> {
     // }
   }
 
+  dynamic updateBooking(
+      {required String type,  required num bookingId,
 
+      }) async {
+    emit(UpdateBookingLoadingState());
+    final failureOrData = await updateBookingUseCase(type: type,bookingId: bookingId,contentType: 'multipart/form-data');
+    failureOrData.fold((l) {
+      emit(UpdateBookingErrorState());
+    }, (r) {
+      updateBookingEntity = r;
+      print('isDAta');
+      emit(UpdateBookingSuccessState(
+      ));
+    });
+  }
 
   dynamic createBooking(
       {required String token,  required int userId,

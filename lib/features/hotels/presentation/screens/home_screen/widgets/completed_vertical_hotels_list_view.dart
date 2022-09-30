@@ -10,8 +10,8 @@ import '../../../../../../core/utils/injection/injection_container.dart';
 import '../../../../../../core/utils/local/cache_helper.dart';
 import '../../../app_cubit/cubit.dart';
 
-class VerticalHotelsListView extends StatelessWidget {
-  const VerticalHotelsListView({
+class CompletedVerticalHotelsListView extends StatelessWidget {
+  const CompletedVerticalHotelsListView({
     Key? key,
   }) : super(key: key);
 
@@ -28,7 +28,7 @@ class VerticalHotelsListView extends StatelessWidget {
         ? const Color(0xffffffff)
         : const Color(0xff212525);
     return BlocProvider(
-      create: (context) => AppCubit(sl(),sl(),sl(),sl(),sl())..getUpcomingBooking(token:  'DbEKpvqg2uKSMVONmzLyAEZyInLsWdVIZcVTsjP2ivgfNzqgJ9MRCDt95KaB', count: 10, type: 'cancelled'),
+      create: (context) => AppCubit(sl(),sl(),sl(),sl(),sl())..getCompletedBooking(token:  'DbEKpvqg2uKSMVONmzLyAEZyInLsWdVIZcVTsjP2ivgfNzqgJ9MRCDt95KaB', count: 10, type: 'completed'),
       child: BlocConsumer<AppCubit, AppStates>(
   listener: (context, state) {
     // TODO: implement listener
@@ -63,7 +63,7 @@ class VerticalHotelsListView extends StatelessWidget {
                     borderRadius: BorderRadius.circular(15),
                   ),
                   child: Image.network(
-                      'http://api.mahmoudtaha.com/images/${AppCubit.get(context).cancelled[index].hotel!.hotelImages![0].image!}',
+                      'http://api.mahmoudtaha.com/images/${AppCubit.get(context).completed[index].hotel!.hotelImages![0].image!}',
                       fit: BoxFit.cover),
                 ),
               ),
@@ -78,7 +78,7 @@ class VerticalHotelsListView extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        AppCubit.get(context).cancelled[index].hotel!.name!,
+                        AppCubit.get(context).completed[index].hotel!.name!,
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 16,
@@ -95,7 +95,7 @@ class VerticalHotelsListView extends StatelessWidget {
                             color: Colors.grey,
                           ),
                           Text(
-                            AppCubit.get(context).cancelled[index].hotel!.address!,
+                            AppCubit.get(context).completed[index].hotel!.address!,
                             style: TextStyle(
                               color: Colors.grey,
                               fontSize: 15,
@@ -129,7 +129,7 @@ class VerticalHotelsListView extends StatelessWidget {
                       ),
                        Text.rich(
                         TextSpan(
-                            text: ' ${AppCubit.get(context).cancelled[index].hotel!.price}',
+                            text: ' ${AppCubit.get(context).completed[index].hotel!.price}',
                             style: TextStyle(
                               color: Colors.blueAccent,
                               fontSize: 15,
@@ -156,7 +156,7 @@ class VerticalHotelsListView extends StatelessWidget {
                   children: [
                     IconButton(
                         onPressed: () {
-                          AppCubit.get(context).updateBooking(type: 'completed', bookingId: AppCubit.get(context).cancelled[index].id!);
+                          AppCubit.get(context).updateBooking(type: 'completed', bookingId: AppCubit.get(context).completed[index].id!);
 
                         },
                         icon: const Icon(
@@ -167,7 +167,7 @@ class VerticalHotelsListView extends StatelessWidget {
                     SizedBox(height: 30,),
                     IconButton(
                         onPressed: () {
-                          AppCubit.get(context).updateBooking(type: 'cancelled', bookingId: AppCubit.get(context).cancelled[index].id!);
+                          AppCubit.get(context).updateBooking(type: 'cancelled', bookingId: AppCubit.get(context).completed[index].id!);
 
                         },
                         icon: const Icon(

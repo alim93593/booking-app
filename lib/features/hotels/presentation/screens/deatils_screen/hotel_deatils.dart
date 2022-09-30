@@ -135,7 +135,7 @@ class _HotelDetailsState extends State<HotelDetails>
         : const Color(0xffffffff);
     imageHeight = MediaQuery.of(context).size.height;
     return BlocProvider(
-      create: (context) => AppCubit(sl(), sl(), sl(),sl()),
+      create: (context) => AppCubit(sl(), sl(), sl(),sl(),sl()),
       child: BlocConsumer<AppCubit, AppStates>(
         listener: (context, state) {
           // TODO: implement listener

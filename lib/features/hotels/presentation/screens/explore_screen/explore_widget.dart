@@ -9,6 +9,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../auth/presentation/cubit/auth_cubit.dart';
+
 class ExploreWidget extends StatefulWidget {
   const ExploreWidget({Key? key}) : super(key: key);
 
@@ -163,6 +165,8 @@ class _ExploreWidgetState extends State<ExploreWidget> {
                               context,
                               MaterialPageRoute(
                                   builder: (context) => HotelDetails(
+                                    hotelId: cubit.hotels![index].id!.toInt(),
+                                    userId:AuthCubit.get(context).userModelEntity.data!.id!.toInt() ,
                                     latitude: cubit.hotels![index].latitude!,
                                     longitude:
                                     cubit.hotels![index].longitude!,

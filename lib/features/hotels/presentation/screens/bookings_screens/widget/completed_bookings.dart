@@ -4,6 +4,8 @@ import 'package:booking_app/features/hotels/presentation/screens/home_screen/wid
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../home_screen/widgets/completed_vertical_hotels_list_view.dart';
+
 class CompletedBookings extends StatelessWidget {
   const CompletedBookings({Key? key}) : super(key: key);
 
@@ -15,7 +17,7 @@ class CompletedBookings extends StatelessWidget {
       },
       builder: (context, state) {
         return const Scaffold(
-          body: VerticalHotelsListView(),
+          body: CompletedVerticalHotelsListView(),
         );
       },
     );

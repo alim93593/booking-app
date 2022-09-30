@@ -6,6 +6,7 @@ import 'package:dartz/dartz.dart';
 
 import '../entities/create_booking_entity.dart';
 import '../entities/get_booking_entity.dart';
+import '../entities/update_booking_status.dart';
 
 abstract class HotelsRepository {
   Future<Either<Failure,List<HotelEntity>>> getHotels({
@@ -26,9 +27,10 @@ abstract class HotelsRepository {
 
   });
 
-  Future<Either<Failure, Unit>> updateBookingStatus({
-    required String status,
-    required int? bookingId,
+  Future<Either<Failure, UpdateBookingEntity>> updateBookingStatus({
+    required String type,
+    required num? bookingId,
+    required String? contentType
   });
 
   Future<Either<Failure, GetBookingEntity>> getBookings({

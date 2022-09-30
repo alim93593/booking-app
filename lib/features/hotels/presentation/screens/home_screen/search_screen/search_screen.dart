@@ -20,7 +20,7 @@ class SearchScreen extends StatelessWidget {
     var formKey = GlobalKey<FormState>();
     var searchController = TextEditingController();
     return BlocProvider(
-      create: (context) => AppCubit(sl(), sl(),sl(),sl()),
+      create: (context) => AppCubit(sl(), sl(),sl(),sl(),sl()),
       child: BlocConsumer<AppCubit, AppStates>(
           listener: (context, state) {},
           builder: (context, state) {
