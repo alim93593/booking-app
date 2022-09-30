@@ -26,9 +26,6 @@ abstract class AuthRepository {
     required String name,
     required String email,
     required String image,
-
-
-
   });
 
   Future<Either<Failure, Unit>> changePassword({

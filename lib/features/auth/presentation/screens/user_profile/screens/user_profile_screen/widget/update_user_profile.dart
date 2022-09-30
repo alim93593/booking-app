@@ -11,7 +11,7 @@ import 'package:conditional_builder_null_safety/conditional_builder_null_safety.
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../../../../../core/utils/constants/strings.dart';
+
 import '../../../../../../../../core/utils/injection/injection_container.dart';
 
 class UpdateUserProfile extends StatelessWidget {
@@ -43,6 +43,9 @@ class UpdateUserProfile extends StatelessWidget {
           var profileimage = cubit.profileimage;
 
           return ConditionalBuilder(
+          // || profileimage != null
+              condition:
+                  state is GetProfileSuccessState|| profileimage != null||state is UpdateProfileSuccessState ,
               condition:
                   state is GetProfileSuccessState || profileimage != null,
               builder: (context) {
@@ -166,6 +169,55 @@ class UpdateUserProfile extends StatelessWidget {
                                 SizedBox(
                                   height: 50,
                                 ),
+                            DefaultButton(
+                              text: 'Update  Profile',
+                              function: () async {
+                                var token = CacheHelper.getData(key: 'toKen');
+                                debugPrint(token);
+                                if (formKey.currentState!.validate()) {
+                                  if (profileimage != null) {
+                                    await cubit
+                                        .updateProfileInfo(
+                                        token: token,
+                                        name: name.text.toString(),
+                                        email: email.text.toString(),
+                                        image:
+                                        Uri.file(profileimage.path)
+                                            .pathSegments
+                                            .last.toString())
+                                        .then((value) =>
+                                    // Navigator.pop(context));
+                                    showToast(
+                                        text:
+                                        'Profile Has Been Updated Successfully',
+                                        state: ToastState.SUCCESS));
+                                    cubit.getProfileInfo(token: token);
+                                    return;
+                                  } else {
+                                    await cubit
+                                        .updateProfileInfo(
+                                        token: token,
+                                        name: name.text.toString(),
+                                        email: email.text.toString(),
+                                        image: profileState.profileModelEntity.data?.image.toString())
+                                        .then((value) =>
+                                        showToast(
+                                            text: 'Profile Have Been Updated',
+                                            state: ToastState.SUCCESS));
+                                    cubit.getProfileInfo(token: token);
+                                    return;
+                                    // Navigator.pop(context));
+                                  }
+                                  /// update user profile
+                                  // debugPrint('success');
+                                }else{
+                                  showToast(
+                                      text: 'Unable To Update Profile',
+                                      state: ToastState.ERROR);
+                                }
+                              },
+                              ),
+=======
                                 DefaultButton(
                                   text: 'Update  Profile',
                                   function: () async {
@@ -217,7 +269,7 @@ class UpdateUserProfile extends StatelessWidget {
                         ),
                       ),
                     ));
-              },
+               },
               fallback: (context) => const Center(
                     child: CircularProgressIndicator(),
                   ));
