@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:booking_app/core/themes/light.dart';
+import 'package:booking_app/core/themes/mode_cubit/mode_cubit.dart';
 import 'package:booking_app/core/utils/constants/constants.dart';
 import 'package:booking_app/core/utils/local/cache_helper.dart';
 import 'package:booking_app/core/widget/main_button.dart';
@@ -23,15 +24,15 @@ class _BoardingBodyState extends State<BoardingBody> {
     BoardingModel(
         title: 'Plan your trips',
         body: 'Book one of our unique hotels to escape the ordinary',
-        image: 'assets/on_boarding/image_1.png'),
+        image: 'assets/boarding/boarding_1.png'),
     BoardingModel(
         title: 'Find best deals',
         body: 'Find deals for any season from cosy country homes to city flats',
-        image: 'assets/on_boarding/image_2.png'),
+        image: 'assets/boarding/boarding_2.png'),
     BoardingModel(
         title: 'Booking App',
         body: 'Find deals for any season from cosy country homes to city flats',
-        image: 'assets/on_boarding/image_3.png'),
+        image: 'assets/boarding/boarding_3.png'),
   ];
   bool isLast = false;
   int currentPage = 0;
@@ -52,13 +53,13 @@ class _BoardingBodyState extends State<BoardingBody> {
       } else {
         currentPage = 0;
       }
-  if(boardingController.hasClients) {
-    boardingController.animateToPage(
-      currentPage,
-      duration: const Duration(milliseconds: 350),
-      curve: Curves.easeIn,
-    );
-    }
+      if(boardingController.hasClients) {
+        boardingController.animateToPage(
+          currentPage,
+          duration: const Duration(milliseconds: 350),
+          curve: Curves.easeIn,
+        );
+      }
     });
   }
 
@@ -70,6 +71,12 @@ class _BoardingBodyState extends State<BoardingBody> {
 
   @override
   Widget build(BuildContext context) {
+    var color = ModeCubit.get(context).isDark == true
+        ? const Color(0xffffffff)
+        : const Color(0xff212525);
+    var cardColor = ModeCubit.get(context).isDark == true
+        ? const Color(0xff212525)
+        : const Color(0xffffffff);
     return SingleChildScrollView(
       child: Padding(
         padding: const EdgeInsets.all(

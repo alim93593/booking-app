@@ -25,6 +25,9 @@ class BuildUserProfile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var color = ModeCubit.get(context).isDark == true
+        ? const Color(0xffffffff)
+        : const Color(0xff212525);
 
     return BlocProvider(
       create: (context) => AuthCubit(
@@ -53,7 +56,8 @@ class BuildUserProfile extends StatelessWidget {
                 var cardColor = ModeCubit.get(context).isDark == true
                     ?  const Color(0xff212525)
                     : const Color(0xffffffff);
-                var profileState = GetProfileSuccessState(profileModelEntity: cubit.profileModelEntity);
+                var profileState = GetProfileSuccessState(
+                    profileModelEntity: cubit.profileModelEntity);
                 return Scaffold(
                   // backgroundColor: ModeCubit.get(context).isDark?Colors.black:Colors.white,
                   appBar: appbar(
@@ -77,13 +81,13 @@ class BuildUserProfile extends StatelessWidget {
                                 padding: const EdgeInsets.all(10),
                                 child: Row(
                                   mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                                  MainAxisAlignment.spaceBetween,
                                   children: [
                                     Column(
                                       children: [
                                         Stack(
                                           alignment:
-                                              AlignmentDirectional.topStart,
+                                          AlignmentDirectional.topStart,
                                           children: [
                                             Align(
                                               alignment: Alignment.topLeft,
@@ -103,7 +107,7 @@ class BuildUserProfile extends StatelessWidget {
                                         ),
                                         Stack(
                                           alignment:
-                                              AlignmentDirectional.topStart,
+                                          AlignmentDirectional.topStart,
                                           children: [
                                             Align(
                                               alignment: Alignment.topCenter,
@@ -127,17 +131,17 @@ class BuildUserProfile extends StatelessWidget {
                                         children: [
                                           Stack(
                                             alignment:
-                                                AlignmentDirectional.bottomEnd,
+                                            AlignmentDirectional.bottomEnd,
                                             children: [
                                               CircleAvatar(
                                                 radius: 64.0,
                                                 child: CircleAvatar(
                                                   radius: 60.0,
                                                   backgroundColor: Theme.of(
-                                                          context)
+                                                      context)
                                                       .scaffoldBackgroundColor,
                                                   backgroundImage: NetworkImage(
-                                                      'http://api.mahmoudtaha.com/images/${profileState.profileModelEntity.data?.image}'),
+                                                      '${profileState.profileModelEntity.data?.image}'),
                                                 ),
                                               ),
                                               // IconButton(
@@ -163,7 +167,7 @@ class BuildUserProfile extends StatelessWidget {
                               color: color,
                               icon: Icon(
                                 FontAwesomeIcons.lock,
-                               color: color,
+                                color: color,
                               ),
                               onPressed: () {
                                 navigateTo(
@@ -206,15 +210,14 @@ class BuildUserProfile extends StatelessWidget {
                               color: color,
                             ),
                             isLast: true,
-                            // onPressed: signOut(context),
                           ),
                         ]),
                   ),
                 );
               },
               fallback: (context) => const Center(
-                    child: CircularProgressIndicator(),
-                  ));
+                child: CircularProgressIndicator(),
+              ));
         },
       ),
     );
