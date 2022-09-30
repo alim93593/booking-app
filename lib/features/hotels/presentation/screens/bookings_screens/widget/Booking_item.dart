@@ -1,46 +1,32 @@
-// ignore_for_file: prefer_const_constructors
-
-import 'package:booking_app/core/themes/mode_cubit/mode_cubit.dart';
-import 'package:booking_app/features/hotels/presentation/app_cubit/states.dart';
+import 'package:booking_app/features/hotels/presentation/app_cubit/cubit.dart';
+import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-import '../../../../../../core/utils/injection/injection_container.dart';
-import '../../../../../../core/utils/local/cache_helper.dart';
-import '../../../app_cubit/cubit.dart';
-
-class CompletedVerticalHotelsListView extends StatelessWidget {
-  const CompletedVerticalHotelsListView({
+class BookingItem extends StatelessWidget {
+  const BookingItem({
     Key? key,
+    required this.cardColor,
+    required this.color,
+    required this.list,
   }) : super(key: key);
+
+  final Color cardColor;
+  final Color color;
+  final List list;
 
   @override
   Widget build(BuildContext context) {
-    var cardColor = ModeCubit
-        .get(context)
-        .isDark == true
-        ? Colors.black
-        : const Color(0xffffffff);
-    var color = ModeCubit
-        .get(context)
-        .isDark == true
-        ? const Color(0xffffffff)
-        : const Color(0xff212525);
-    return BlocProvider(
-      create: (context) => AppCubit(sl(),sl(),sl(),sl(),sl())..getCompletedBooking(token:  'DbEKpvqg2uKSMVONmzLyAEZyInLsWdVIZcVTsjP2ivgfNzqgJ9MRCDt95KaB', count: 10, type: 'completed'),
-      child: BlocConsumer<AppCubit, AppStates>(
-  listener: (context, state) {
-    // TODO: implement listener
-  },
-  builder: (context, state) {
-    return ListView.separated(
+    var cubit = AppCubit.get(context);
+    return ConditionalBuilder(
+
+      condition: list.isNotEmpty,
+      builder:  (context) =>ListView.separated(
         scrollDirection: Axis.vertical,
         itemBuilder: (context, index) {
           return Container(
             height: 130,
             clipBehavior: Clip.hardEdge,
-
             decoration: BoxDecoration(
               color: cardColor,
               borderRadius: BorderRadius.circular(15),
@@ -49,8 +35,7 @@ class CompletedVerticalHotelsListView extends StatelessWidget {
                   color: Colors.grey.withOpacity(0.3),
                   spreadRadius: 1,
                   blurRadius: 7,
-                  offset: const Offset(
-                      0, 3), // changes position of shadow
+                  offset: const Offset(0, 3), // changes position of shadow
                 ),
               ],
             ),
@@ -63,7 +48,9 @@ class CompletedVerticalHotelsListView extends StatelessWidget {
                     borderRadius: BorderRadius.circular(15),
                   ),
                   child: Image.network(
-                      'http://api.mahmoudtaha.com/images/${AppCubit.get(context).completed[index].hotel!.hotelImages![0].image!}',
+                      'http://api.mahmoudtaha.com/images/${list[index].hotel!.hotelImages![0].image!}',
+                      width: 170,
+                      height: 130,
                       fit: BoxFit.cover),
                 ),
               ),
@@ -78,7 +65,7 @@ class CompletedVerticalHotelsListView extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        AppCubit.get(context).completed[index].hotel!.name!,
+                        list[index].hotel!.name!,
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: 16,
@@ -89,18 +76,20 @@ class CompletedVerticalHotelsListView extends StatelessWidget {
                         height: 5,
                       ),
                       Row(
-                        children:  [
+                        children: [
                           Icon(
                             Icons.place_outlined,
                             color: Colors.grey,
                           ),
                           Text(
-                            AppCubit.get(context).completed[index].hotel!.address!,
+                            list[index]
+                                .hotel!
+                                .address!,
+
                             style: TextStyle(
                               color: Colors.grey,
                               fontSize: 15,
                               fontWeight: FontWeight.bold,
-
                             ),
                           ),
                         ],
@@ -109,13 +98,13 @@ class CompletedVerticalHotelsListView extends StatelessWidget {
                         height: 5,
                       ),
                       Row(
-                        children: const [
+                        children:  [
                           Icon(
                             Icons.star,
                             color: Color(0xffFFD700),
                           ),
                           Text(
-                            '4.7(150+)',
+                            '${list[index].hotel!.rate}',
                             style: TextStyle(
                               color: Colors.grey,
                               fontSize: 15,
@@ -127,9 +116,10 @@ class CompletedVerticalHotelsListView extends StatelessWidget {
                       const SizedBox(
                         height: 5,
                       ),
-                       Text.rich(
+                      Text.rich(
                         TextSpan(
-                            text: ' ${AppCubit.get(context).completed[index].hotel!.price}',
+                            text:
+                            ' ${list[index].hotel!.price}',
                             style: TextStyle(
                               color: Colors.blueAccent,
                               fontSize: 15,
@@ -156,19 +146,25 @@ class CompletedVerticalHotelsListView extends StatelessWidget {
                   children: [
                     IconButton(
                         onPressed: () {
-                          AppCubit.get(context).updateBooking(type: 'completed', bookingId: AppCubit.get(context).completed[index].id!);
-
+                          cubit.updateBooking(
+                              type: 'completed',
+                              bookingId:list[index]
+                                  .id!);
                         },
                         icon: const Icon(
                           FontAwesomeIcons.bookmark,
                           color: Colors.grey,
                           size: 20,
                         )),
-                    SizedBox(height: 30,),
+                    SizedBox(
+                      height: 30,
+                    ),
                     IconButton(
                         onPressed: () {
-                          AppCubit.get(context).updateBooking(type: 'cancelled', bookingId: AppCubit.get(context).completed[index].id!);
-
+                         cubit.updateBooking(
+                              type: 'cancelled',
+                              bookingId: list[index]
+                                  .id!);
                         },
                         icon: const Icon(
                           FontAwesomeIcons.trashCan,
@@ -178,18 +174,18 @@ class CompletedVerticalHotelsListView extends StatelessWidget {
                   ],
                 ),
               ),
-            ]
-            ),
+            ]),
           );
         },
-        separatorBuilder: (context, index) =>
-        const SizedBox(
+        separatorBuilder: (context, index) => const SizedBox(
           height: 20,
         ),
-        itemCount: AppCubit.get(context).completed.length,
-      );
-  },
-),
+        itemCount: list.length,
+      ),
+      fallback: (context) => const Center(
+        child: CircularProgressIndicator(),
+      ),
+
     );
   }
 }

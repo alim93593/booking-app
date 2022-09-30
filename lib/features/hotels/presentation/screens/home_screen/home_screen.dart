@@ -75,6 +75,7 @@ class HomeScreen extends StatelessWidget {
                             context,
                             MaterialPageRoute(
                                 builder: (context) => HotelDetails(
+
                                       latitude: cubit.hotels![index].latitude!,
                                       longitude:
                                           cubit.hotels![index].longitude!,
