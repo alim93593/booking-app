@@ -79,6 +79,7 @@ class CustomFormField extends StatelessWidget {
                   onPressed: suffixPressed,
                   icon: Icon(
                     suffix,
+                    color: color,
                   ),
                 )
               : null,
