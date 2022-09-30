@@ -18,6 +18,7 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ///////////
     var height = MediaQuery.of(context).size.height;
     var cubit = AppCubit.get(context);
     return BlocConsumer<AppCubit, AppStates>(
