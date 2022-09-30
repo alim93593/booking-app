@@ -296,7 +296,7 @@ class _HotelDetailsState extends State<HotelDetails>
                           child: MaterialButton(
                             onPressed: ()   async {
                               //booking room
-                             await  cubit.createBooking(token: CacheHelper.getData(key: 'toKen'), userId: 11, hotelId: 18);
+                             await  cubit.createBooking(token: CacheHelper.getData(key: 'toKen'), userId: widget.userId, hotelId: widget.hotelId);
                             },
                             child: const Text(
                               'Book Now',
@@ -466,7 +466,7 @@ class _HotelDetailsState extends State<HotelDetails>
                                                   BorderRadius.circular(32)),
                                           child: MaterialButton(
                                             onPressed: ()async {
-                                              await  appCubit.createBooking(token: CacheHelper.getData(key: 'toKen'), userId: 11, hotelId: 18);
+                                              await  appCubit.createBooking(token: CacheHelper.getData(key: 'toKen'), userId: widget.userId, hotelId: widget.hotelId);
 
                                               //go to room book screen
                                               //video 22.40 minute
@@ -597,7 +597,7 @@ class _HotelDetailsState extends State<HotelDetails>
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Text(
-                      widget.address.substring(0, 29),
+                      widget.address.substring(0, 28),
                       style: const TextStyle(
                         color: Colors.grey,
                         fontSize: 11,

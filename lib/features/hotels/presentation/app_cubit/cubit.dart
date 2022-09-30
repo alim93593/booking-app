@@ -133,11 +133,11 @@ class AppCubit extends Cubit<AppStates> {
   }
 
   dynamic updateBooking(
-      {required String type,  required num bookingId,
+      {required String type,  required num? bookingId,
 
       }) async {
     emit(UpdateBookingLoadingState());
-    final failureOrData = await updateBookingUseCase(type: type,bookingId: bookingId,contentType: 'multipart/form-data');
+    final failureOrData = await updateBookingUseCase(type: type,bookingId: bookingId!,contentType: 'multipart/form-data');
     failureOrData.fold((l) {
       emit(UpdateBookingErrorState());
     }, (r) {
@@ -196,7 +196,7 @@ class AppCubit extends Cubit<AppStates> {
       }) async {
     emit(GetCancelledBookingLoadingState());
     final failureOrData = await getBookingsUseCase(
-      count:10 ,token: token,type:type ,);
+      count:count ,token: token,type:type ,);
     failureOrData.fold((l) {
       emit(GetCancelledBookingErrorState());
     }, (r) {

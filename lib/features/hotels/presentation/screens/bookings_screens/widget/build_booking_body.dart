@@ -29,7 +29,7 @@ class BookingBody extends StatelessWidget {
             color:color,
           ),
           title: Text(
-            'Bookings',
+            'Trips',
             style: TextStyle(
               fontFamily: 'Ubuntu',
               fontSize: 20,
@@ -45,13 +45,13 @@ class BookingBody extends StatelessWidget {
             child: const TabBar(
               tabs: <Widget>[
                 Tab(
+                  text: 'Bookings',
+                ),
+                Tab(
                   text: 'Completed',
                 ),
                 Tab(
                   text: 'Canceled',
-                ),
-                Tab(
-                  text: 'Upcoming',
                 ),
               ],
             ),
@@ -61,13 +61,13 @@ class BookingBody extends StatelessWidget {
               children: [
                 Padding(
                     padding: EdgeInsets.all(10),
+                    child: UpComingBookings()),
+                Padding(
+                    padding: EdgeInsets.all(10),
                     child: CompletedBookings()),
                 Padding(
                     padding: EdgeInsets.all(10),
                     child: CanceledBookings()),
-                Padding(
-                    padding: EdgeInsets.all(10),
-                    child: UpComingBookings()),
               ],
             ),
           ),

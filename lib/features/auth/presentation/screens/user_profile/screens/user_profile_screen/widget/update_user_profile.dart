@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, sized_box_for_whitespace, must_be_immutable
 
 import 'package:booking_app/core/themes/mode_cubit/mode_cubit.dart';
+import 'package:booking_app/core/utils/local/cache_helper.dart';
 import 'package:booking_app/core/widget/custom_text_form_field.dart';
 import 'package:booking_app/core/widget/toast.dart';
 import 'package:booking_app/features/auth/presentation/cubit/auth_cubit.dart';
@@ -32,7 +33,7 @@ class UpdateUserProfile extends StatelessWidget {
           updateProfileUseCase: sl(),
           userModelEntity: sl(),
           profileModelEntity: sl())
-        ..getProfileInfo(token:'DnkaEA2eU1DNZmKIpx5I7u6ptaKeEGAA1nq4bFkClgBsYsWLyTMNsJD7O06u'),
+        ..getProfileInfo(token:CacheHelper.getData(key: 'toKen'),),
       child: BlocConsumer<AuthCubit, AuthStates>(
         listener: (context, state) {
         },
@@ -164,7 +165,7 @@ class UpdateUserProfile extends StatelessWidget {
                                       if(profileimage!=null){
                                         await cubit
                                             .updateProfileInfo(
-                                            token: toKen,
+                                            token: CacheHelper.getData(key: 'toKen'),
                                             name: name.text,
                                             email: email.text,
                                             image: Uri.file(profileimage.path).pathSegments.last)
@@ -176,7 +177,7 @@ class UpdateUserProfile extends StatelessWidget {
                                       }else{
                                         await cubit
                                             .updateProfileInfo(
-                                            token: toKen,
+                                            token:CacheHelper.getData(key: 'toKen'),
                                             name: name.text,
                                             email: email.text,
                                             image: profileState.profileModelEntity.data?.image)
