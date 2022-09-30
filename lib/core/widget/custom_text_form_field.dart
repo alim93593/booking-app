@@ -12,7 +12,7 @@ class CustomFormField extends StatelessWidget {
     this.isPhone = false,
     this.isPassWord = false,
     this.suffixIcon =
-        const Icon(Icons.remove_red_eye_outlined, color: Colors.black),
+    const Icon(Icons.remove_red_eye_outlined, color: Colors.black),
     required this.prefix,
     this.onTaped,
     this.onChanged,
@@ -76,21 +76,22 @@ class CustomFormField extends StatelessWidget {
           hintStyle: hintStyle,
           suffixIcon: suffix != null
               ? IconButton(
-                  onPressed: suffixPressed,
-                  icon: Icon(
-                    suffix,
-                  ),
-                )
+            onPressed: suffixPressed,
+            icon: Icon(
+              suffix,
+              color: color,
+            ),
+          )
               : null,
-    contentPadding: const EdgeInsets.all(20.0),
-    border: const OutlineInputBorder(
-    borderRadius: BorderRadius.all(Radius.circular(10)),
-    ),
-    enabledBorder: const OutlineInputBorder(
-    borderSide: BorderSide(color: Colors.grey, width: 1.0),
-    borderRadius: BorderRadius.all(Radius.circular(10)),
-    ),
-      ),
+          contentPadding: const EdgeInsets.all(20.0),
+          border: const OutlineInputBorder(
+            borderRadius: BorderRadius.all(Radius.circular(10)),
+          ),
+          enabledBorder: const OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.grey, width: 1.0),
+            borderRadius: BorderRadius.all(Radius.circular(10)),
+          ),
+        ),
       ),
     );
   }
