@@ -1,3 +1,4 @@
+import 'package:booking_app/core/themes/mode_cubit/mode_cubit.dart';
 import 'package:booking_app/features/on_boarding/data/models/boarding_model.dart';
 import 'package:flutter/material.dart';
 
@@ -7,6 +8,9 @@ class BuildBoardingItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var color = ModeCubit.get(context).isDark == true
+        ? const Color(0xffffffff)
+        : const Color(0xff212525);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.center,
@@ -21,9 +25,10 @@ class BuildBoardingItem extends StatelessWidget {
 
         Text(
           model.title,
-          style: const TextStyle(
+          style:  TextStyle(
             fontSize: 24.0,
             fontWeight: FontWeight.bold,
+            color: color,
           ),
         ),
         const SizedBox(

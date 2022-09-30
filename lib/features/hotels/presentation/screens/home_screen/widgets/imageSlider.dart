@@ -1,13 +1,13 @@
-// ignore_for_file: file_names, implementation_imports, annotate_overrides, unused_local_variable, prefer_const_constructors
+// ignore_for_file: file_names, implementation_imports, annotate_overrides, unused_local_variable
 
 import 'package:booking_app/core/themes/mode_cubit/mode_cubit.dart';
 import 'package:booking_app/core/widget/main_button.dart';
-import 'package:booking_app/features/hotels/presentation/screens/home_screen/explore_page.dart';
+import 'package:booking_app/features/hotels/presentation/screens/explore_screen/explore_page.dart';
+import 'package:booking_app/features/hotels/presentation/screens/search_screen/search_screen.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/rendering/sliver_persistent_header.dart';
 
-import 'home_screen/search_screen/search_screen.dart';
 
 class ImageSlider implements SliverPersistentHeaderDelegate {
   final double minExtent;
@@ -89,47 +89,44 @@ class ImageSlider implements SliverPersistentHeaderDelegate {
         shrinkOffset >= 0 && shrinkOffset < 50
             ? Padding(
                 padding: const EdgeInsets.only(top: 300, left: 16),
-                child: SingleChildScrollView(
-                  physics: BouncingScrollPhysics(),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children:  [
-                      const Text(
-                        'Best deals',
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children:  [
+                    const Text(
+                      'Best deals',
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold),
+                    ),
+                    const SizedBox(
+                      height: 5,
+                    ),
+                    const Text(
+                      'Extraordinary five star',
+                      style: TextStyle(color: Colors.white, fontSize: 20),
+                    ),
+                    const Text(
+                      'Outdoor activities',
+                      style: TextStyle(color: Colors.white, fontSize: 20),
+                    ),
+                    const SizedBox(
+                      height: 15,
+                    ),
+                    MainButton(
+                        onTabbed: (){
+                          Navigator.push(context, MaterialPageRoute(builder: (context)=> ExplorePage()));
+                        },
+                        myStyle: const Text('Explore',
                         style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 24,
-                            fontWeight: FontWeight.bold),
-                      ),
-                      SizedBox(
-                        height: 5,
-                      ),
-                      Text(
-                        'Extraordinary five star',
-                        style: TextStyle(color: Colors.white, fontSize: 20),
-                      ),
-                      Text(
-                        'Outdoor activities',
-                        style: TextStyle(color: Colors.white, fontSize: 20),
-                      ),
-                      SizedBox(
-                        height: 15,
-                      ),
-                      MainButton(
-                          onTabbed: (){
-                            Navigator.push(context, MaterialPageRoute(builder: (context)=> ExplorePage()));
-                          },
-                          myStyle: Text('Explore',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 16,
-                          ),
-                          ),
-                          myColor: Colors.blue,
-                          width: 120,
-                          height: 50)
-                    ],
-                  ),
+                          color: Colors.white,
+                          fontSize: 16,
+                        ),
+                        ),
+                        myColor: Colors.blue,
+                        width: 120,
+                        height: 50)
+                  ],
                 ),
               )
             : AnimatedOpacity(

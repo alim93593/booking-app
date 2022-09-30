@@ -4,7 +4,7 @@ import 'package:booking_app/core/themes/mode_cubit/mode_cubit.dart';
 import 'package:booking_app/features/hotels/presentation/app_cubit/cubit.dart';
 import 'package:booking_app/features/hotels/presentation/app_cubit/states.dart';
 import 'package:booking_app/features/hotels/presentation/screens/deatils_screen/hotel_deatils.dart';
-import 'package:booking_app/features/hotels/presentation/screens/home_screen/search_screen/search_screen.dart';
+import 'package:booking_app/features/hotels/presentation/screens/search_screen/search_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -229,7 +229,7 @@ class _ExploreWidgetState extends State<ExploreWidget> {
                                             TextSpan(
                                                 text:
                                                 '\$${cubit.hotels?[index].price}',
-                                                style: TextStyle(
+                                                style: const TextStyle(
                                                   color: Colors.blueAccent,
                                                   fontSize: 15,
                                                   fontWeight: FontWeight.bold,

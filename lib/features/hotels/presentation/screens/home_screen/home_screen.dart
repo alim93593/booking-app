@@ -6,7 +6,7 @@ import 'package:booking_app/features/hotels/presentation/app_cubit/cubit.dart';
 import 'package:booking_app/features/hotels/presentation/app_cubit/states.dart';
 import 'package:booking_app/features/hotels/presentation/screens/deatils_screen/hotel_deatils.dart';
 import 'package:booking_app/features/hotels/presentation/screens/google_maps/screens/map_screen.dart';
-import 'package:booking_app/features/hotels/presentation/screens/imageSlider.dart';
+import 'package:booking_app/features/hotels/presentation/screens/home_screen/widgets/imageSlider.dart';
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

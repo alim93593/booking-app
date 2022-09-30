@@ -71,7 +71,7 @@ class RegisterScreenBody extends StatelessWidget {
                     Text(
                       'REGISTER',
                       style: Theme.of(context).textTheme.headline4!.copyWith(
-                            color: Colors.black,
+                            color:color,
                             fontFamily: 'Ubuntu',
                           ),
                     ),
@@ -97,7 +97,9 @@ class RegisterScreenBody extends StatelessWidget {
                         return null;
                       },
                       textInputType: TextInputType.emailAddress,
-                      prefix: const Icon(Icons.email_outlined),
+                      prefix:  Icon(Icons.person,
+                      color: color,
+                      ),
                       hintText: 'Name',
                       hintStyle: const TextStyle(
                         color: Colors.grey,
@@ -120,7 +122,9 @@ class RegisterScreenBody extends StatelessWidget {
                         return null;
                       },
                       textInputType: TextInputType.emailAddress,
-                      prefix: const Icon(Icons.email_outlined),
+                      prefix:  Icon(Icons.email_outlined,
+                        color: color,
+                      ),
                       hintText: 'Email Address',
                       hintStyle:  TextStyle(
                         color: Colors.grey,
@@ -145,7 +149,9 @@ class RegisterScreenBody extends StatelessWidget {
                         return null;
                       },
                       textInputType: TextInputType.visiblePassword,
-                      prefix: const Icon(Icons.lock_outline),
+                      prefix:  Icon(Icons.lock_outline,
+                        color: color,
+                      ),
                       hintText: 'Password',
                       hintStyle: const TextStyle(
                         color: Colors.grey,

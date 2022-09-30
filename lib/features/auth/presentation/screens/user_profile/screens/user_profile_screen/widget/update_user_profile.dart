@@ -215,6 +215,51 @@ class UpdateUserProfile extends StatelessWidget {
                                 }
                               },
                               ),
+                                DefaultButton(
+                                  text: 'Update  Profile',
+                                  function: () async {
+                                    if (formKey.currentState!.validate()) {
+                                      if (profileimage != null) {
+                                        await cubit
+                                            .updateProfileInfo(
+                                                token: CacheHelper.getData(key: 'toKen'),
+                                                name: name.text,
+                                                email: email.text,
+                                                image:
+                                                    Uri.file(profileimage.path)
+                                                        .pathSegments
+                                                        .last)
+                                            .then((value) =>
+                                                Navigator.pop(context));
+                                        showToast(
+                                            text:
+                                                'Profile Has Been Updated Successfully',
+                                            state: ToastState.SUCCESS);
+
+                                        /// update user profile
+                                        debugPrint('success');
+                                      } else {
+                                        await cubit
+                                            .updateProfileInfo(
+                                                token: CacheHelper.getData(key: 'toKen'),
+                                                name: name.text,
+                                                email: email.text,
+                                                image: profileState
+                                                    .profileModelEntity
+                                                    .data
+                                                    ?.image)
+                                            .then((value) =>
+                                                Navigator.pop(context));
+                                      }
+                                      showToast(
+                                          text: 'Unable To Update Profile',
+                                          state: ToastState.ERROR);
+
+                                      /// update user profile
+                                      debugPrint('success');
+                                    }
+                                  },
+                                )
                               ],
                             ),
                           ),
