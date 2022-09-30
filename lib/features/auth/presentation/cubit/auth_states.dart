@@ -48,7 +48,9 @@ class RegisterErrorState extends AuthStates {
 }
 class UpdateProfileLoadingState extends AuthStates {}
 
-class UpdateProfileSuccessState extends AuthStates {}
+class UpdateProfileSuccessState extends AuthStates {
+
+}
 
 class UpdateProfileErrorState extends AuthStates {
   const UpdateProfileErrorState({required this.error});

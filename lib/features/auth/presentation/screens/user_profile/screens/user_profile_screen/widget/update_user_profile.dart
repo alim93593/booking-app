@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, sized_box_for_whitespace, must_be_immutable
 
 import 'package:booking_app/core/themes/mode_cubit/mode_cubit.dart';
+import 'package:booking_app/core/utils/local/cache_helper.dart';
 import 'package:booking_app/core/widget/custom_text_form_field.dart';
 import 'package:booking_app/core/widget/toast.dart';
 import 'package:booking_app/features/auth/presentation/cubit/auth_cubit.dart';
@@ -10,7 +11,7 @@ import 'package:conditional_builder_null_safety/conditional_builder_null_safety.
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../../../../../core/utils/constants/strings.dart';
+
 import '../../../../../../../../core/utils/injection/injection_container.dart';
 
 class UpdateUserProfile extends StatelessWidget {
@@ -32,21 +33,26 @@ class UpdateUserProfile extends StatelessWidget {
           updateProfileUseCase: sl(),
           userModelEntity: sl(),
           profileModelEntity: sl())
-        ..getProfileInfo(token:'blLPj2TYu9KvtRXyyFAM7CS1KmebhPIJW8vqBN0U6hLdaJrsd9VhCu0R7Abj'),
+        ..getProfileInfo(
+            token:
+            CacheHelper.getData(key: 'toKen')),
       child: BlocConsumer<AuthCubit, AuthStates>(
-        listener: (context, state) {
-        },
+        listener: (context, state) {},
         builder: (context, state) {
           var cubit = AuthCubit.get(context);
           var profileimage = cubit.profileimage;
 
           return ConditionalBuilder(
-              condition: state is GetProfileSuccessState || profileimage!=null,
+          // || profileimage != null
+              condition:
+                  state is GetProfileSuccessState|| profileimage != null||state is UpdateProfileSuccessState ,
               builder: (context) {
                 var profileState = GetProfileSuccessState(
                     profileModelEntity: cubit.profileModelEntity);
-                name.text = profileState.profileModelEntity.data!.name.toString();
-                email.text = profileState.profileModelEntity.data!.email.toString();
+                name.text =
+                    profileState.profileModelEntity.data!.name.toString();
+                email.text =
+                    profileState.profileModelEntity.data!.email.toString();
                 return Scaffold(
                     appBar: AppBar(
                       title: Text(
@@ -82,25 +88,29 @@ class UpdateUserProfile extends StatelessWidget {
                                             CircleAvatar(
                                               radius: 64.0,
                                               child: CircleAvatar(
-                                                radius: 60.0,
-                                                backgroundColor: Theme.of(
-                                                        context)
-                                                    .scaffoldBackgroundColor,
-                                                backgroundImage: profileimage== null?
-                                                NetworkImage('${profileState.profileModelEntity.data?.image}'):
-                                                FileImage(profileimage)as ImageProvider
-                                              ),
+                                                  radius: 60.0,
+                                                  backgroundColor: Theme.of(
+                                                          context)
+                                                      .scaffoldBackgroundColor,
+                                                  backgroundImage: profileimage ==
+                                                          null
+                                                      ? NetworkImage(
+                                                          '${profileState.profileModelEntity.data?.image}')
+                                                      : FileImage(profileimage)
+                                                          as ImageProvider),
                                             ),
                                             IconButton(
-                                                onPressed: () {
-                                                  cubit.getprofileimage();
-                                                },
-                                                icon: CircleAvatar(
-                                                    radius: 20.0,
-                                                    child: Icon(
-                                                      Icons.add_a_photo_rounded,
-                                                      size: 20,
-                                                    ))),
+                                              onPressed: () {
+                                                cubit.getprofileimage();
+                                              },
+                                              icon: CircleAvatar(
+                                                radius: 20.0,
+                                                child: Icon(
+                                                  Icons.add_a_photo_rounded,
+                                                  size: 20,
+                                                ),
+                                              ),
+                                            ),
                                           ],
                                         ),
                                       ],
@@ -157,46 +167,61 @@ class UpdateUserProfile extends StatelessWidget {
                                 SizedBox(
                                   height: 50,
                                 ),
-                                DefaultButton(
-                                  text: 'Update  Profile',
-                                  function: () async {
-                                    if (formKey.currentState!.validate()) {
-                                      if(profileimage!=null){
-                                        await cubit
-                                            .updateProfileInfo(
-                                            token: 'blLPj2TYu9KvtRXyyFAM7CS1KmebhPIJW8vqBN0U6hLdaJrsd9VhCu0R7Abj',
-                                            name: name.text,
-                                            email: email.text,
-                                            image: Uri.file(profileimage.path).pathSegments.last)
-                                            .then((value) =>
-                                            Navigator.pop(context));
-                                         showToast(text: 'Profile Has Been Updated Successfully', state: ToastState.SUCCESS);
-                                        /// update user profile
-                                        debugPrint('success');
-                                      }else{
-                                        await cubit
-                                            .updateProfileInfo(
-                                            token: 'blLPj2TYu9KvtRXyyFAM7CS1KmebhPIJW8vqBN0U6hLdaJrsd9VhCu0R7Abj',
-                                            name: name.text,
-                                            email: email.text,
-                                            image: profileState.profileModelEntity.data?.image)
-                                            .then((value) {});
-                                            // Navigator.pop(context)
-                                        // );
-                                      }
-                                      showToast(text: 'Unable To Update Profile', state: ToastState.ERROR);
-                                      /// update user profile
-                                      debugPrint('success');
-                                    }
-                                  },
-                                )
+                            DefaultButton(
+                              text: 'Update  Profile',
+                              function: () async {
+                                var token = CacheHelper.getData(key: 'toKen');
+                                debugPrint(token);
+                                if (formKey.currentState!.validate()) {
+                                  if (profileimage != null) {
+                                    await cubit
+                                        .updateProfileInfo(
+                                        token: token,
+                                        name: name.text.toString(),
+                                        email: email.text.toString(),
+                                        image:
+                                        Uri.file(profileimage.path)
+                                            .pathSegments
+                                            .last.toString())
+                                        .then((value) =>
+                                    // Navigator.pop(context));
+                                    showToast(
+                                        text:
+                                        'Profile Has Been Updated Successfully',
+                                        state: ToastState.SUCCESS));
+                                    cubit.getProfileInfo(token: token);
+                                    return;
+                                  } else {
+                                    await cubit
+                                        .updateProfileInfo(
+                                        token: token,
+                                        name: name.text.toString(),
+                                        email: email.text.toString(),
+                                        image: profileState.profileModelEntity.data?.image.toString())
+                                        .then((value) =>
+                                        showToast(
+                                            text: 'Profile Have Been Updated',
+                                            state: ToastState.SUCCESS));
+                                    cubit.getProfileInfo(token: token);
+                                    return;
+                                    // Navigator.pop(context));
+                                  }
+                                  /// update user profile
+                                  // debugPrint('success');
+                                }else{
+                                  showToast(
+                                      text: 'Unable To Update Profile',
+                                      state: ToastState.ERROR);
+                                }
+                              },
+                              ),
                               ],
                             ),
                           ),
                         ),
                       ),
                     ));
-              },
+               },
               fallback: (context) => const Center(
                     child: CircularProgressIndicator(),
                   ));
