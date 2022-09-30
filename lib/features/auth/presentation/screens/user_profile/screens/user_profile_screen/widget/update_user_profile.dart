@@ -46,8 +46,6 @@ class UpdateUserProfile extends StatelessWidget {
           // || profileimage != null
               condition:
                   state is GetProfileSuccessState|| profileimage != null||state is UpdateProfileSuccessState ,
-              condition:
-                  state is GetProfileSuccessState || profileimage != null,
               builder: (context) {
                 var profileState = GetProfileSuccessState(
                     profileModelEntity: cubit.profileModelEntity);
@@ -217,7 +215,6 @@ class UpdateUserProfile extends StatelessWidget {
                                 }
                               },
                               ),
-=======
                                 DefaultButton(
                                   text: 'Update  Profile',
                                   function: () async {
