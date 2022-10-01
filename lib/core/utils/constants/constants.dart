@@ -11,7 +11,7 @@ const String defaultUserImage = '';
 
 
  signOut(BuildContext context){
-  CacheHelper.removeData(key: 'token').then((value) {
+  CacheHelper.removeData(key: 'toKen').then((value) {
     if (value) {
       Navigator.pushReplacement(context, MaterialPageRoute(builder:(context)=> const LoginScreen()));
     }

@@ -8,6 +8,7 @@ import 'package:conditional_builder_null_safety/conditional_builder_null_safety.
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:lottie/lottie.dart';
 
 class CompletedBookings extends StatelessWidget {
   const CompletedBookings({Key? key}) : super(key: key);
@@ -195,8 +196,14 @@ class CompletedBookings extends StatelessWidget {
             ),
             itemCount: cubit.completed.length,
           ),
-          fallback: (context) => const Center(
-            child: CircularProgressIndicator(),
+          fallback: (context) =>  Center(
+            child: Container(
+              child: Lottie.asset(
+                'assets/lotties/loading.json',
+                height: 120,
+                width: 120,
+              ),
+            ),
           ),
 
         );
