@@ -11,6 +11,7 @@ import 'package:conditional_builder_null_safety/conditional_builder_null_safety.
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:lottie/lottie.dart';
 import 'dart:math' as math;
 
 import '../../../../auth/presentation/cubit/auth_cubit.dart';
@@ -75,7 +76,6 @@ class HomeScreen extends StatelessWidget {
                             context,
                             MaterialPageRoute(
                                 builder: (context) => HotelDetails(
-
                                       latitude: cubit.hotels![index].latitude!,
                                       longitude:
                                           cubit.hotels![index].longitude!,
@@ -84,8 +84,14 @@ class HomeScreen extends StatelessWidget {
                                           cubit.hotels![index].description!,
                                       hotelName: cubit.hotels?[index].name,
                                       price: cubit.hotels?[index].price,
-                                      rate: cubit.hotels?[index].rate,   hotelId: cubit.hotels![index].id!.toInt(),
-                                  userId:AuthCubit.get(context).userModelEntity.data?.id?.toInt()??1 ,
+                                      rate: cubit.hotels?[index].rate,
+                                      hotelId: cubit.hotels![index].id!.toInt(),
+                                      userId: AuthCubit.get(context)
+                                              .userModelEntity
+                                              .data
+                                              ?.id
+                                              ?.toInt() ??
+                                          1,
                                     )),
                           );
                         },
@@ -197,8 +203,14 @@ class HomeScreen extends StatelessWidget {
                 ))
               ],
             ),
-            fallback: (context) => const Center(
-              child: CircularProgressIndicator(),
+            fallback: (context) => Center(
+              child: Container(
+                child: Lottie.asset(
+                  'assets/lotties/loading.json',
+                  height: 120,
+                  width: 120,
+                ),
+              ),
             ),
           ),
         );

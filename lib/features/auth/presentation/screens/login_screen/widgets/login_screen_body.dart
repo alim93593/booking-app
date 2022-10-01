@@ -100,7 +100,9 @@ class LoginScreenBody extends StatelessWidget {
                           return null;
                         },
                         textInputType: TextInputType.emailAddress,
-                        prefix: const Icon(Icons.email_outlined),
+                        prefix:  Icon(Icons.email_outlined,
+                        color: color,
+                        ),
                         hintText: 'Email Address',
                         hintStyle: const TextStyle(
                           color: Colors.grey,
@@ -123,7 +125,9 @@ class LoginScreenBody extends StatelessWidget {
                           return null;
                         },
                         textInputType: TextInputType.visiblePassword,
-                        prefix: const Icon(Icons.lock_outline),
+                        prefix:  Icon(Icons.lock_outline,
+                          color: color,
+                        ),
                         hintText: 'Password',
                         hintStyle: const TextStyle(
                           color: Colors.grey,

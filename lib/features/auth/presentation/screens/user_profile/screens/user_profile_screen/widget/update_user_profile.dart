@@ -22,9 +22,7 @@ class UpdateUserProfile extends StatelessWidget {
   var formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
-    var color = ModeCubit.get(context).isDark == true
-        ? const Color(0xffffffff)
-        : const Color(0xff212525);
+
     return BlocProvider(
       create: (context) => AuthCubit(
           loginUseCase: sl(),
@@ -44,6 +42,9 @@ class UpdateUserProfile extends StatelessWidget {
           return ConditionalBuilder(
               condition: state is GetProfileSuccessState || profileimage!=null,
               builder: (context) {
+                var color = ModeCubit.get(context).isDark == true
+                    ? const Color(0xffffffff)
+                    : const Color(0xff212525);
                 var profileState = GetProfileSuccessState(
                     profileModelEntity: cubit.profileModelEntity);
                 name.text = profileState.profileModelEntity.data!.name.toString();

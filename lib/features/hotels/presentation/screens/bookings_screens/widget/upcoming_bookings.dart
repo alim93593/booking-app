@@ -9,6 +9,7 @@ import 'package:conditional_builder_null_safety/conditional_builder_null_safety.
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:lottie/lottie.dart';
 
 
 class UpComingBookings extends StatelessWidget {
@@ -172,7 +173,7 @@ class UpComingBookings extends StatelessWidget {
                                 onPressed: () {
                                   cubit.updateBooking(
                                       type: 'completed',
-                                      bookingId:cubit.completed[index]
+                                      bookingId:cubit.upcomming[index]
                                           .id!);
                                 },
                                 icon: const Icon(
@@ -187,7 +188,7 @@ class UpComingBookings extends StatelessWidget {
                                 onPressed: () {
                                   cubit.updateBooking(
                                       type: 'cancelled',
-                                      bookingId:cubit.cancelled[index].hotel!.id!);
+                                      bookingId:cubit.upcomming[index].hotel!.id!);
                                 },
                                 icon: const Icon(
                                   FontAwesomeIcons.trashCan,
@@ -205,8 +206,14 @@ class UpComingBookings extends StatelessWidget {
                 ),
                 itemCount: cubit.upcomming.length,
               ),
-              fallback: (context) => const Center(
-                child: CircularProgressIndicator(),
+              fallback: (context) => Center(
+                child: Container(
+                  child: Lottie.asset(
+                    'assets/lotties/loading.json',
+                    height: 120,
+                    width: 120,
+                  ),
+                ),
               ),
 
             );

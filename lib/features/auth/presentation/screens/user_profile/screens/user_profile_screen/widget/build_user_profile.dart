@@ -19,6 +19,7 @@ import 'package:conditional_builder_null_safety/conditional_builder_null_safety.
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:lottie/lottie.dart';
 
 class BuildUserProfile extends StatelessWidget {
   BuildUserProfile({Key? key}) : super(key: key);
@@ -141,7 +142,7 @@ class BuildUserProfile extends StatelessWidget {
                                                       context)
                                                       .scaffoldBackgroundColor,
                                                   backgroundImage: NetworkImage(
-                                                      '${profileState.profileModelEntity.data?.image}'),
+                                                      'https://i.pinimg.com/originals/49/3f/a0/493fa0f13970ab3ef29375669f670451.jpg'),
                                                 ),
                                               ),
                                               // IconButton(
@@ -210,14 +211,24 @@ class BuildUserProfile extends StatelessWidget {
                               color: color,
                             ),
                             isLast: true,
+                            onPressed: (){
+                              signOut(context);
+                            },
                           ),
                         ]),
                   ),
                 );
               },
-              fallback: (context) => const Center(
-                child: CircularProgressIndicator(),
-              ));
+              fallback: (context) => Center(
+              child: Container(
+          child: Lottie.asset(
+          'assets/lotties/loading.json',
+          height: 120,
+          width: 120,
+          ),
+          ),
+          ),
+          );
         },
       ),
     );
