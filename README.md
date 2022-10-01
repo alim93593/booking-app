@@ -2,15 +2,14 @@
 
 A new Flutter project.
 
-## Getting Started
+▪️Our Booking app is powered by a live Apis 🚀 
 
-This project is a starting point for a Flutter application.
+▪️The code is written with clean architecture 📐
 
-A few resources to get you started if this is your first Flutter project:
+▪️We use Bloc as a state management 👌
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+▪️We use Flutter Slivers and Animations 🐦
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+▪️ here's a video for our project shall you like it ♥️ :
+
+https://drive.google.com/file/d/1xtG9zrSmib2JLpw1KVnNvB5mKigS-JYp/view?usp=sharing
