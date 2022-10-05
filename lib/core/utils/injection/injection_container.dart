@@ -112,7 +112,7 @@ Future<void> init() async {
   sl.registerLazySingleton<CreateBookingDataSource>(
       () => CreateBookingDataSource(sl()));
   sl.registerLazySingleton<UpdateBookingDataSource>(
-          () => UpdateBookingDataSource(sl()));
+          () => UpdateBookingDataSource());
   sl.registerLazySingleton<SearchHotelService>(() => SearchHotelService(sl()));
   sl.registerLazySingleton<HotelsRemoteDatasource>(
       () => HotelsRemoteDatasourceImpl(client: sl()));

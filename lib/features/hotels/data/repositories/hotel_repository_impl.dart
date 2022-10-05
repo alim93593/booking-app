@@ -122,11 +122,11 @@ class HotelsRepositoryImpl extends HotelsRepository {
 
   @override
   Future<Either<Failure, UpdateBookingEntity>> updateBookingStatus(
-      {required String type, required num? bookingId,required String? contentType}) async {
+      {required String type, required num? bookingId}) async {
     if (await networkInfo.isConnected) {
       try {
         final  data =  await updateBookingDataSource.updateBooking(
-            type: type, bookingId: bookingId,contentType: contentType);
+            type: type, bookingId: bookingId);
         return  Right(data);
       } on ApiException {
         return Left(ApiFailure());

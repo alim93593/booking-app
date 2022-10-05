@@ -164,10 +164,10 @@ class CanceledBookings extends StatelessWidget {
                         children: [
                           IconButton(
                               onPressed: () {
-                                cubit.updateBooking(
+                                cubit.updateCompletedBooking(
                                     type: 'completed',
-                                    bookingId:cubit.completed[index]
-                                        .id!);
+                                    bookingId:cubit.cancelled[index]
+                                        .id!, token:CacheHelper.getData(key: 'toKen'));
                               },
                               icon: const Icon(
                                 FontAwesomeIcons.bookmark,
@@ -179,10 +179,10 @@ class CanceledBookings extends StatelessWidget {
                           ),
                           IconButton(
                               onPressed: () {
-                                cubit.updateBooking(
+                                cubit.updateCancelledBooking(
                                     type: 'cancelled',
                                     bookingId:cubit.cancelled[index]
-                                        .id!);
+                                        .id!, token: CacheHelper.getData(key: 'toKen'));
                               },
                               icon: const Icon(
                                 FontAwesomeIcons.trashCan,

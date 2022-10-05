@@ -30,7 +30,6 @@ abstract class HotelsRepository {
   Future<Either<Failure, UpdateBookingEntity>> updateBookingStatus({
     required String type,
     required num? bookingId,
-    required String? contentType
   });
 
   Future<Either<Failure, GetBookingEntity>> getBookings({

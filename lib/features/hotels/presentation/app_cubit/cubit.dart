@@ -30,6 +30,7 @@ import '../../domain/usecases/create_booking.dart';
 import '../../domain/usecases/update_booking_status.dart';
 import '../screens/bookings_screens/screen/bookings_screen.dart';
 import '../screens/settings_screen/settings_screen.dart';
+import 'package:booking_app/core/utils/local/cache_helper.dart';
 
 class AppCubit extends Cubit<AppStates> {
   AppCubit(this.getHotelsUseCase,this.updateBookingUseCase, this.searchHotelsUseCase,this.createBookingUseCase,this.getBookingsUseCase)
@@ -132,18 +133,40 @@ class AppCubit extends Cubit<AppStates> {
     // }
   }
 
-  dynamic updateBooking(
+  dynamic updateCancelledBooking(
       {required String type,  required num? bookingId,
-
+        required String token,   num count=10,
       }) async {
-    emit(UpdateBookingLoadingState());
-    final failureOrData = await updateBookingUseCase(type: type,bookingId: bookingId!,contentType: 'multipart/form-data');
+    emit(UpdateCancelledBookingLoadingState());
+    final failureOrData = await updateBookingUseCase(type: type,bookingId: bookingId!,);
     failureOrData.fold((l) {
-      emit(UpdateBookingErrorState());
+      emit(UpdateCancelledBookingErrorState());
     }, (r) {
       updateBookingEntity = r;
+      getUpcomingBooking(token:CacheHelper.getData(key: 'token') ,type:'upcomming' ,count: 10);
+      getCompletedBooking(token:CacheHelper.getData(key: 'token') ,type:'completed' ,count: 10);
+      getCancelledBooking(token:CacheHelper.getData(key: 'token') ,type:'cancelled' ,count: 10);
+
       print('isDAta');
-      emit(UpdateBookingSuccessState(
+      emit(UpdateCancelledBookingSuccessState(
+      ));
+    });
+  }
+  dynamic updateCompletedBooking(
+      {required String type,  required num? bookingId,
+        required String token,   num count=10,
+      }) async {
+    emit(UpdateCompletedBookingLoadingState());
+    final failureOrData = await updateBookingUseCase(type: type,bookingId: bookingId!,);
+    failureOrData.fold((l) {
+      emit(UpdateCompletedBookingErrorState());
+    }, (r) {
+      updateBookingEntity = r;
+      getUpcomingBooking(token:CacheHelper.getData(key: 'token') ,type:'upcomming' ,count: 10);
+      getCompletedBooking(token:CacheHelper.getData(key: 'token') ,type:'completed' ,count: 10);
+      getCancelledBooking(token:CacheHelper.getData(key: 'token') ,type:'cancelled' ,count: 10);
+      print('isDAta');
+      emit(UpdateCompletedBookingSuccessState(
       ));
     });
   }
@@ -214,8 +237,7 @@ class AppCubit extends Cubit<AppStates> {
         required String type,
       }) async {
     emit(GetUpcomingBookingLoadingState());
-    final failureOrData = await getBookingsUseCase(
-      count:10 ,token: token,type:type ,);
+    final failureOrData = await getBookingsUseCase(count:10 ,token: token,type:type ,);
     failureOrData.fold((l) {
       emit(GetUpcomingBookingErrorState());
     }, (r) {

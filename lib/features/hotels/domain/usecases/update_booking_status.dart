@@ -13,12 +13,10 @@ class UpdateBookingUseCase {
   Future<Either<Failure, UpdateBookingEntity>> call({
     required String type,
     required num bookingId,
-    required String contentType
   }) async {
     return await hotelsRepository.updateBookingStatus(
       type: type,
       bookingId: bookingId,
-      contentType:contentType
 
     );
   }
